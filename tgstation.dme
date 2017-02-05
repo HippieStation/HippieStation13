@@ -1272,6 +1272,7 @@
 #include "code\modules\games\cards.dm"
 #include "code\modules\games\cas.dm"
 #include "code\modules\hippie\items\stapler.dm"
+#include "code\modules\hippie\mob\human\species\cat.dm"
 #include "code\modules\hippie\mobs\simple\buttbot.dm"
 #include "code\modules\holiday\easter.dm"
 #include "code\modules\holiday\holidays.dm"
