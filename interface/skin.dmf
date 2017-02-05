@@ -97,7 +97,7 @@ macro "default"
 		is-disabled = false
 	elem 
 		name = "CTRL+F"
-		command = "a-intent left"
+		command = "say *fart"
 		is-disabled = false
 	elem 
 		name = "CTRL+G"
@@ -118,6 +118,10 @@ macro "default"
 	elem 
 		name = "CTRL+R"
 		command = ".southwest"
+		is-disabled = false
+	elem "ctrls-scream"
+		name = "CTRL+S"
+		command = "say *scream"
 		is-disabled = false
 	elem 
 		name = "CTRL+S+REP"
@@ -167,14 +171,14 @@ macro "default"
 		name = "CTRL+NUMPAD8"
 		command = "body-toggle-head"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+ADD"
 		command = "Add-View-Range 1"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+SUBTRACT"
 		command = "Add-View-Range -1"
-		is_disabled = false
+		is-disabled = false
 	elem 
 		name = "F1"
 		command = "adminhelp"
@@ -191,6 +195,10 @@ macro "default"
 		name = "SHIFT+F2+REP"
 		command = ".screenshot"
 		is-disabled = false
+	elem "f3asay"
+		name = "F3"
+		command = "asay"
+		is-disabled = false
 	elem 
 		name = "F5"
 		command = "Aghost"
@@ -203,7 +211,7 @@ macro "default"
 		name = "F7"
 		command = "Toggle-Build-Mode-Self"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+F7"
 		command = "Stealth-Mode"
 		is-disabled = false
@@ -359,7 +367,7 @@ macro "hotkeys"
 		is-disabled = false
 	elem 
 		name = "CTRL+F"
-		command = "a-intent left"
+		command = "say *fart"
 		is-disabled = false
 	elem 
 		name = "G"
@@ -404,6 +412,10 @@ macro "hotkeys"
 	elem 
 		name = "CTRL+R"
 		command = ".southwest"
+		is-disabled = false
+	elem "hk-ctrls-scream"
+		name = "CTRL+S"
+		command = "say *scream"
 		is-disabled = false
 	elem "s_key"
 		name = "S+REP"
@@ -477,14 +489,14 @@ macro "hotkeys"
 		name = "NUMPAD8"
 		command = "body-toggle-head"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+ADD"
 		command = "Add-View-Range 1"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+SUBTRACT"
 		command = "Add-View-Range -1"
-		is_disabled = false
+		is-disabled = false
 	elem 
 		name = "F1"
 		command = "adminhelp"
@@ -501,6 +513,10 @@ macro "hotkeys"
 		name = "SHIFT+F2+REP"
 		command = ".screenshot"
 		is-disabled = false
+	elem "hk-f3-asay"
+		name = "F3"
+		command = "asay"
+		is-disabled = false
 	elem 
 		name = "F5"
 		command = "Aghost"
@@ -513,7 +529,7 @@ macro "hotkeys"
 		name = "F7"
 		command = "Stealth-Mode"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+F7"
 		command = "Stealth-Mode"
 		is-disabled = false
@@ -719,7 +735,7 @@ macro "robot-default"
 		name = "F7"
 		command = "Toggle-Build-Mode-Self"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+F7"
 		command = "Stealth-Mode"
 		is-disabled = false
@@ -840,7 +856,7 @@ macro "robot-hotkeys"
 	elem 
 		name = "CTRL+B"
 		command = "resist"
-		is-disabled = false	
+		is-disabled = false
 	elem 
 		name = "H"
 		command = "talk-wheel"
@@ -993,7 +1009,7 @@ macro "robot-hotkeys"
 		name = "F7"
 		command = "Toggle-Build-Mode-Self"
 		is-disabled = false
-	elem
+	elem 
 		name = "CTRL+F7"
 		command = "Stealth-Mode"
 		is-disabled = false
