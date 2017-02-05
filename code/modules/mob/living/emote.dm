@@ -75,7 +75,7 @@
 	message = "coughs!"
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/deathgasp/run_emote(mob/user, params)
+/datum/emote/living/cough/run_emote(mob/user, params)
 	. = ..()
 	if(. && ishuman(user))
 		var/coughsound = pick('sound/misc/cough1.ogg', 'sound/misc/cough2.ogg', 'sound/misc/cough3.ogg', 'sound/misc/cough4.ogg')

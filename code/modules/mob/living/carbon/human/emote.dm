@@ -29,32 +29,31 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params)
-	var/list/organs = user.getorganszone("groin", 1)
-	var/obj/item/organ/internal/butt/B = locate() in organs
+	var/obj/item/organ/internal/butt/B = user.getorgan(/obj/item/organ/internal/butt)
 	if(!B)
-		src << "\red You don't have a butt!"
+		user << "\red You don't have a butt!"
 		return
 	var/lose_butt = prob(6)
-	for(var/mob/living/M in get_turf(src))
-		if(M == src)
+	for(var/mob/living/M in get_turf(user))
+		if(M == user)
 			continue
 		if(lose_butt)
-			message = "<span class='danger'><b>[src]</b>'s ass hits <b>[M]</b> in the face!</span>"
+			message = "'s ass hits <b>[M]</b> in the face!"
 			M.apply_damage(15,"brute","head")
-			add_logs(src, M, "farted on", object=null, addition=" (DAMAGE DEALT: 15)")
 		else
-			message = "<span class='danger'><b>[src]</b> farts in <b>[M]</b>'s face!</span>"
+			message = " farts in <b>[M]</b>'s face!"
 	if(!message)
-		message = "<B>[src]</B> [pick(
-			"rears up and lets loose a fart of tremendous magnitude!",
-			"farts!",
-			"toots.",
-			"harvests methane from uranus at mach 3!",
-			"assists global warming!",
-			"farts and waves their hand dismissively.",
-			"farts and pretends nothing happened.",
-			"is a <b>farting</b> motherfucker!",
-			"<B><font color='red'>f</font><font color='blue'>a</font><font color='red'>r</font><font color='blue'>t</font><font color='red'>s</font></B>")]"
+		message = "<B>[user]</B> [pick(
+			" rears up and lets loose a fart of tremendous magnitude!",
+			" farts!",
+			" toots.",
+			" harvests methane from uranus at mach 3!",
+			" assists global warming!",
+			" farts and waves their hand dismissively.",
+			" farts and pretends nothing happened.",
+			" is a <b>farting</b> motherfucker!",
+			" <B><font color='red'>f</font><font color='blue'>a</font><font color='red'>r</font><font color='blue'>t</font><font color='red'>s</font></B>")]"
+	user.visible_message("<b>[user]</b>[message]", "<b>[user]</b>[message]")
 	spawn(0)
 		var/obj/item/weapon/storage/book/bible/Y = locate() in get_turf(user.loc)
 		if(istype(Y))
@@ -68,35 +67,35 @@
 				var/obj/item/weapon/lighter/G = O
 				if(G.lit && location)
 					new/obj/effect/hotspot(location)
-					playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
+					playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
 			else if(istype(O, /obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/J = O
 				if(J.welding == 1 && location)
 					new/obj/effect/hotspot(location)
-					playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
+					playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
 			else if(istype(O, /obj/item/weapon/bikehorn) || istype(O, /obj/item/weapon/bikehorn/rubberducky))
-				playsound(src, 'sound/items/bikehorn.ogg', 50, 1, 5)
+				playsound(user, 'sound/items/bikehorn.ogg', 50, 1, 5)
 			else if(istype(O, /obj/item/device/megaphone))
-				playsound(src, 'sound/misc/fartmassive.ogg', 75, 1, 5)
+				playsound(user, 'sound/misc/fartmassive.ogg', 75, 1, 5)
 			else
-				playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
+				playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
 			if(prob(33))
-				O.loc = get_turf(src)
+				O.loc = get_turf(user)
 				B.contents -= O
 				B.stored -= O.itemstorevalue
 		else
-			playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
+			playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
 		sleep(1)
 		if(lose_butt)
 			for(var/obj/item/O in B.contents)
-				O.loc = get_turf(src)
+				O.loc = get_turf(user)
 				B.contents -= O
 				B.stored -= O.itemstorevalue
-			B.Remove(src)
-			B.loc = get_turf(src)
+			B.Remove(user)
+			B.loc = get_turf(user)
 			new /obj/effect/decal/cleanable/blood(user.loc)
 			user.nutrition -= rand(15, 30)
-			user.visible_message("\red <b>[src]</b> blows their ass off!", "\red Holy shit, your butt flies off in an arc!")
+			user.visible_message("\red <b>[user]</b> blows their ass off!", "\red Holy shit, your butt flies off in an arc!")
 		else
 			user.nutrition -= rand(5, 25)
 
@@ -106,15 +105,19 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/superfart/run_emote(mob/user, params)
-	var/list/internal_organs = user.getorganszone("groin", 1)
-	var/obj/item/organ/internal/butt/B = locate() in internal_organs
+	var/obj/item/organ/internal/butt/B = user.getorgan(/obj/item/organ/internal/butt)
 	if(!B)
-		src << "<span class='danger'>You don't have a butt!</span>"
+		user << "<span class='danger'>You don't have a butt!</span>"
 		return
 	if(B.loose)
-		src << "<span class='danger'>Your butt's too loose to superfart!</span>"
+		user << "<span class='danger'>Your butt's too loose to superfart!</span>"
 		return
 	B.loose = 1 // to avoid spamsuperfart
+	if(B.contents.len)
+		for(var/obj/item/O in B.contents)
+			O.loc = get_turf(user)
+			B.contents -= O
+			B.stored -= O.itemstorevalue
 	var/fart_type = 1 //Put this outside probability check just in case. There were cases where superfart did a normal fart.
 	if(prob(76)) // 76%     1: ASSBLAST  2:SUPERNOVA  3: FARTFLY
 		fart_type = 1
@@ -127,7 +130,7 @@
 			fart_type = 2
 	spawn(0)
 		spawn(1)
-			var/obj/item/weapon/storage/book/bible/Y = locate() in get_turf(src)
+			var/obj/item/weapon/storage/book/bible/Y = locate() in get_turf(user)
 			if(Y)
 				var/image/img = image(icon = 'icons/effects/224x224.dmi', icon_state = "lightning")
 				img.pixel_x = -world.icon_size*3
@@ -138,13 +141,13 @@
 					user.gib()
 		sleep(4)
 		for(var/i in 1 to 10)
-			playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
+			playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
 			sleep(1)
-		playsound(src, 'sound/misc/fartmassive.ogg', 75, 1, 5)
+		playsound(user, 'sound/misc/fartmassive.ogg', 75, 1, 5)
 		var/obj/item/weapon/storage/internal/pocket/P = B.inv
 		if(P.contents.len)
 			for(var/obj/item/O in P.contents)
-				P.remove_from_storage(O, get_turf(src))
+				P.remove_from_storage(O, get_turf(user))
 				O.throw_range = 7//will be reset on hit
 				O.assthrown = 1
 				var/turf/target = get_turf(O)
@@ -167,23 +170,22 @@
 						break
 				O.throw_at(target,range,O.throw_speed)
 				O.assthrown = 0 // so you can't just unembed it and throw it for insta embeds
-		B.Remove(src)
-		B.forceMove(get_turf(src))
+		B.Remove(user)
+		B.forceMove(get_turf(user))
 		if(B.loose) B.loose = 0
 		new /obj/effect/decal/cleanable/blood(user.loc)
 		user.nutrition -= 500
 		switch(fart_type)
 			if(1)
 				for(var/mob/living/M in range(0))
-					if(M != src)
-						user.visible_message("\red <b>[src]</b>'s ass blasts <b>[M]</b> in the face!", "\red You ass blast <b>[M]</b>!")
+					if(M != user)
+						user.visible_message("\red <b>[user]</b>'s ass blasts <b>[M]</b> in the face!", "\red You ass blast <b>[M]</b>!")
 						M.apply_damage(50,"brute","head")
-						add_logs(src, M, "superfarted on", object=null, addition=" (DAMAGE DEALT: 50)")
 
-				user.visible_message("\red <b>[src]</b> blows their ass off!", "\red Holy shit, your butt flies off in an arc!")
+				user.visible_message("\red <b>[user]</b> blows their ass off!", "\red Holy shit, your butt flies off in an arc!")
 
 			if(2)
-				user.visible_message("\red <b>[src]</b> rips their ass apart in a massive explosion!", "\red Holy shit, your butt goes supernova!")
+				user.visible_message("\red <b>[user]</b> rips their ass apart in a massive explosion!", "\red Holy shit, your butt goes supernova!")
 				explosion(user.loc, 0, 1, 3, adminlog = 0, flame_range = 3)
 				user.gib()
 
@@ -206,7 +208,7 @@
 						endx = 247
 
 				//ASS BLAST USA
-				user.visible_message("\red <b>[src]</b> blows their ass off with such force, they explode!", "\red Holy shit, your butt flies off into the galaxy!")
+				user.visible_message("\red <b>[user]</b> blows their ass off with such force, they explode!", "\red Holy shit, your butt flies off into the galaxy!")
 				user.gib() //can you belive I forgot to put this here?? yeah you need to see the message BEFORE you gib
 				new /obj/effect/immovablerod/butt(B.loc, locate(endx, endy, 1))
 				priority_announce("What the fuck was that?!", "General Alert")

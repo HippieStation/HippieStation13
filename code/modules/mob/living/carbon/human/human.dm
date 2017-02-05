@@ -60,6 +60,7 @@
 	if(!(NOBLOOD in dna.species.species_traits))
 		internal_organs += new /obj/item/organ/heart
 	internal_organs += new /obj/item/organ/brain
+	internal_organs += new /obj/item/organ/internal/butt
 	..()
 
 /mob/living/carbon/human/OpenCraftingMenu()
