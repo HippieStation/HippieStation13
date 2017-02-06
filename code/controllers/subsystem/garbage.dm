@@ -902,7 +902,7 @@ var/datum/subsystem/garbage_collector/SSgarbage
 	SearchVar(HOP)
 	SearchVar(BARTENDER)
 	SearchVar(BOTANIST)
-	SearchVar(COOK)
+	SearchVar(CHEF)
 	SearchVar(JANITOR)
 	SearchVar(LIBRARIAN)
 	SearchVar(QUARTERMASTER)

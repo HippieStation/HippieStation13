@@ -76,9 +76,8 @@
 	allowed = list(/obj/item/weapon/kitchen)
 	togglename = "sleeves"
 
-//Cook
 /obj/item/clothing/suit/apron/chef
-	name = "cook's apron"
+	name = "chef's apron"
 	desc = "A basic, dull, white chef's apron."
 	icon_state = "apronchef"
 	item_state = "apronchef"

@@ -196,7 +196,7 @@
 		var/choice = input("Customization Choices") as null|anything in list("Service NPC","Security NPC","Random","Custom")
 		if(choice)
 			if(choice == "Service NPC" || choice == "Security NPC")
-				var/job = choice == "Service NPC" ? pick("Bartender","Cook","Botanist","Janitor") : pick("Warden","Detective","Security Officer")
+				var/job = choice == "Service NPC" ? pick("Bartender","Chef","Botanist","Janitor") : pick("Warden","Detective","Security Officer")
 				for(var/j in SSjob.occupations)
 					var/datum/job/J = j
 					if(J.title == job)
@@ -305,7 +305,7 @@
 			favoured_types = list(/obj/item/clothing, /obj/item/weapon)
 		if("Captain","Head of Personnel")
 			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/captain,/obj/item/weapon/disk/nuclear)
-		if("Cook")
+		if("Chef")
 			favoured_types = list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/kitchen)
 			functions += "souschef"
 			restrictedJob = 1
@@ -828,7 +828,7 @@
 		return /area/bridge
 	if(T.title == "Bartender")
 		return /area/crew_quarters/bar
-	if(T.title == "Cook")
+	if(T.title == "Chef")
 		return /area/crew_quarters/kitchen
 	if(T.title == "Station Engineer" || T.title == "Chief Engineer" || T.title == "Atmospheric Technician")
 		return /area/engine

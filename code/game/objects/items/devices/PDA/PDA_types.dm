@@ -177,8 +177,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a special edition with a transparent case."
 	note = "Congratulations, you have chosen the Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition!"
 
-/obj/item/device/pda/cook
-	name = "cook PDA"
+/obj/item/device/pda/chef
+	name = "chef PDA"
 	icon_state = "pda-cook"
 
 /obj/item/device/pda/bar
