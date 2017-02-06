@@ -114,11 +114,8 @@
 		if(occupant.health >= 100) // Don't bother with fully healed people.
 			on = FALSE
 			update_icon()
-			playsound(T, 'sound/machines/cryo_warning.ogg', volume, 1) // Bug the doctors.
-			radio.talk_into(src, "Patient fully restored", radio_channel)
-			if(autoeject) // Eject if configured.
-				radio.talk_into(src, "Auto ejecting patient now", radio_channel)
-				open_machine()
+			open_machine()
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			return
 		else if(occupant.stat == DEAD) // We don't bother with dead people.
 			return
@@ -126,10 +123,6 @@
 				open_machine()
 			return
 		if(air1.gases.len)
-			if(occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
-				occupant.Sleeping((occupant.bodytemperature / sleep_factor) * 100)
-				occupant.Paralyse((occupant.bodytemperature / paralyze_factor) * 100)
-
 			if(beaker)
 				if(reagent_transfer == 0) // Magically transfer reagents. Because cryo magic.
 					beaker.reagents.trans_to(occupant, 1, 10 * efficiency) // Transfer reagents, multiplied because cryo magic.
@@ -169,8 +162,11 @@
 	..()
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user)
-	container_resist(user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user) open_machine()
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/container_resist()
+	open_machine()
+	return
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/open_machine(drop = 0)
 	if(!state_open && !panel_open)
