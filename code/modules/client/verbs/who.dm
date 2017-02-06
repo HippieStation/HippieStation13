@@ -97,9 +97,8 @@
 	set name = "Mentorwho"
 
 	var/msg = "<b>Current Mentors:</b>\n"
-	for(var/client/C in mentors)
-		var/msg = ""
-		if(holder)
+	if(holder)
+		for(var/client/C in mentors)
 			if(isobserver(C.mob))
 				msg += " - Observing"
 			else if(istype(C.mob,/mob/new_player))
