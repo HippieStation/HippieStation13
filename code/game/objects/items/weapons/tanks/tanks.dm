@@ -117,7 +117,7 @@
 	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (H && !qdeleted(H))
-		spawn(0)
+		spawn(3)
 			var/list/items = H.get_equipped_items()
 			for(var/obj/item/i in items)
 				H.dropItemToGround(i)
