@@ -7,7 +7,8 @@
 	if(log)
 		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] ")
 		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] ")
-	playsound(src,'sound/effects/empzap.ogg',40,25)
+
+	playsound(epicenter,'sound/effects/empzap.ogg',40,25)
 
 	if(heavy_range > 1)
 		new /obj/effect/overlay/temp/emp/pulse(epicenter)
