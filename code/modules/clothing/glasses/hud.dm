@@ -70,6 +70,7 @@
 	icon_state = "securityhud"
 	origin_tech = "magnets=3;combat=2"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
+	actions_types = list(/datum/action/item_action/toggle_robustness_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/hud/security/chameleon

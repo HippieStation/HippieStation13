@@ -139,6 +139,61 @@
 	if(damaged_clothes)
 		user <<  "<span class='warning'>It looks damaged!</span>"
 
+	if(user.robustness_scanner) //Mob has a robustness scanner active.
+		var/msg = "*--------* <BR>"
+		var/armour = list_clothing_armour(user, armor)
+
+		if(armour)
+			msg += "<span class='notice'>Armor:</span><BR>"
+			msg += "[list_clothing_armour(user, armor)]<BR>"
+		else
+			msg += "<span class='danger'>No armor detected.</span><BR>"
+
+		msg += "*--------*"
+		user << msg
+
+/obj/item/clothing/proc/list_clothing_armour(mob/user, var/armor)
+	var/damdesc
+	var/damquality
+	var/msg
+	for(var/damtype in armor)
+
+		switch(armor["[damtype]"])
+			if(0)
+				break
+			if(1 to 25)
+				damquality = "<font color='red'>small</font>"
+			if(25 to 50)
+				damquality = "<font color='#FF8000'>moderate</font>"
+			if(50 to 75)
+				damquality = "<font color='blue'>heavy</font>"
+			if(75 to 100)
+				damquality = "<font color='green'>extremely heavy</font>"
+
+		switch("[damtype]")
+			if ("melee")
+				damdesc = "<font color='red'>melee</font>"
+			if ("bullet")
+				damdesc = "<font color='red'>ballistic</font>"
+			if ("laser")
+				damdesc = "<font color='#FF8000'>laser</font>"
+			if ("energy")
+				damdesc = "<font color='blue'>energy</font>"
+			if ("bomb")
+				damdesc = "<font color='red'>blast</font>"
+			if ("bio")
+				damdesc = "<font color='green'>biohazard</font>"
+			if ("rad")
+				damdesc = "<font color='green'>radiation</font>"
+			if ("fire")
+				damdesc = "<font color='#FF8000'>fire</font>"
+			if ("acid")
+				damdesc = "<font color='#FF8000'>acid</font>"
+
+		msg += "Its [damdesc] protection is [damquality]. "
+
+	return msg
+
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
 		update_clothes_damaged_state(TRUE)
