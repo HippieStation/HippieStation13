@@ -52,10 +52,11 @@
 /obj/item/weapon/pickaxe,
 /obj/item/weapon/pickaxe,
 /obj/structure/closet/crate/internals,
-/obj/item/weapon/pickaxe,
-/obj/item/weapon/pickaxe,
-/obj/item/weapon/pickaxe,
 /obj/item/weapon/storage/box/rxglasses,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -79,6 +80,9 @@
 "m" = (
 /obj/structure/closet/crate/medical,
 /obj/item/device/malf_upgrade,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/weapon/storage/firstaid/regular,
+/obj/item/weapon/storage/firstaid/regular,
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -90,6 +94,7 @@
 /obj/item/seeds/glowshroom,
 /obj/item/seeds/glowshroom,
 /obj/item/weapon/reagent_containers/glass/bucket,
+/obj/item/weapon/storage/backpack/botany,
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -153,6 +158,7 @@
 /obj/structure/closet/crate/medical,
 /obj/item/weapon/storage/firstaid/regular,
 /obj/item/weapon/reagent_containers/blood/random,
+/obj/item/clothing/glasses/hud/health,
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -169,7 +175,9 @@
 	icon_state = "minibar_left";
 	name = "skeletal minibar"
 	},
-/obj/item/stack/sheet/cloth/ten,
+/obj/item/stack/sheet/cloth{
+	amount = 20
+	},
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -181,6 +189,9 @@
 	name = "skeletal minibar"
 	},
 /obj/item/clothing/head/helmet/roman/legionaire,
+/obj/item/stack/sheet/cloth{
+	amount = 20
+	},
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -188,6 +199,9 @@
 "z" = (
 /obj/item/weapon/shovel,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/weapon/pickaxe/drill,
+/obj/item/weapon/pickaxe/drill,
+/obj/item/weapon/pickaxe/drill,
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -202,6 +216,9 @@
 /area/ruin/unpowered)
 "B" = (
 /obj/structure/table_frame,
+/obj/item/stack/sheet/cloth{
+	amount = 20
+	},
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -266,6 +283,9 @@
 "L" = (
 /obj/item/weapon/twohanded/spear,
 /obj/structure/table,
+/obj/item/stack/sheet/cloth{
+	amount = 20
+	},
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -282,7 +302,22 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "O" = (
-/obj/item/weapon/reagent_containers/glass/bowl,
+/obj/item/weapon/reagent_containers/glass/bucket{
+	desc = "For milking the gibbucks.";
+	name = "milk bucket"
+	},
+/obj/item/weapon/reagent_containers/glass/bucket{
+	desc = "For milking the gibbucks.";
+	name = "milk bucket"
+	},
+/obj/item/weapon/reagent_containers/glass/bucket{
+	desc = "For milking the gibbucks.";
+	name = "milk bucket"
+	},
+/obj/item/weapon/reagent_containers/glass/bucket{
+	desc = "For milking the gibbucks.";
+	name = "milk bucket"
+	},
 /turf/open/floor/engine/cult{
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
@@ -305,6 +340,35 @@
 	baseturf = /turf/open/floor/plating/lava/smooth
 	},
 /area/ruin/unpowered)
+"S" = (
+/obj/machinery/mineral/ore_redemption{
+	input_dir = 8;
+	output_dir = 4;
+	req_access = null
+	},
+/turf/open/floor/engine/cult{
+	baseturf = /turf/open/floor/plating/lava/smooth
+	},
+/area/ruin/unpowered)
+"T" = (
+/obj/item/weapon/twohanded/spear,
+/obj/structure/rack,
+/obj/item/device/mining_scanner,
+/obj/item/device/mining_scanner,
+/obj/item/device/mining_scanner,
+/obj/item/device/mining_scanner,
+/turf/open/floor/engine/cult{
+	baseturf = /turf/open/floor/plating/lava/smooth
+	},
+/area/ruin/unpowered)
+"U" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"V" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -363,7 +427,7 @@ r
 r
 r
 b
-b
+V
 b
 "}
 (4,1,1) = {"
@@ -397,7 +461,7 @@ j
 m
 r
 v
-P
+f
 R
 f
 L
@@ -416,11 +480,11 @@ i
 f
 n
 r
-w
+P
 f
 D
 H
-H
+T
 r
 b
 b
@@ -471,7 +535,7 @@ a
 a
 c
 g
-f
+g
 O
 f
 p
@@ -481,7 +545,7 @@ Q
 f
 r
 b
-b
+U
 K
 K
 K
@@ -498,7 +562,7 @@ q
 r
 y
 f
-f
+S
 r
 K
 b

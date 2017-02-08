@@ -156,6 +156,10 @@
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/gladiator/ash_walker
+	desc = "This gladiator helmet appears to be covered in ash and fairly dated."
+	armor = list(melee = 35, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0, fire = 50, acid = 50)
+
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
 	desc = "They have chosen their own end."

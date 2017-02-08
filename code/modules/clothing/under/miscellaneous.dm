@@ -426,7 +426,9 @@
 
 /obj/item/clothing/under/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+	armor = list(melee = 35, bullet = 0, laser = 15, energy = 10, bomb = 10, bio = 0, rad = 0, fire = 50, acid = 20)
 	has_sensor = 0
+
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
