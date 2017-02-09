@@ -207,17 +207,17 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 
 		switch(force)
 			if(0)
-				force_str += "[nil]"
+				force_str = "[nil]"
 			if(1 to 5)
-				force_str += "[vlow]"
+				force_str = "[vlow]"
 			if(6 to 10)
-				force_str += "[low]"
+				force_str = "[low]"
 			if(11 to 15)
-				force_str += "[med]"
+				force_str = "[med]"
 			if(16 to 20)
-				force_str += "[high]"
+				force_str = "[high]"
 			if(21 to INFINITY)
-				force_str += "[vhigh]"
+				force_str = "[vhigh]"
 
 		switch(throwforce)
 			if(0)
@@ -239,13 +239,16 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 		var/damdesc
 		var/damquality
 
+		if(force || throwforce)
+			msg += "<BR><BR>"
+
 		msg += "Armor:<BR>"
 
 		for(var/damtype in armor)
 
 			switch(armor["[damtype]"])
 				if(0)
-					break
+					continue
 				if(1 to 25)
 					damquality = "[low]"
 				if(26 to 50)
@@ -257,23 +260,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 
 			switch("[damtype]")
 				if ("melee")
-					damdesc = "<font color='red'>melee</font>"
+					damdesc = "melee"
 				if ("bullet")
-					damdesc = "<font color='red'>ballistic</font>"
+					damdesc = "ballistic"
 				if ("laser")
-					damdesc = "<font color='#FF8000'>laser</font>"
+					damdesc = "laser"
 				if ("energy")
-					damdesc = "<font color='blue'>energy</font>"
+					damdesc = "energy"
 				if ("bomb")
-					damdesc = "<font color='red'>blast</font>"
+					damdesc = "blast"
 				if ("bio")
-					damdesc = "<font color='green'>biohazard</font>"
+					damdesc = "biohazard"
 				if ("rad")
-					damdesc = "<font color='green'>radiation</font>"
+					damdesc = "radiation"
 				if ("fire")
-					damdesc = "<font color='#FF8000'>fire</font>"
+					damdesc = "fire"
 				if ("acid")
-					damdesc = "<font color='#FF8000'>acid</font>"
+					damdesc = "acid"
 
 			msg += "[damquality] protection from [damdesc] damage. "
 
