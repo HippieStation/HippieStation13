@@ -357,7 +357,7 @@
 
 /datum/action/item_action/toggle_robustness_scanner
 	name = "Toggle Robustness Scanner"
-	desc = "Allows you to analyze the protection of clothing."
+	desc = "Allows you to analyze clothing protection and object damage."
 
 /datum/action/item_action/toggle_robustness_scanner/Trigger()
 	if(IsAvailable())
