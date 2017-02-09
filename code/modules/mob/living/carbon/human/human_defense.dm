@@ -172,6 +172,9 @@
 				user.visible_message("<span class='warning'>[user] starts inspecting [user == src ? "his own" : "[src]'s"] ass!</span>", "<span class='warning'>You start inspecting [user == src ? "your" : "[src]'s"] ass!</span>")
 				if(do_mob(user, src, 40))
 					user.visible_message("<span class='warning'>[user] inspects [user == src ? "his own" : "[src]'s"] ass!</span>", "<span class='warning'>You inspect [user == src ? "your" : "[src]'s"] ass!</span>")
+					if (user.s_active)
+						user.s_active.close(user)
+					pocket.orient2hud(user)
 					pocket.show_to(user)
 					return 0
 				else

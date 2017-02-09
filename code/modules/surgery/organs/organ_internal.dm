@@ -23,7 +23,7 @@
 	owner = M
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
-	loc = null
+	loc = M
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)
@@ -744,8 +744,6 @@
 	slot_flags = SLOT_HEAD
 	embed_chance = 5 //This is a joke
 	var/loose = 0
-	var/capacity = 2 // this is how much items the butt can hold. 1 means only 1 tiny item, while 2 means 2 tiny items OR 1 small item.
-	var/stored = 0 //how many items are inside
 	var/obj/item/weapon/storage/internal/pocket/butt/inv = /obj/item/weapon/storage/internal/pocket/butt
 	
 /obj/item/organ/internal/butt/New()
