@@ -260,23 +260,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 
 			switch("[damtype]")
 				if ("melee")
-					damdesc = "melee"
+					damdesc = "<font color='red'>melee</font>"
 				if ("bullet")
-					damdesc = "ballistic"
+					damdesc = "<font color='red'>ballistic</font>"
 				if ("laser")
-					damdesc = "laser"
+					damdesc = "<font color='#FF8000'>laser</font>"
 				if ("energy")
-					damdesc = "energy"
+					damdesc = "<font color='blue'>energy</font>"
 				if ("bomb")
-					damdesc = "blast"
+					damdesc = "<font color='red'>blast</font>"
 				if ("bio")
-					damdesc = "biohazard"
+					damdesc = "<font color='green'>biohazard</font>"
 				if ("rad")
-					damdesc = "radiation"
+					damdesc = "<font color='green'>radiation</font>"
 				if ("fire")
-					damdesc = "fire"
+					damdesc = "<font color='#FF8000'>fire</font>"
 				if ("acid")
-					damdesc = "acid"
+					damdesc = "<font color='#FF8000'>acid</font>"
 
 			msg += "[damquality] protection from [damdesc] damage. "
 
