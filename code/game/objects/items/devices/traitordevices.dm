@@ -255,17 +255,18 @@ effective or pretty fucking useless.
 	user.visible_message("<span class='warning'>[user.name] teleports away!</span>")
 
 	/* Teleport. If they go out of bounds, then stop processing */
-	if(!teleport(user))
+	var/turf/newTurf = teleport(user)
+	if(!newTurf)
 		return
 
-	if(isclosedturf(get_turf(user))) /* If you get stuck in a closed turf, you die */
+	if(isclosedturf(newTurf)) /* If you get stuck in a closed turf, you die */
 		user.emote("scream")
-		user << "<span class='userdanger'>You scream out in pain as your body materalises inside of the [user.loc.name]!</span>"
+		user << "<span class='userdanger'>You scream out in pain as your body materialises inside of the [newTurf.name]!</span>"
 		active = TRUE /* so that it's not perma broke */
 		user.gib()
 		return
 
-	for(var/mob/living/victim in get_turf(user))
+	for(var/mob/living/victim in newTurf)
 		if(victim == user)
 			continue
 		if(iscarbon(victim)) /* Robots shouldn't scream in pain */
@@ -279,7 +280,7 @@ effective or pretty fucking useless.
 		active = TRUE
 
 
-/* Does the teleport if not out of bounds, returns 1 on successful teleport */
+/* Does the teleport if not out of bounds, returns the turf on successful teleport */
 /obj/item/device/experimental_teleporter/proc/teleport(mob/user)
 	var/dist = rand(2, 4)
 	var/turf/oldTurf = get_turf(user)
@@ -300,7 +301,7 @@ effective or pretty fucking useless.
 		user.death(1)
 		user.ghostize()
 		qdel(user)
-		return 0
+		return
 
 	user.forceMove(newTurf)
-	return 1
+	return newTurf
