@@ -159,12 +159,40 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	..()
 	var/pronoun
+	var/property_msg
 	if(src.gender == PLURAL)
 		pronoun = "They are"
 	else
 		pronoun = "It is"
 	var/size = weightclass2text(src.w_class)
-	user << "[pronoun] a [size] item." //e.g. They are a small item. or It is a bulky item.
+
+	property_msg += "[pronoun] a [size] item. " //e.g. They are a small item. or It is a bulky item.
+
+	switch(force)
+		if(1 to 5)
+			property_msg += "It doesn't look like a very good melee weapon. " //unless it's an unwielded fire axe or an off energy sword
+		if(5 to 10)
+			property_msg += "It looks like an okay melee weapon. "
+		if(10 to 15)
+			property_msg += "It looks like a strong melee weapon. "
+		if(15 to 20)
+			property_msg += "It looks like a dangerous melee weapon. "
+		if(20 to INFINITY)
+			property_msg += "It looks like an extremely dangerous melee weapon. "
+
+	switch(throwforce)
+		if(1 to 5)
+			property_msg += "It doesn't look like a very good throwing weapon. " //unless it's a turned off energy sword
+		if(5 to 10)
+			property_msg += "It looks like an okay throwing weapon. "
+		if(10 to 15)
+			property_msg += "It looks like a strong throwing weapon. "
+		if(15 to 20)
+			property_msg += "It looks like a dangerous throwing weapon. "
+		if(20 to INFINITY)
+			property_msg += "It looks like an extremely dangerous throwing weapon. "
+
+	user << "[property_msg]"
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -186,7 +214,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		user << msg
-
 
 /obj/item/attack_self(mob/user)
 	interact(user)
