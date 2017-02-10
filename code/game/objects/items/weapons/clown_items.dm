@@ -112,7 +112,7 @@
 /obj/item/weapon/bikehorn/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] solemnly points \the [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src.loc, honksound, 50, 1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
@@ -126,10 +126,9 @@
 	if(!spam_flag)
 		spam_flag = TRUE
 		playsound(src.loc, honksound, 50, 1)
-		src.add_fingerprint(user)
+		add_fingerprint(user)
 		spawn(cooldowntime)
 			spam_flag = FALSE
-	return
 
 /obj/item/weapon/bikehorn/Crossed(mob/living/L)
 	if(isliving(L))
@@ -184,17 +183,19 @@
 	if(!spam_flag)
 		spam_flag = TRUE
 		playsound(src.loc, pick(honksound), 50, 0)
-		user.visible_message("<B>[user]</B> lays down a [pick("sexy", "sensuous", "libidinous","spicy","flirtatious","salacious","sizzling","carnal","hedonistic")] riff on \his saxophone!")
-		src.add_fingerprint(user)
+		user.visible_message("<B>[user]</B> lays down a [pick("sexy", "sensuous", "libidinous","spicy","flirtatious","salacious","sizzling","carnal","hedonistic")] riff on \his [src]!")
+		add_fingerprint(user)
 		spawn(cooldowntime)
 			spam_flag = FALSE
-	return
 
-
-/obj/item/weapon/bikehorn/suicide_act(mob/user)
+/obj/item/weapon/bikehorn/saxophone/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is never gonna dance again! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(src.loc, 'sound/items/sax.ogg', 50, 0)
-	return (BRUTELOSS)
+	if(!spam_flag)
+		spam_flag = TRUE
+		playsound(src.loc, 'sound/items/sax.ogg', 50, 0)
+		spawn(cooldowntime)
+			spam_flag = FALSE
+	return BRUTELOSS
 
 /obj/item/weapon/bikehorn/saxophone/Crossed(mob/living/L)
 	return
