@@ -1237,7 +1237,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	while(crate_value)
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = [category][item]
+		var/datum/uplink_item/I = uplink_items[category][item]
 
 		if(!I.surplus || prob(100 - I.surplus))
 			continue
