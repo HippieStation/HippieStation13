@@ -234,17 +234,10 @@
 			user << "<span class='notice'>You pry off the staples keeping [src] shut.</span>"
 			update_icon()
 			user.visible_message("[user.name] has pried out the staples keeping [src] shut.", "<span class='warning'>You pry out staples keeping [src] shut.</span>")
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
-			new/obj/item/stack/staples(src.loc)
+			for(var/i = 1; i <= 9; i++)
+				new/obj/item/stack/staples(src.loc)
 			return
+
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(isinspace() && !anchored)
 			return
@@ -253,5 +246,3 @@
 		user.visible_message("<span class='notice'>[user] [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \
 					"<span class='notice'>You [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
-	else
-		return
