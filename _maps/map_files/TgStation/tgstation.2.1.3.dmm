@@ -19057,6 +19057,7 @@
 "aPy" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
+/obj/item/weapon/bikehorn/saxophone,
 /obj/item/device/instrument/violin,
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
