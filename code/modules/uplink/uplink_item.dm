@@ -550,6 +550,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/weapon/antag_spawner/nuke_ops/borg_tele
 	cost = 80
 
+
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
 	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent \
@@ -557,6 +558,12 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 			advised to utilize the drop pod if you wish to make use of it."
 	item = /obj/mecha/combat/gygax/dark/loaded
 	cost = 80
+
+/datum/uplink_item/dangerous/guardian
+	name = "Holoparasites"
+	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
+	item = /obj/item/weapon/storage/box/syndie_kit/guardian
+	cost = 20
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
@@ -1230,7 +1237,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	while(crate_value)
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
+		var/datum/uplink_item/I = [category][item]
 
 		if(!I.surplus || prob(100 - I.surplus))
 			continue
