@@ -35,13 +35,11 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/process()
 	if(!istype(loc, /obj/item/weapon/storage/internal/pocket/butt))
-		world << "fucko"
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/obj/item/weapon/storage/internal/pocket/butt/inv = loc
 	var/obj/item/organ/internal/butt/B = inv.loc
 	if(!B.owner)
-		world << "fuckox2"
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(reagents.total_volume)
