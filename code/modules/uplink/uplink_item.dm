@@ -564,6 +564,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
 	item = /obj/item/weapon/storage/box/syndie_kit/guardian
 	cost = 20
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/gang)
 
 
 /datum/uplink_item/support/mauler
