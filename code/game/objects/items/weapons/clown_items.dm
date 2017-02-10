@@ -177,12 +177,15 @@
 
 /obj/item/weapon/bikehorn/saxophone/attack_self(mob/user)
 	if(!spam_flag)
-		spam_flag = 1
+		spam_flag = TRUE
 		playsound(src.loc, pick(sounds), 50, 0)
 		user.visible_message("<B>[user]</B> lays down a [pick("sexy", "sensuous", "libidinous","spicy","flirtatious","salacious","sizzling","carnal","hedonistic")] riff on \his saxophone!")
 		src.add_fingerprint(user)
 		spawn(cooldowntime)
-			spam_flag = 0
+			spam_flag = FALSE
+	return
+
+/obj/item/weapon/bikehorn/saxophone/Crossed(mob/living/L)
 	return
 
 /obj/item/weapon/reagent_containers/food/drinks/soda_cans/canned_laughter
