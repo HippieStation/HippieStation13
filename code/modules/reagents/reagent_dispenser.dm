@@ -22,7 +22,7 @@
 		if(src.icon_state == "water" && !src.is_open_container())
 			src.icon_state = "wateropen"
 			user << "<span class='notice'>You unscrew and remove the lid from [src].</span>"
-			src.container_type = OPENCONTAINER
+			src.container_type |= OPENCONTAINER
 			src.update_icon()
 			playsound(src, 'sound/items/Deconstruct.ogg', 20, 1)
 			desc = "A water tank. It's top has been removed."
@@ -30,7 +30,7 @@
 		if(src.icon_state == "wateropen" && src.is_open_container())
 			src.icon_state = "water"
 			user << "<span class='notice'>You reattach and screw the [src]'s lid into place.</span>"
-			src.container_type = null
+			src.container_type &= ~OPENCONTAINER
 			src.update_icon()
 			playsound(src, 'sound/items/Deconstruct.ogg', 20, 1)
 			desc = "A water tank. It has a top that can be removed."
