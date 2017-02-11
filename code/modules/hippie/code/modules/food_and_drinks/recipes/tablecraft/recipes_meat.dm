@@ -7,7 +7,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/kebab/rat
 	category = CAT_MEAT
 
-/datum/crafting_recipe/food/ratkebab
+/datum/crafting_recipe/food/doubleratkebab
 	name = "Double Rat Kebab"
 	reqs = list(
 		/obj/item/stack/rods = 1,
