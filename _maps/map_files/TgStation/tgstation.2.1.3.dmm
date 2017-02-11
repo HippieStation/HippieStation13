@@ -8021,6 +8021,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/weapon/staplegun,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aqT" = (
@@ -14094,13 +14095,9 @@
 /area/security/checkpoint2)
 "aEo" = (
 /obj/structure/table/glass,
-/obj/item/weapon/reagent_containers/food/snacks/grown/wheat,
-/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/weapon/reagent_containers/food/snacks/grown/grapes,
-/obj/item/weapon/reagent_containers/food/snacks/grown/cocoapod,
+/obj/effect/spawner/lootdrop/plants{
+	lootcount = 12
+	},
 /turf/open/floor/plasteel/green/side{
 	dir = 4
 	},
@@ -18921,7 +18918,7 @@
 /obj/item/device/radio/intercom{
 	pixel_y = 25
 	},
-/turf/open/floor/plasteel/bar,
+/turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aPn" = (
 /turf/closed/wall,
@@ -19357,6 +19354,7 @@
 /obj/structure/table,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
+/obj/item/weapon/staplegun,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "aQv" = (
@@ -20050,7 +20048,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aSj" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/kitchen,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "aSk" = (
@@ -20567,6 +20565,7 @@
 	dir = 8;
 	on = 1
 	},
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/green,
 /area/crew_quarters/clown)
 "aTE" = (
@@ -20691,6 +20690,7 @@
 	icon_state = "right";
 	layer = 3
 	},
+/obj/structure/showcase/mimestatue,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/mime)
 "aTS" = (
@@ -20784,6 +20784,7 @@
 	dir = 4;
 	network = list("SS13")
 	},
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/black,
 /area/crew_quarters/mime)
 "aUg" = (
@@ -20844,6 +20845,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/water_cooler/clown,
 /turf/open/floor/plasteel/green,
 /area/crew_quarters/clown)
 "aUn" = (
@@ -21200,6 +21202,7 @@
 /obj/item/weapon/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
+/obj/effect/spawner/lootdrop/food,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aUU" = (
@@ -21495,6 +21498,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber,
+/obj/structure/closet/secure_closet/mime,
 /turf/open/floor/plasteel/black,
 /area/crew_quarters/mime)
 "aVD" = (
@@ -21534,6 +21538,7 @@
 	icon_state = "window";
 	dir = 8
 	},
+/obj/structure/showcase/mimestatue,
 /turf/open/floor/plasteel/black,
 /area/crew_quarters/mime)
 "aVI" = (
@@ -22253,6 +22258,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/clown,
 /turf/open/floor/plasteel/red,
 /area/crew_quarters/clown)
 "aXc" = (
@@ -23611,15 +23617,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Mime Office APC";
-	pixel_x = 0;
-	pixel_y = 24
-	},
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Mime Office APC";
+	pixel_x = 1;
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/mime)
@@ -25210,10 +25216,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	icon_state = "warnplate";
-	dir = 4
-	},
+/turf/open/floor/plating,
 /area/maintenance/disposal)
 "bdZ" = (
 /obj/machinery/conveyor{
@@ -25243,7 +25246,7 @@
 /area/maintenance/disposal)
 "bec" = (
 /obj/machinery/conveyor{
-	dir = 9;
+	dir = 6;
 	id = "garbage";
 	verted = -1
 	},
@@ -29297,14 +29300,14 @@
 	name = "Privacy Shutters Control";
 	pixel_x = 6;
 	pixel_y = 25;
-	req_access_txt = "28"
+	req_access_txt = "57"
 	},
 /obj/machinery/button/door{
 	id = "hopqueue";
 	name = "Queue Shutters Control";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "28"
+	req_access_txt = "57"
 	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
@@ -33388,6 +33391,7 @@
 	pixel_x = 6;
 	pixel_y = -5
 	},
+/obj/item/weapon/staplegun,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "buR" = (
@@ -43139,6 +43143,10 @@
 /area/security/checkpoint/engineering)
 "bPd" = (
 /obj/structure/closet/crate,
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
 /turf/open/floor/plasteel,
 /area/atmos)
 "bPe" = (
@@ -55230,6 +55238,10 @@
 	dir = 4;
 	network = list("SS13")
 	},
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
+/obj/item/weapon/storage/inflatable,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "coF" = (
@@ -63042,6 +63054,7 @@
 /obj/structure/table,
 /obj/item/weapon/reagent_containers/food/snacks/baguette,
 /obj/item/weapon/reagent_containers/food/snacks/baguette,
+/obj/item/toy/figure/mime,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/mime)
 "cFz" = (
@@ -63803,6 +63816,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
+/obj/effect/spawner/lootdrop/food,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "cHA" = (
@@ -63888,6 +63902,22 @@
 /obj/item/weapon/storage/crayons,
 /turf/open/floor/plasteel/red,
 /area/crew_quarters/clown)
+"cHM" = (
+/obj/machinery/vending/snack/kitchen,
+/turf/closed/wall,
+/area/crew_quarters/kitchen)
+"cHN" = (
+/obj/structure/chair,
+/turf/open/floor/plasteel{
+	icon_state = "red";
+	dir = 1
+	},
+/area/hallway/secondary/exit)
+"cHO" = (
+/obj/structure/table/wood,
+/obj/item/weapon/staplegun,
+/turf/open/floor/wood,
+/area/library)
 
 (1,1,1) = {"
 aaa
@@ -82479,7 +82509,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBt
 cBx
@@ -82736,7 +82766,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBu
 cBx
@@ -82993,7 +83023,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBv
 cBM
@@ -83250,7 +83280,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBk
 cBw
 cBN
@@ -83507,7 +83537,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBx
 cBx
@@ -83764,7 +83794,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBx
 cBO
@@ -84021,7 +84051,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBl
 cBy
 cBP
@@ -84278,7 +84308,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 cBk
 cBk
 cBl
@@ -85317,7 +85347,7 @@ ala
 alM
 alM
 alM
-cDB
+alM
 atb
 cDM
 cDT
@@ -85566,12 +85596,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aoK
+aoK
+aoK
+aoK
+aoK
+aoK
 aaa
 aaa
 aaa
@@ -86583,9 +86613,9 @@ aaa
 aaa
 adA
 aaa
-aaa
-aaa
-aaa
+aoK
+aoK
+aoK
 aaa
 aaa
 aaa
@@ -87106,7 +87136,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aoK
 aiN
 alf
 aiN
@@ -87363,7 +87393,7 @@ aaa
 aae
 aae
 aae
-aae
+apF
 aiN
 alh
 aiN
@@ -88131,7 +88161,7 @@ aga
 abb
 aae
 aaa
-aaa
+aoK
 aiN
 ajk
 ajS
@@ -88388,7 +88418,7 @@ afx
 afx
 aae
 aaa
-aaa
+aoK
 aiN
 ajn
 ajV
@@ -97418,7 +97448,7 @@ aCb
 aCb
 aJi
 bXA
-aPD
+baJ
 aJi
 aPD
 aJi
@@ -97934,7 +97964,7 @@ aPv
 aKw
 aKw
 aKw
-cHE
+cHy
 aKw
 aKw
 aZm
@@ -98448,7 +98478,7 @@ aKw
 aKw
 aKw
 aKw
-cHG
+cHA
 aKw
 aKw
 aZo
@@ -98963,7 +98993,7 @@ cHz
 aSb
 aKw
 aKw
-aQT
+cHy
 aKw
 aKw
 aPD
@@ -99477,7 +99507,7 @@ aKr
 aRJ
 aKw
 aKw
-aRK
+cHA
 aKw
 aZq
 baK
@@ -99987,11 +100017,11 @@ aKw
 aNl
 aOh
 cHw
-acM
+cHw
 cHB
 cHC
-acM
-acM
+cHw
+cHw
 cHI
 aZr
 aJi
@@ -100505,7 +100535,7 @@ aKw
 aKw
 aSt
 aKw
-acM
+cHw
 aKw
 aZt
 aJi
@@ -100762,7 +100792,7 @@ aQV
 aRZ
 aKw
 aKw
-acM
+cHw
 aKw
 aZv
 aJi
@@ -101792,7 +101822,7 @@ aUP
 aUP
 aUP
 aXZ
-aJo
+cHM
 baL
 aYj
 bcA
@@ -108985,7 +109015,7 @@ aPQ
 aRm
 aIa
 aTW
-aKL
+cHO
 aYk
 aYk
 aVg
@@ -111550,9 +111580,9 @@ cEB
 cEI
 cEg
 aNA
-aCB
-aPX
-aCB
+aFi
+aFi
+aFi
 aSD
 aFi
 aVl
@@ -111807,8 +111837,8 @@ cEB
 cEI
 aCB
 aCB
-aOL
-aPW
+aCB
+aCB
 aCB
 aCB
 aCB
@@ -112064,9 +112094,9 @@ cEC
 cEI
 cEN
 aMC
-aCB
-aCB
-aCB
+aOM
+aPY
+aMD
 aSF
 aUc
 aVm
@@ -112321,8 +112351,8 @@ cEz
 cEI
 cEO
 aMC
-aOM
-aPY
+cHN
+cFb
 aMD
 aSE
 aON
