@@ -744,11 +744,35 @@
 	slot_flags = SLOT_HEAD
 	embed_chance = 5 //This is a joke
 	var/loose = 0
+	var/max_combined_w_class = 3
+	var/max_w_class = 2
+	var/storage_slots = 2
 	var/obj/item/weapon/storage/internal/pocket/butt/inv = /obj/item/weapon/storage/internal/pocket/butt
-	
+
+/obj/item/organ/internal/butt/xeno //XENOMORPH BUTTS ARE BEST BUTTS yes i agree
+	name = "alien butt"
+	desc = "best trophy ever"
+	icon_state = "xenobutt"
+	item_state = "xenobutt"
+	storage_slots = 3
+	max_combined_w_class = 5
+
+/obj/item/organ/internal/butt/bluebutt // bluespace butts, science
+	name = "butt of holding"
+	desc = "This butt has bluespace properties, letting you store more items in it. Four tiny items, or two small ones, or one normal one can fit."
+	icon_state = "bluebutt"
+	item_state = "bluebutt"
+	origin_tech = "bluespace=5;biotech=4"
+	max_combined_w_class = 12
+	max_w_class = 3
+	storage_slots = 4
+
 /obj/item/organ/internal/butt/New()
 	..()
 	inv = new(src)
+	inv.max_w_class = max_w_class
+	inv.storage_slots = storage_slots
+	inv.max_combined_w_class = max_combined_w_class
 
 /obj/item/organ/internal/butt/Remove(mob/living/carbon/M, special = 0)
 	..()
@@ -769,21 +793,6 @@
 				inv.remove_from_storage(I, get_turf(src))
 		qdel(inv)
 	..()
-
-/obj/item/organ/internal/butt/xeno //XENOMORPH BUTTS ARE BEST BUTTS yes i agree
-	name = "alien butt"
-	desc = "best trophy ever"
-	icon_state = "xenobutt"
-	item_state = "xenobutt"
-	inv = /obj/item/weapon/storage/internal/pocket/butt/xeno
-
-/obj/item/organ/internal/butt/bluebutt // bluespace butts, science
-	name = "butt of holding"
-	desc = "This butt has bluespace properties, letting you store more items in it. Four tiny items, or two small ones, or one normal one can fit."
-	icon_state = "bluebutt"
-	item_state = "bluebutt"
-	origin_tech = "bluespace=5;biotech=4"
-	inv = /obj/item/weapon/storage/internal/pocket/butt/bluespace
 
 /obj/item/organ/internal/butt/attackby(var/obj/item/W, mob/user as mob, params) // copypasting bot manufucturing process, im a lazy fuck
 

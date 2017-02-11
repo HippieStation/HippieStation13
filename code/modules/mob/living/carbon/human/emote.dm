@@ -75,9 +75,10 @@
 				if(J.welding == 1 && user.loc)
 					new/obj/effect/hotspot(user.loc)
 					playsound(user, 'sound/misc/fart.ogg', 50, 1, 5)
-			else if(istype(O, /obj/item/weapon/bikehorn) || istype(O, /obj/item/weapon/bikehorn/rubberducky))
+			else if(istype(O, /obj/item/weapon/bikehorn))
+				for(var/obj/item/weapon/bikehorn/Q in theinv.contents)
+					playsound(Q, Q.honksound, 50, 1, 5)
 				message = "<span class='clown'>farts.</span>"
-				playsound(user, 'sound/items/bikehorn.ogg', 50, 1, 5)
 			else if(istype(O, /obj/item/device/megaphone))
 				message = "<span class='reallybig'>farts.</span>"
 				playsound(user, 'sound/misc/fartmassive.ogg', 75, 1, 5)
@@ -142,8 +143,30 @@
 		playsound(user, 'sound/misc/fartmassive.ogg', 75, 1, 5)
 		var/obj/item/weapon/storage/internal/pocket/butt/theinv = B.inv
 		if(theinv.contents.len)
-			for(var/obj/item/I in theinv.contents)
-				theinv.remove_from_storage(I, user.loc)
+			for(var/obj/item/O in theinv.contents)
+				theinv.remove_from_storage(O, user.loc)
+				O.throw_range = 7//will be reset on hit
+				O.assthrown = 1
+				var/turf/target = get_turf(O)
+				var/range = 7
+				var/turf/new_turf
+				var/new_dir
+				switch(user.dir)
+					if(1)
+						new_dir = 2
+					if(2)
+						new_dir = 1
+					if(4)
+						new_dir = 8
+					if(8)
+						new_dir = 4
+				for(var/i = 1; i < range; i++)
+					new_turf = get_step(target, new_dir)
+					target = new_turf
+					if(new_turf.density)
+						break
+				O.throw_at(target,range,O.throw_speed)
+				O.assthrown = 0 // so you can't just unembed it and throw it for insta embeds
 		B.Remove(user)
 		B.forceMove(get_turf(user))
 		if(B.loose) B.loose = 0

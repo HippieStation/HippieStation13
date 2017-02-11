@@ -75,7 +75,6 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/flask/det(src)
 
 /obj/item/weapon/storage/internal/pocket/butt
-	max_combined_w_class = 3
 
 /obj/item/weapon/storage/internal/pocket/butt/handle_item_insertion(obj/item/W, prevent_warning = 1, mob/user)
 	if(istype(loc, /obj/item/organ/internal/butt))
@@ -93,12 +92,3 @@
 		if(B.owner)
 			var/mob/guy = B.owner
 			return guy.Adjacent(A)
-
-/obj/item/weapon/storage/internal/pocket/butt/xeno
-	max_combined_w_class = 5
-	storage_slots = 3
-
-/obj/item/weapon/storage/internal/pocket/butt/bluespace
-	max_combined_w_class = 12
-	storage_slots = 4
-	max_w_class = 3
