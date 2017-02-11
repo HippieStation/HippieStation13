@@ -75,6 +75,10 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/flask/det(src)
 
 /obj/item/weapon/storage/internal/pocket/butt
+	quickdraw = FALSE
+
+/obj/item/weapon/storage/internal/pocket/butt/remove_from_storage(obj/item/W, atom/new_location)
+	. = ..(W, new_location)
 
 /obj/item/weapon/storage/internal/pocket/butt/handle_item_insertion(obj/item/W, prevent_warning = 1, mob/user)
 	if(istype(loc, /obj/item/organ/internal/butt))
