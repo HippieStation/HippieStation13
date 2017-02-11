@@ -431,6 +431,8 @@
 			P.Angle = ""
 
 		return -1
+	else
+		..()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
