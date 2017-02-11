@@ -1,5 +1,5 @@
 /datum/crafting_recipe/food/ratkebab
-	name = "Kebab"
+	name = "Rat Kebab"
 	reqs = list(
 		/obj/item/stack/rods = 1,
 		/obj/item/trash/deadmouse = 1
@@ -8,7 +8,7 @@
 	category = CAT_MEAT
 
 /datum/crafting_recipe/food/ratkebab
-	name = "Kebab"
+	name = "Double Rat Kebab"
 	reqs = list(
 		/obj/item/stack/rods = 1,
 		/obj/item/trash/deadmouse = 2
