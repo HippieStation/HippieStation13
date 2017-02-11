@@ -11,12 +11,19 @@
 	max_integrity = 300
 	var/oxygentanks = TANK_DISPENSER_CAPACITY
 	var/plasmatanks = TANK_DISPENSER_CAPACITY
+	var/freontanks = TANK_DISPENSER_CAPACITY
 
 /obj/structure/tank_dispenser/oxygen
 	plasmatanks = 0
+	freontanks = 0
 
 /obj/structure/tank_dispenser/plasma
 	oxygentanks = 0
+	freontanks = 0
+
+/obj/structure/tank_dispenser/freon
+	oxygentanks = 0
+	plasmatanks = 0
 
 /obj/structure/tank_dispenser/New()
 	for(var/i in 1 to oxygentanks)
@@ -37,6 +44,12 @@
 			add_overlay("plasma-[plasmatanks]")
 		if(5 to TANK_DISPENSER_CAPACITY)
 			add_overlay("plasma-5")
+	switch(freontanks)
+		if(1 to 4)
+			add_overlay("freon-[plasmatanks]")
+		if(5 to TANK_DISPENSER_CAPACITY)
+			add_overlay("freon-5")
+
 
 /obj/structure/tank_dispenser/attackby(obj/item/I, mob/user, params)
 	var/full
@@ -48,6 +61,11 @@
 	else if(istype(I, /obj/item/weapon/tank/internals/oxygen))
 		if(oxygentanks < TANK_DISPENSER_CAPACITY)
 			oxygentanks++
+		else
+			full = TRUE
+	else if(istype(I, /obj/item/weapon/tank/internals/freon))
+		if(freontanks < TANK_DISPENSER_CAPACITY)
+			freontanks++
 		else
 			full = TRUE
 	else if(istype(I, /obj/item/weapon/wrench))
@@ -79,6 +97,7 @@
 	var/list/data = list()
 	data["oxygen"] = oxygentanks
 	data["plasma"] = plasmatanks
+	data["freon"] = freontanks
 
 	return data
 
@@ -97,6 +116,12 @@
 			if(tank && Adjacent(usr))
 				usr.put_in_hands(tank)
 				oxygentanks--
+			. = TRUE
+		if("freon")
+			var/obj/item/weapon/tank/internals/freon/tank = locate() in src
+			if(tank && Adjacent(usr))
+				usr.put_in_hands(tank)
+				freontanks--
 			. = TRUE
 	update_icon()
 
