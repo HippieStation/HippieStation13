@@ -1,4 +1,5 @@
 #define TANK_DISPENSER_CAPACITY 10
+#define FREON_TANK_CAPACITY 2
 
 /obj/structure/tank_dispenser
 	name = "tank dispenser"
@@ -11,7 +12,7 @@
 	max_integrity = 300
 	var/oxygentanks = TANK_DISPENSER_CAPACITY
 	var/plasmatanks = TANK_DISPENSER_CAPACITY
-	var/freontanks = TANK_DISPENSER_CAPACITY
+	var/freontanks = FREON_TANK_CAPACITY
 
 /obj/structure/tank_dispenser/oxygen
 	plasmatanks = 0
@@ -30,6 +31,8 @@
 		new /obj/item/weapon/tank/internals/oxygen(src)
 	for(var/i in 1 to plasmatanks)
 		new /obj/item/weapon/tank/internals/plasma(src)
+	for(var/i in 1 to freontanks)
+		new /obj/item/weapon/tank/internals/freon(src)
 	update_icon()
 	..()
 /obj/structure/tank_dispenser/update_icon()
@@ -37,18 +40,18 @@
 	switch(oxygentanks)
 		if(1 to 3)
 			add_overlay("oxygen-[oxygentanks]")
-		if(4 to TANK_DISPENSER_CAPACITY)
+		if(4 to INFINITY)
 			add_overlay("oxygen-4")
 	switch(plasmatanks)
 		if(1 to 4)
 			add_overlay("plasma-[plasmatanks]")
-		if(5 to TANK_DISPENSER_CAPACITY)
+		if(5 to INFINITY)
 			add_overlay("plasma-5")
 	switch(freontanks)
-		if(1 to 4)
-			add_overlay("freon-[plasmatanks]")
-		if(5 to TANK_DISPENSER_CAPACITY)
-			add_overlay("freon-5")
+		if(1)
+			add_overlay("freon-1")
+		if(2 to INFINITY)
+			add_overlay("freon-2")
 
 
 /obj/structure/tank_dispenser/attackby(obj/item/I, mob/user, params)
@@ -64,7 +67,7 @@
 		else
 			full = TRUE
 	else if(istype(I, /obj/item/weapon/tank/internals/freon))
-		if(freontanks < TANK_DISPENSER_CAPACITY)
+		if(freontanks < FREON_TANK_CAPACITY)
 			freontanks++
 		else
 			full = TRUE
@@ -90,7 +93,7 @@
 										datum/tgui/master_ui = null, datum/ui_state/state = physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tank_dispenser", name, 275, 100, master_ui, state)
+		ui = new(user, src, ui_key, "tank_dispenser", name, 275, 150, master_ui, state)
 		ui.open()
 
 /obj/structure/tank_dispenser/ui_data(mob/user)
@@ -135,3 +138,4 @@
 	qdel(src)
 
 #undef TANK_DISPENSER_CAPACITY
+#undef FREON_TANK_CAPACITY
