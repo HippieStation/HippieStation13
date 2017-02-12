@@ -22,8 +22,8 @@
 
 //Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
 #define MAX_MESSAGE_LEN			1024
-#define MAX_MESSAGE_LEN_IC		300 //for messages users write in character (e.g. say, prayers)
-#define MAX_MESSAGE_LEN_OOC		300 //for messages users write out of character (e.g. ooc, adminhelp, dsay, asay)
+#define MAX_MESSAGE_LEN_IC		300 //for messages users send in character (e.g. say, emotes, prayers, pda, announcements, AI laws)
+#define MAX_MESSAGE_LEN_OOC		300 //for messages users send out of character (e.g. ooc, adminhelp, dsay)
 #define MAX_NAME_LEN			70
 #define MAX_BROADCAST_LEN		300
 #define MAX_CHARTER_LEN			80
