@@ -185,7 +185,7 @@
  */
 /obj/item/weapon/tank/internals/freon
 	name = "freon tank"
-	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
+	desc = "The tank is well insulated but whatever is inside feels really cold."
 	icon_state = "freon"
 	flags = CONDUCT
 	slot_flags = null	//they have no straps!
