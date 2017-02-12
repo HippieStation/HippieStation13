@@ -94,7 +94,7 @@
 	//clean the input msg
 	if(!msg)
 		return
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN_OOC))
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -157,7 +157,7 @@
 			final = "[msg] - All admins AFK ([adm["afk"]]/[adm["total"]]), stealthminned ([adm["stealth"]]/[adm["total"]]), or lack[rights2text(requiredflags, " ")] ([adm["noflags"]]/[adm["total"]])"
 		send2irc(source,final)
 		send2otherserver(source,final)
-		
+
 
 
 /proc/send2irc(msg,msg2)

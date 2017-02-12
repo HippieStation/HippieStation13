@@ -6,7 +6,7 @@
 		usr << "<span class='danger'>Speech is currently admin-disabled.</span>"
 		return
 
-	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
+	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN_IC)
 	if(!msg)
 		return
 	log_prayer("[src.key]/([src.name]): [msg]")
@@ -50,7 +50,7 @@
 	//log_admin("HELP: [key_name(src)]: [msg]")
 
 /proc/Centcomm_announce(text , mob/Sender)
-	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
+	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN_IC)
 	msg = "<span class='adminnotice'>\
 		<b><font color=orange>CENTCOM:</font>\
 		[ADMIN_FULLMONTY(Sender)] [ADMIN_BSA(Sender)] \
@@ -61,7 +61,7 @@
 		C.overrideCooldown()
 
 /proc/Syndicate_announce(text , mob/Sender)
-	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
+	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN_IC)
 	msg = "<span class='adminnotice'><b>\
 		<font color=crimson>SYNDICATE:</font>\
 		[ADMIN_FULLMONTY(Sender)] [ADMIN_BSA(Sender)] \
@@ -72,7 +72,7 @@
 		C.overrideCooldown()
 
 /proc/Nuke_request(text , mob/Sender)
-	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
+	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN_IC)
 	msg = "<span class='adminnotice'>\
 		<b><font color=orange>NUKE CODE REQUEST:</font>\
 		[ADMIN_FULLMONTY(Sender)] [ADMIN_BSA(Sender)] \

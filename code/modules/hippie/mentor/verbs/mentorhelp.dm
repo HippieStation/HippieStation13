@@ -9,7 +9,7 @@
 
 	//clean the input msg
 	if(!msg)	return
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN_OOC))
 	if(!msg)	return
 	if(!mob)	return						//this doesn't happen
 

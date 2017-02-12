@@ -584,7 +584,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		update_icon()
 
 /obj/item/device/pda/proc/msg_input(mob/living/U = usr)
-	var/t = stripped_input(U, "Please enter message", name, null, MAX_MESSAGE_LEN)
+	var/t = stripped_input(U, "Please enter message", name, null, MAX_MESSAGE_LEN_IC)
 	if (!t || toff)
 		return
 	if (!in_range(src, U) && loc != U)

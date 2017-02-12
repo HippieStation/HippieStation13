@@ -132,7 +132,7 @@
 /mob/camera/blob/proc/blob_talk(message)
 	log_say("[key_name(src)] : [message]")
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN_IC))
 
 	if (!message)
 		return
