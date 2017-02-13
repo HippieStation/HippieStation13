@@ -287,7 +287,6 @@
 			if(!can_use_on_station)
 				playsound(get_turf(src), 'sound/misc/sadtrombone.ogg', 100, 1)
 				new /obj/effect/particle_effect/smoke(get_turf(src))
-				qdel(src)
 				return
 
 		template.load(deploy_location, centered = TRUE)
