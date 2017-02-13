@@ -21,7 +21,6 @@
 	var/body_choice
 	if(icon_state == "daki_base")
 		body_choice = input("Pick a body.") in list(
-
 		"Callie",
 		"Casca",
 		"Chaika",
@@ -50,7 +49,7 @@
 		"Yoko")
 
 		icon_state = "daki_[body_choice]"
-		custom_name = stripped_input("What's her name?") as text
+		custom_name = stripped_input(user, "What's her name?")
 		if(length(custom_name) > MAX_NAME_LEN)
 			user << "<span class='danger'>Name is too long!</span>"
 			return FALSE
