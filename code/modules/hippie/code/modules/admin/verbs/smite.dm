@@ -51,7 +51,7 @@
 			if("Stamina")
 				M.adjustStaminaLoss(dam)
 			if("Heal")
-				var/obj/effect/holy/holylight/HL = new /obj/effect/holy/holylight()
+				var/obj/effect/holy/HL = new /obj/effect/holy()
 				HL.start(M)
 				M.revive(full_heal = 1, admin_revive = 1)
 			if("Gib")
