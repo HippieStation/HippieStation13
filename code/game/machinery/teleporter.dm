@@ -290,12 +290,26 @@
 		return
 	return ..()
 
+/obj/machinery/teleport/hub/proc/blockExiles(atom/movable/AM)
+	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
+	if(z == ZLEVEL_STATION) //if we're on the station
+		return FALSE //don't block teleportation
+	if(com.target.z == z) //if we're teleporting to the same zlevel
+		return FALSE //don't block teleportation
+	if(istype(AM, /mob/living/carbon))
+		var/mob/living/carbon/C = AM
+		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
+			AM << "\black [src] has detected your implant and is blocking your entry."
+			return TRUE
+
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if (!com)
 		return
 	if (!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
+		return
+	if(blockExiles(M))
 		return
 	if (istype(M, /atom/movable))
 		if(do_teleport(M, com.target))

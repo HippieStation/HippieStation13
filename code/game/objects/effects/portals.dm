@@ -50,6 +50,17 @@
 	creator = null
 	return ..()
 
+/obj/effect/portal/proc/blockExiles(atom/movable/AM)
+	if(z == ZLEVEL_STATION) //exiles can enter portals on the station
+		return FALSE
+	if(target.z == z) //exiles can enter portals that keep them on the zlevel
+		return FALSE
+	if(istype(AM, /mob/living/carbon))
+		var/mob/living/carbon/C = AM
+		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
+			AM << "\black [src] has detected your implant and is blocking your entry."
+			return TRUE
+
 /obj/effect/portal/proc/teleport(atom/movable/M as mob|obj)
 	if(istype(M, /obj/effect)) //sparks don't teleport
 		return
@@ -58,6 +69,8 @@
 			return
 	if (!( target ))
 		qdel(src)
+		return
+	if(blockExiles(M))
 		return
 	if (istype(M, /atom/movable))
 		if(ismegafauna(M))
