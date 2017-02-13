@@ -1,10 +1,13 @@
-//lightning effect definition moved to holy.dm
+//lightning effect definition moved to hippie module path is hippie/object/effects/holy.dm
 
 /client/proc/cmd_smite(mob/living/M in mob_list)
 	set category = "Fun"
 	set name = "Smite"
-	if(!holder)
-		usr << "no"
+	if(!holder || !check_rights(R_FUN))
+		return
+
+	if(!isliving(M))
+		usr << "This can only be used on instances of type /mob/living"
 		return
 
 	var/options = list("Brute","Burn","Toxin","Oxygen","Clone","Brain","Stamina","Heal","Gib","Cancel")

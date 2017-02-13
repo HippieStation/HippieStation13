@@ -5,19 +5,19 @@
 	icon_state = null
 	pixel_y = 0
 	pixel_x = 0
+	layer = MOB_LAYER+1
 	mouse_opacity = 0
+	use_fade = 0 //This should really be FALSE/TRUE I think
 
 	proc/start(atom/location)
 		loc = get_turf(location)
-		spawn(20)
-			qdel(src)
+		addtimer(CALLBACK(src, .proc/destroy_effect), 20)
 
 /obj/effect/holy/lightning
 	name = "divine retribution"
-	icon = 'icons/effects/224x224.dmi'
+	icon = 'icons/hippie/effects/holy.dmi'
 	pixel_y = -32
 	pixel_x = -96
-	layer = 16
 
 /obj/effect/holy/lightning/start(atom/location)
 	..()
@@ -26,9 +26,8 @@
 
 /obj/effect/holy/holylight
 	name = "holy light"
-	icon = 'icons/effects/96x96.dmi'
+	icon = 'icons/hippie/effects/holy.dmi'
 	pixel_x = -32
-	layer = MOB_LAYER+1
 
 /obj/effect/holy/holylight/start(atom/location)
 	..()
