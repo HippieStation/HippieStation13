@@ -252,6 +252,10 @@
 	user << "This capsule has the [template.name] stored."
 	user << template.description
 
+/obj/item/weapon/survivalcapsule/emag_act(mob/user)
+	can_use_on_station = TRUE
+	playsound(src.loc, "sparks", 100, 1)
+
 /obj/item/weapon/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
