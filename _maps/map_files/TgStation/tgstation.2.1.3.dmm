@@ -31536,6 +31536,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/exile,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "brj" = (
@@ -83457,7 +83458,7 @@ aae
 bBe
 cze
 bGq
-cIe
+cId
 cbK
 czn
 ceh
@@ -102411,7 +102412,7 @@ aqX
 aqX
 aqX
 amU
-cHY
+cHV
 amU
 awp
 alH
@@ -104210,7 +104211,7 @@ awq
 amU
 apt
 amU
-cHZ
+cHV
 alH
 amU
 alH

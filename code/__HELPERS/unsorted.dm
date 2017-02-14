@@ -1336,3 +1336,19 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
 				return FALSE
 	return TRUE
+
+/proc/blockExiles(atom/movable/AM, var/obj/tele)
+	if(istype(AM, /mob/living/carbon))
+		var/mob/living/carbon/C = AM
+		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
+			return TRUE
+
+	for(var/mob/living/carbon/C in AM.contents)//looking for an exile inside the object
+		for(var/obj/item/weapon/implant/exile/E in C.implants)
+			return TRUE
+
+	for(var/atom/movable/M in AM.contents) //looking for an object inside the object that could have an exile in it
+		for(var/mob/living/carbon/C in M.contents) //look for a carbon mob in the nested object
+			for(var/obj/item/weapon/implant/exile/E in C.implants)
+				return TRUE
+

@@ -11,6 +11,7 @@
 	var/calibrating
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+	var/spam_flag = FALSE
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -290,18 +291,6 @@
 		return
 	return ..()
 
-/obj/machinery/teleport/hub/proc/blockExiles(atom/movable/AM)
-	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
-	if(z == ZLEVEL_STATION) //if we're on the station
-		return FALSE //don't block teleportation
-	if(com.target.z == z) //if we're teleporting to the same zlevel
-		return FALSE //don't block teleportation
-	if(istype(AM, /mob/living/carbon))
-		var/mob/living/carbon/C = AM
-		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
-			AM << "\black [src] has detected your implant and is blocking your entry."
-			return TRUE
-
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if (!com)
@@ -309,8 +298,14 @@
 	if (!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
-	if(blockExiles(M))
-		return
+	if(com.target.z != z && z != ZLEVEL_STATION) //if our target is a different zlevel and our zlevel isn't the station
+		if(blockExiles(M))
+			if(!com.spam_flag)
+				com.spam_flag = TRUE
+				com.say("Exile implant detected. Teleportation denied.")
+				spawn(30)
+					com.spam_flag = FALSE
+			return
 	if (istype(M, /atom/movable))
 		if(do_teleport(M, com.target))
 			if(!calibrated && prob(30 - ((accurate) * 10))) //oh dear a problem
