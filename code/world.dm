@@ -224,8 +224,6 @@ var/last_irc_status = 0
 	if(ticker.delay_end)
 		world << "<span class='boldannounce'>Reboot was cancelled by an admin.</span>"
 		return
-	if(config.update_check_enabled)
-		install_update()
 	if(mapchanging)
 		world << "<span class='boldannounce'>Map change operation detected, delaying reboot.</span>"
 		rebootingpendingmapchange = 1
@@ -258,6 +256,8 @@ var/last_irc_status = 0
 		var/client/C = thing
 		if(C && config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
+	if(config.update_check_enabled)
+		install_update()
 
 /world/proc/RoundEndSound(round_end_sound_sent)
 	set waitfor = FALSE
