@@ -42,11 +42,11 @@
 	for(var/mob/living/victim in newTurf)
 		if(victim == user)
 			continue
-		if(iscarbon(victim)) /* Robots shouldn't scream in pain */
-			victim.emote("scream")
-			victim << "<span class='userdanger'>You scream out in pain as your body is ripped apart by [user.name]!</span>"
-		else
-			victim << "<span class='userdanger'>Your chassis is ripped apart by [user.name]!</span>"
+		var/body = "body"
+		if(issilicon(victim))
+			body = "chassis"
+		victim << "<span class='userdanger'>You scream out in pain as your [body] is ripped apart by [user.name]!</span>"
+		victim.emote("scream")
 		victim.gib()
 
 	addtimer(CALLBACK(src, .proc/reactivate), cooldown)
