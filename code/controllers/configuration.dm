@@ -515,7 +515,7 @@
 				if("discord_password")
 					discord_password = value
 				if("update_check_enabled")
-					update_check_enabled = 1
+					update_check_enabled = TRUE
 				if("dmb_filename")
 					dmb_filename = value
 				else
