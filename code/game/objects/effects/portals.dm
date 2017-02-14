@@ -64,10 +64,8 @@
 			message_admins("[M] (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) has teleported through [src].")
 		do_teleport(M, target, precision) ///You will appear adjacent to the beacon
 		if(do_teleport(M, target))
-			if(istype(M, /obj/structure/closet))
-				var/obj/structure/closet/closet = M
-				for(var/mob/living/carbon/human/human in closet.contents)
-					noteleport_affect(human)
+			for(var/mob/living/carbon/human/human in M.contents)
+				noteleport_affect(human)
 			if(ishuman(M))
 				var/mob/living/carbon/human/human = M
 				noteleport_affect(human)

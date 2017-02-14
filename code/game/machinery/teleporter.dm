@@ -296,13 +296,12 @@
 			if(!istype(L, /obj/item/bodypart/chest) && !istype(L, /obj/item/bodypart/head))
 				L.drop_limb()
 				var/turf/target = get_turf(human.loc)
-				var/range = rand(2,7)
-				for(var/i = 1; i < range; i++)
+				for(var/i = 1; i < rand(2,7); i++)
 					var/turf/new_turf = get_step(target, pick(cardinal))
 					target = new_turf
 					if(new_turf.density)
 						break
-				L.throw_at(target,L.throw_range,2)
+				L.throw_at(target,L.throw_range,4)
 		human.emote("scream")
 		human.visible_message("<span class='danger'>[human] appears and their limbs fly off in random directions!</span>", \
 							"<span class='userdanger'>Your limbs fly off in random directions!</span>")
@@ -322,10 +321,8 @@
 		return
 	if (istype(M, /atom/movable))
 		if(do_teleport(M, com.target))
-			if(istype(M, /obj/structure/closet))
-				var/obj/structure/closet/closet = M
-				for(var/mob/living/carbon/human/human in closet.contents)
-					noteleport_affect(human)
+			for(var/mob/living/carbon/human/human in M.contents)
+				noteleport_affect(human)
 			if(ishuman(M))
 				var/mob/living/carbon/human/human = M
 				noteleport_affect(human)
