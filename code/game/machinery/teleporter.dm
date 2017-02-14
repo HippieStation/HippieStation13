@@ -290,6 +290,29 @@
 		return
 	return ..()
 
+/obj/proc/noteleport_affect(mob/living/carbon/human/human)
+	if(human.disabilities & NOTP)
+		for(var/obj/item/bodypart/L in human.bodyparts)
+			if(!istype(L, /obj/item/bodypart/chest) && !istype(L, /obj/item/bodypart/head))
+				L.drop_limb()
+				var/turf/target = get_turf(human.loc)
+				var/range = rand(2,7)
+				for(var/i = 1; i < range; i++)
+					var/turf/new_turf = get_step(target, pick(cardinal))
+					target = new_turf
+					if(new_turf.density)
+						break
+				L.throw_at(target,L.throw_range,2)
+		human.emote("scream")
+		human.visible_message("<span class='danger'>[human] appears and their limbs fly off in random directions!</span>", \
+							"<span class='userdanger'>Your limbs fly off in random directions!</span>")
+		human.adjustBrainLoss(200)
+		human.adjustBruteLoss(40)
+		human.adjustOxyLoss(50)
+		new /obj/effect/decal/cleanable/blood(human.loc)
+		if(prob(30))
+			human.gib()
+
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if (!com)
@@ -299,6 +322,13 @@
 		return
 	if (istype(M, /atom/movable))
 		if(do_teleport(M, com.target))
+			if(istype(M, /obj/structure/closet))
+				var/obj/structure/closet/closet = M
+				for(var/mob/living/carbon/human/human in closet.contents)
+					noteleport_affect(human)
+			if(ishuman(M))
+				var/mob/living/carbon/human/human = M
+				noteleport_affect(human)
 			if(!calibrated && prob(30 - ((accurate) * 10))) //oh dear a problem
 				if(ishuman(M))//don't remove people from the round randomly you jerks
 					var/mob/living/carbon/human/human = M
