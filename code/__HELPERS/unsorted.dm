@@ -1337,7 +1337,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 				return FALSE
 	return TRUE
 
-/proc/blockExiles(atom/movable/AM, var/obj/tele)
+/proc/blockExiles(atom/movable/AM)
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/C = AM
 		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
