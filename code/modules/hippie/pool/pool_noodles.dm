@@ -15,26 +15,19 @@
 
 /obj/item/toy/poolnoodle/attack(target as mob, mob/living/user as mob)
 	..()
-	spawn(0)
-		for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2))
-			user.dir = i
-			sleep(1)
+	if(prob(80))
+		user.emote("spin")
+	if(prob(5))
+		user.emote("spin")
 
 /obj/item/toy/poolnoodle/red
 	New()
-		color = "#FF0000"
-		icon_state = "noodle"
-		item_state = "noodlered"
+		color = "#ff4c4c"
 
 /obj/item/toy/poolnoodle/blue
 	New()
-		color = "#0000FF"
-		icon_state = "noodle"
-		item_state = "noodleblue"
-	item_state = "balloon-empty"
+		color = "#3232ff"
 
 /obj/item/toy/poolnoodle/yellow
 	New()
-		color = "#FFFF00"
-		icon_state = "noodle"
-		item_state = "noodleyellow"
+		color = "#ffff66"
