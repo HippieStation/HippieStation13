@@ -10,7 +10,7 @@
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Standard combat modules loaded. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! It's really boring and standard. Better punch some walls to ease the tension.</span>"
 	var/battlecry = "AT"
-	var/holopunchrng = null
+	var/holopunchrng
 	mob_reflect_chance = 40
 
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
