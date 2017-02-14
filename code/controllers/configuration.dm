@@ -253,6 +253,10 @@
 	var/error_silence_time = 6000 // How long a unique error will be silenced for
 	var/error_msg_delay = 50 // How long to wait between messaging admins about occurrences of a unique error
 
+	// Updater
+	var/update_check_enabled = FALSE
+	var/dmb_filename
+
 /datum/configuration/New()
 	gamemode_cache = typecacheof(/datum/game_mode,TRUE)
 	for(var/T in gamemode_cache)
@@ -524,6 +528,10 @@
 					error_silence_time = text2num(value)
 				if("error_msg_delay")
 					error_msg_delay = text2num(value)
+				if("update_check_enabled")
+					update_check_enabled = TRUE
+				if("dmb_filename")
+					dmb_filename = value
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
