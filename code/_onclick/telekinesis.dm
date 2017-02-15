@@ -144,6 +144,7 @@ var/const/tk_maxrange = 15
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1,user)
 		last_throw = world.time
+		user.changeNext_move(CLICK_CD_RAPID)
 		update_icon()
 	return
 
