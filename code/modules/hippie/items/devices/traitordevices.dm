@@ -13,6 +13,7 @@
 	origin_tech = "magnets=4;bluespace=6;syndicate=5"
 	var/cooldown = 6 /* 0.6 sec cd */
 	var/active = TRUE
+	var/timerID
 
 /obj/item/device/experimental_teleporter/attack_self(mob/user)
 	if(!active)
@@ -49,7 +50,7 @@
 		victim.emote("scream")
 		victim.gib()
 
-	addtimer(CALLBACK(src, .proc/reactivate), cooldown)
+	timerID = addtimer(CALLBACK(src, .proc/reactivate), cooldown, TIMER_STOPPABLE)
 
 
 /* Does the teleport if not out of bounds, returns the turf on successful teleport */
@@ -80,3 +81,9 @@
 
 /obj/item/device/experimental_teleporter/proc/reactivate()
 	active = TRUE
+	timerID = null
+
+/obj/item/device/experimental_teleporter/Destroy()
+	if(timerID)
+		deltimer(timerID)
+	return ..()
