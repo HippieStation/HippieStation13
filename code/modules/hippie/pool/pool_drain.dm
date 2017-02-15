@@ -3,7 +3,7 @@
 	icon = 'icons/turf/pool.dmi'
 	icon_state = "drain"
 	desc = "This removes things that clog the pool."
-	anchored = 1
+	anchored = TRUE
 	var/active = 0
 	var/status = 0 //1 is drained, 0 is full.
 	var/timer = 0
@@ -103,7 +103,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "whirlpool"
 	layer = 5
-	anchored = 1
+	anchored = TRUE
 	mouse_opacity = 0
 	pixel_x = -32
 	pixel_y = -32
@@ -115,7 +115,7 @@
 	opacity = 1
 	color = "#3399AA"
 	layer = 5
-	anchored = 1
+	anchored = TRUE
 	mouse_opacity = 0
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
@@ -128,12 +128,12 @@
 	icon = 'icons/turf/pool.dmi'
 	icon_state = "filter"
 	desc = "The part of the pool that swallows dangerous stuff and ID's"
-	anchored = 1
+	anchored = TRUE
 
 /obj/machinery/poolfilter/emag_act(user as mob)
 	if(!emagged)
-		user << "\red You disable \the [src]'s shark filter. Run!" //you better
-		emagged = 1
+		user << "<span class='warning'>You disable the [src]'s shark filter! Run!</span>" //you better
+		emagged = TRUE
 		src.icon_state = "filter_b"
 		spawn(50)
 			if(prob(50))
@@ -143,7 +143,9 @@
 					new /mob/living/simple_animal/hostile/shark/kawaii(src.loc)
 				else
 					new /mob/living/simple_animal/hostile/shark/laser(src.loc)
-
+		if(adminlog)
+			log_say("[key_name(user)] emagged the pool filter and probably spawned sharks")
+			message_admins("[key_name_admin(user)] emagged the pool filter and probably spawned sharks")
 
 
 /obj/machinery/poolfilter/attack_hand(mob/user)

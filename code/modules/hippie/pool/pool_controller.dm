@@ -14,7 +14,7 @@
 	var/temperature = 3 //1-5 Frigid Cool Normal Warm Scalding
 	var/srange = 6 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/linkedmist = list() //Used to keep track of created mist
-	var/misted = 0 //Used to check for mist.
+	var/misted = FALSE //Used to check for mist.
 	var/obj/item/weapon/reagent_containers/beaker = null
 	var/cur_reagent = "water"
 	//var/datum/wires/poolcontroller/wires = null
@@ -41,13 +41,16 @@
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
-		user << "\red You disable \the [src]'s temperature safeguards." //Inform the mob of what emagging does.
+		user << "<span class='warning'>You disable the [src]'s safety features.</span>" //Inform the mob of what emagging does.
 		emagged = TRUE
 		tempunlocked = TRUE
 		drainable = TRUE
 		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 		sparks.set_up(1, 1, src)
 		sparks.start()
+		if(adminlog)
+			log_say("[key_name(user)] emagged the poolcontroller")
+			message_admins("[key_name_admin(user)] emagged the poolcontroller")
 
 /obj/machinery/poolcontroller/attackby(obj/item/weapon/W, mob/user)
 	if(shocked && !(stat & NOPOWER))
@@ -210,12 +213,12 @@
 			return
 		linkedmist += M
 
-	misted = 1 //var just to keep track of when the mist on proc has been called.
+	misted = TRUE //var just to keep track of when the mist on proc has been called.
 
 /obj/machinery/poolcontroller/proc/mistoff() //Delete all /obj/effect/mist from all linked pool tiles.
 	for(var/obj/effect/mist/M in linkedmist)
 		qdel(M)
-	misted = 0 //no mist left, turn off the tracking var
+	misted = FALSE //no mist left, turn off the tracking var
 
 /obj/machinery/poolcontroller/proc/handle_temp()
 	timer = 10

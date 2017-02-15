@@ -29,9 +29,9 @@
 	var/obj/machinery/poolcontroller/P = holder
 	switch(wire)
 		if(POOL_WIRE_DRAIN)
-			P.drainable = 0
+			P.drainable = FALSE
 		if(POOL_WIRE_TEMP)
-			P.tempunlocked = 0
+			P.tempunlocked = FALSE
 		if(WIRE_SHOCK)
 			P.shocked = !P.shocked
 			addtimer(CALLBACK(P, /obj/machinery/autolathe.proc/reset, wire), 60)
@@ -41,14 +41,14 @@
 	switch(wire)
 		if(POOL_WIRE_DRAIN)
 			if(mend)
-				P.drainable = 0
+				P.drainable = FALSE
 			else
-				P.drainable = 1
+				P.drainable = TRUE
 		if(POOL_WIRE_TEMP)
 			if(mend)
-				P.tempunlocked = 0
+				P.tempunlocked = FALSE
 			else
-				P.tempunlocked = 1
+				P.tempunlocked = TRUE
 		if(WIRE_ZAP)
 			P.shock(usr, 50)
 		if(WIRE_SHOCK)
