@@ -223,7 +223,7 @@
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
 			getname = S.singular_name
-		to_chat(user, "\icon[I] \a [getname]")
+		to_chat(user, "bicon(I) \a [getname]")
 
 /obj/item/clothing/tie/necklace/attack_self(mob/user)
 	if(ornaments.len)
