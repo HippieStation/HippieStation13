@@ -1,6 +1,6 @@
 /proc/create_message(type, target_ckey, admin_ckey, text, timestamp, server, secret, logged = 1, browse)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!type)
 		return
@@ -61,7 +61,7 @@
 
 /proc/delete_message(message_id, logged = 1, browse)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -93,7 +93,7 @@
 
 /proc/edit_message(message_id, browse)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -128,7 +128,7 @@
 
 /proc/toggle_message_secrecy(message_id)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -285,9 +285,9 @@
 		output += ruler
 	usr << browse(output, "window=browse_messages;size=900x500")
 
-proc/get_message_output(type, target_ckey)
+/proc/get_message_output(type, target_ckey)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!type)
 		return
@@ -358,7 +358,7 @@ proc/get_message_output(type, target_ckey)
 /*alternatively this proc can be run once to pass through every note and attempt to convert it before deleting the file, if done then AUTOCONVERT_NOTES should be turned off
 this proc can take several minutes to execute fully if converting and cause DD to hang if converting a lot of notes; it's not advised to do so while a server is live
 /proc/mass_convert_notes()
-	world << "Beginning mass note conversion"
+	to_chat(world, "Beginning mass note conversion")
 	var/savefile/notesfile = new(NOTESFILE)
 	if(!notesfile)
 		log_game("Error: Cannot access [NOTESFILE]")

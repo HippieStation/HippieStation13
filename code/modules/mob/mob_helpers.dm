@@ -429,7 +429,7 @@ var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace o
 			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [affecting].", "<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H]'s [affecting].</span>")
 			return 1 //successful heal
 		else
-			user << "<span class='warning'>[H]'s [affecting] is already in good condition!</span>"
+			to_chat(user, "<span class='warning'>[H]'s [affecting] is already in good condition!</span>")
 
 
 /proc/IsAdminGhost(var/mob/user)
@@ -446,7 +446,7 @@ var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace o
 	return TRUE
 
 /proc/offer_control(mob/M)
-	M << "Control of your mob has been offered to dead players."
+	to_chat(M, "Control of your mob has been offered to dead players.")
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts")
@@ -460,13 +460,13 @@ var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace o
 
 	if(candidates.len)
 		theghost = pick(candidates)
-		M << "Your mob has been taken over by a ghost!"
+		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
 		M.ghostize(0)
 		M.key = theghost.key
 		return TRUE
 	else
-		M << "There were no ghosts willing to take control."
+		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 		return FALSE
 

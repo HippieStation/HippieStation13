@@ -185,11 +185,11 @@
 	..()
 	if(occupant)
 		if(on)
-			user << "Someone's inside [src]!"
+			to_chat(user, "Someone's inside [src]!")
 		else
-			user << "You can barely make out a form floating in [src]."
+			to_chat(user, "You can barely make out a form floating in [src].")
 	else
-		user << "[src] seems empty."
+		to_chat(user, "[src] seems empty.")
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/MouseDrop_T(mob/target, mob/user)
 	if(user.stat || user.lying || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
@@ -200,7 +200,7 @@
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		. = 1 //no afterattack
 		if(beaker)
-			user << "<span class='warning'>A beaker is already loaded into [src]!</span>"
+			to_chat(user, "<span class='warning'>A beaker is already loaded into [src]!</span>")
 			return
 		if(!user.drop_item())
 			return

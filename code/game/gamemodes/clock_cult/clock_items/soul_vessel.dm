@@ -47,7 +47,7 @@
 
 /obj/item/device/mmi/posibrain/soul_vessel/attack_self(mob/living/user)
 	if(!is_servant_of_ratvar(user))
-		user << "<span class='warning'>You fiddle around with [src], to no avail.</span>"
+		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
 		return 0
 	..()
 

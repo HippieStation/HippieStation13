@@ -141,14 +141,14 @@ var/datum/subsystem/ticker/ticker
 
 		if(!mode)
 			if(!runnable_modes.len)
-				world << "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby."
+				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 				return 0
 			mode = pickweight(runnable_modes)
 
 	else
 		mode = config.pick_mode(master_mode)
 		if(!mode.can_start())
-			world << "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby."
+			to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby.")
 			qdel(mode)
 			mode = null
 			SSjob.ResetOccupations()
@@ -163,7 +163,7 @@ var/datum/subsystem/ticker/ticker
 		if(!can_continue)
 			qdel(mode)
 			mode = null
-			world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
+			to_chat(world, "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
 			return 0
 	else
@@ -174,8 +174,8 @@ var/datum/subsystem/ticker/ticker
 		for (var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		world << "<b>The gamemode is: secret!\n\
-		Possibilities:</B> [english_list(modes)]"
+		to_chat(world, "<b>The gamemode is: secret!</b>")
+		to_chat(world, "<b>Possibilities:</b> [english_list(modes)]")
 	else
 		mode.announce()
 
@@ -192,14 +192,14 @@ var/datum/subsystem/ticker/ticker
 
 	Master.RoundStart()
 
-	world << "<FONT color='blue'><B>Welcome to [station_name()], enjoy your stay!</B></FONT>"
+	to_chat(world, "<FONT color='blue'><B>Welcome to [station_name()], enjoy your stay!</B></FONT>")
 	world << sound('sound/AI/welcome.ogg')
 
 	if(SSevent.holidays)
-		world << "<font color='blue'>and...</font>"
+		to_chat(world, "<font color='blue'>and...</font>")
 		for(var/holidayname in SSevent.holidays)
 			var/datum/holiday/holiday = SSevent.holidays[holidayname]
-			world << "<h4>[holiday.greet()]</h4>"
+			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	PostSetup()
 
@@ -333,10 +333,10 @@ var/datum/subsystem/ticker/ticker
 			bombloc = bomb.z
 		else if(!station_missed)
 			bombloc = ZLEVEL_STATION
-		
+
 		if(mode)
 			mode.explosion_in_progress = 0
-			world << "<B>The station was destoyed by the nuclear blast!</B>"
+			to_chat(world, "<B>The station was destoyed by the nuclear blast!</B>")
 			mode.station_was_nuked = (station_missed<2)	//station_missed==1 is a draw. the station becomes irradiated and needs to be evacuated.
 
 	addtimer(CALLBACK(src, .proc/finish_cinematic, bombloc, actually_blew_up), 300)
@@ -381,7 +381,7 @@ var/datum/subsystem/ticker/ticker
 	if(captainless)
 		for(var/mob/M in player_list)
 			if(!isnewplayer(M))
-				M << "Captainship not forced on anyone."
+				to_chat(M, "Captainship not forced on anyone.")
 
 
 
@@ -391,7 +391,7 @@ var/datum/subsystem/ticker/ticker
 	var/num_escapees = 0
 	var/num_shuttle_escapees = 0
 
-	world << "<BR><BR><BR><FONT size=3><B>The round has ended.</B></FONT>"
+	to_chat(world, "<BR><BR><BR><FONT size=3><B>The round has ended.</B></FONT>")
 
 	//Player status report
 	for(var/mob/Player in mob_list)
@@ -502,7 +502,7 @@ var/datum/subsystem/ticker/ticker
 				else
 					borertext += "failed"
 				borertext += ")"
-		world << borertext
+		to_chat(world, borertext)
 
 		var/total_borers = 0
 		for(var/mob/living/simple_animal/borer/B in borers)
@@ -551,8 +551,7 @@ var/datum/subsystem/ticker/ticker
 			m = pick(memetips)
 
 	if(m)
-		world << "<font color='purple'><b>Tip of the round: \
-			</b>[html_encode(m)]</font>"
+		to_chat(world, "<font color='purple'><b>Tip of the round:	</b>[html_encode(m)]</font>")
 
 /datum/subsystem/ticker/proc/check_queue()
 	if(!queued_players.len || !config.hard_popcap)
@@ -565,14 +564,14 @@ var/datum/subsystem/ticker/ticker
 		if(5) //every 5 ticks check if there is a slot available
 			if(living_player_count() < config.hard_popcap)
 				if(next_in_line && next_in_line.client)
-					next_in_line << "<span class='userdanger'>A slot has opened! You have approximately 20 seconds to join. <a href='?src=\ref[next_in_line];late_join=override'>\>\>Join Game\<\<</a></span>"
+					to_chat(next_in_line, "<span class='userdanger'>A slot has opened! You have approximately 20 seconds to join. <a href='?src=\ref[next_in_line];late_join=override'>\>\>Join Game\<\<</a></span>")
 					next_in_line << sound('sound/misc/notice1.ogg')
 					next_in_line.LateChoices()
 					return
 				queued_players -= next_in_line //Client disconnected, remove he
 			queue_delay = 0 //No vacancy: restart timer
 		if(25 to INFINITY)  //No response from the next in line when a vacancy exists, remove he
-			next_in_line << "<span class='danger'>No response recieved. You have been removed from the line.</span>"
+			to_chat(next_in_line, "<span class='danger'>No response recieved. You have been removed from the line.</span>")
 			queued_players -= next_in_line
 			queue_delay = 0
 

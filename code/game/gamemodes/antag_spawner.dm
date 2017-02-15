@@ -54,12 +54,12 @@
 		H.set_machine(src)
 		if(href_list["school"])
 			if(used)
-				H << "You already used this contract!"
+				to_chat(H, "You already used this contract!")
 				return
 			var/list/candidates = pollCandidatesForMob("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_WIZARD, null, ROLE_WIZARD, 150, src)
 			if(candidates.len)
 				if(used)
-					H << "You already used this contract!"
+					to_chat(H, "You already used this contract!")
 					return
 				used = 1
 				var/mob/dead/observer/theghost = pick(candidates)
@@ -67,7 +67,7 @@
 				if(H && H.mind)
 					ticker.mode.update_wiz_icons_added(H.mind)
 			else
-				H << "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."
+				to_chat(H, "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.")
 
 /obj/item/weapon/antag_spawner/contract/spawn_antag(client/C, turf/T, type = "")
 	new /obj/effect/particle_effect/smoke(T)
@@ -141,13 +141,13 @@
 
 /obj/item/weapon/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
-		user << "<span class='warning'>[src] is out of power!</span>"
+		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return 0
 	if(!(user.mind in ticker.mode.syndicates))
-		user << "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>"
+		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return 0
 	if(user.z != ZLEVEL_CENTCOM)
-		user << "<span class='warning'>[src] is out of range! It can only be used at your base!</span>"
+		to_chat(user, "<span class='warning'>[src] is out of range! It can only be used at your base!</span>")
 		return 0
 	return 1
 
@@ -168,7 +168,7 @@
 		S.start()
 		qdel(src)
 	else
-		user << "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>"
+		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
 
 /obj/item/weapon/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
@@ -236,7 +236,7 @@
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(user.z != 1)
-		user << "<span class='notice'>You should probably wait until you reach the station.</span>"
+		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 	if(used)
 		return
@@ -247,12 +247,12 @@
 		used = 1
 		var/mob/dead/observer/theghost = pick(demon_candidates)
 		spawn_antag(theghost.client, get_turf(src), initial(demon_type.name))
-		user << shatter_msg
-		user << veil_msg
+		to_chat(user, shatter_msg)
+		to_chat(user, veil_msg)
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
-		user << "<span class='notice'>You can't seem to work up the nerve to shatter the bottle. Perhaps you should try again later.</span>"
+		to_chat(user, "<span class='notice'>You can't seem to work up the nerve to shatter the bottle. Perhaps you should try again later.</span>")
 
 
 /obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "")
@@ -275,12 +275,11 @@
 	new_objective2.owner = S.mind
 	new_objective2.explanation_text = "[objective_verb] everyone[usr ? " else while you're at it":""]."
 	S.mind.objectives += new_objective2
-	S << S.playstyle_string
-	S << "<B>You are currently not currently in the same plane of existence as the station. \
-	Ctrl+Click a blood pool to manifest.</B>"
+	to_chat(S, S.playstyle_string)
+	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station.	Ctrl+Click a blood pool to manifest.</B>")
 	if(new_objective)
-		S << "<B>Objective #[1]</B>: [new_objective.explanation_text]"
-	S << "<B>Objective #[new_objective ? "[2]":"[1]"]</B>: [new_objective2.explanation_text]"
+		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+	to_chat(S, "<B>Objective #[new_objective ? "[2]":"[1]"]</B>: [new_objective2.explanation_text]")
 
 /obj/item/weapon/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"

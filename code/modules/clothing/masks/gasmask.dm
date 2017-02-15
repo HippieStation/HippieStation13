@@ -206,5 +206,5 @@ obj/item/clothing/mask/gas/tiki_mask/ui_action_click(mob/user)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		M << "The Tiki Mask has now changed into the [choice] Mask!"
+		to_chat(M, "The Tiki Mask has now changed into the [choice] Mask!")
 		return 1

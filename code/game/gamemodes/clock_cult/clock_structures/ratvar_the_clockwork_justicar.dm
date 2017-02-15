@@ -88,8 +88,8 @@
 	if(clashing)
 		return FALSE
 	clashing = TRUE
-	world << "<span class='heavy_brass'><font size=5>\"[pick("BLOOD GOD!!!", "NAR-SIE!!!", "AT LAST, YOUR TIME HAS COME!")]\"</font></span>"
-	world << "<span class='cult'><font size=5>\"<b>Ratvar?! How?!</b>\"</font></span>"
+	to_chat(world, "<span class='heavy_brass'><font size=5>\"[pick("BLOOD GOD!!!", "NAR-SIE!!!", "AT LAST, YOUR TIME HAS COME!")]\"</font></span>")
+	to_chat(world, "<span class='cult'><font size=5>\"<b>Ratvar?! How?!</b>\"</font></span>")
 	for(var/obj/singularity/narsie/N in range(15, src))
 		if(N.clashing)
 			continue

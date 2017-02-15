@@ -53,7 +53,7 @@
 /obj/item/weapon/paperplane/attackby(obj/item/weapon/P, mob/living/carbon/human/user, params)
 	..()
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		user << "<span class='notice'>You should unfold [src] before changing it.</span>"
+		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
 		return
 
 	else if(istype(P, /obj/item/weapon/stamp)) 	//we don't randomize stamps on a paperplane

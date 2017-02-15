@@ -71,7 +71,7 @@ var/global/list/bibleitemstates = list("bible", "koran", "scrapbook", "bible",  
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/BP = X
 		if(BP.status == BODYPART_ROBOTIC)
-			user << "<span class='warning'>[src.deity_name] refuses to heal this metallic taint!</span>"
+			to_chat(user, "<span class='warning'>[src.deity_name] refuses to heal this metallic taint!</span>")
 			return 0
 
 	var/heal_amt = 10
@@ -103,7 +103,7 @@ var/global/list/bibleitemstates = list("bible", "koran", "scrapbook", "bible",  
 		chaplain = 1
 
 	if(!chaplain)
-		user << "<span class='danger'>The book sizzles in your hands.</span>"
+		to_chat(user, "<span class='danger'>The book sizzles in your hands.</span>")
 		user.take_bodypart_damage(0,10)
 		return
 
@@ -111,7 +111,7 @@ var/global/list/bibleitemstates = list("bible", "koran", "scrapbook", "bible",  
 
 	if (M.stat != DEAD)
 		if(chaplain && user == M)
-			user << "<span class='warning'>You can't heal yourself!</span>"
+			to_chat(user, "<span class='warning'>You can't heal yourself!</span>")
 			return
 
 		if(ishuman(M) && prob(60) && bless(M, user))
@@ -120,7 +120,7 @@ var/global/list/bibleitemstates = list("bible", "koran", "scrapbook", "bible",  
 			var/mob/living/carbon/C = M
 			if(!istype(C.head, /obj/item/clothing/head/helmet))
 				C.adjustBrainLoss(10)
-				C << "<span class='danger'>You feel dumber.</span>"
+				to_chat(C, "<span class='danger'>You feel dumber.</span>")
 
 		if(smack)
 			M.visible_message("<span class='danger'>[user] beats [M] over the head with [src]!</span>", \
@@ -136,18 +136,18 @@ var/global/list/bibleitemstates = list("bible", "koran", "scrapbook", "bible",  
 	if(!proximity)
 		return
 	if(isfloorturf(A))
-		user << "<span class='notice'>You hit the floor with the bible.</span>"
+		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
 		if(user.mind && (user.mind.isholy))
 			for(var/obj/effect/rune/R in orange(2,user))
 				R.invisibility = 0
 	if(user.mind && (user.mind.isholy))
 		if(A.reagents && A.reagents.has_reagent("water")) // blesses all the water in the holder
-			user << "<span class='notice'>You bless [A].</span>"
+			to_chat(user, "<span class='notice'>You bless [A].</span>")
 			var/water2holy = A.reagents.get_reagent_amount("water")
 			A.reagents.del_reagent("water")
 			A.reagents.add_reagent("holywater",water2holy)
 		if(A.reagents && A.reagents.has_reagent("unholywater")) // yeah yeah, copy pasted code - sue me
-			user << "<span class='notice'>You purify [A].</span>"
+			to_chat(user, "<span class='notice'>You purify [A].</span>")
 			var/unholy2clean = A.reagents.get_reagent_amount("unholywater")
 			A.reagents.del_reagent("unholywater")
 			A.reagents.add_reagent("holywater",unholy2clean)
