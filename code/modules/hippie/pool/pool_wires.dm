@@ -1,13 +1,15 @@
 #define POOL_WIRE_DRAIN "drain"
+#define POOL_WIRE_TEMP "temp"
+
 
 /datum/wires/poolcontroller
 	holder_type = /obj/machinery/poolcontroller
 
 /datum/wires/poolcontroller/New(atom/holder)
 	wires = list(
-		POOL_WIRE_DRAIN, WIRE_HACK, WIRE_SHOCK
+		POOL_WIRE_DRAIN, WIRE_SHOCK, WIRE_ZAP, POOL_WIRE_TEMP
 	)
-	add_duds(2)
+	add_duds(3)
 	..()
 
 /datum/wires/poolcontroller/interactable(mob/user)
@@ -18,7 +20,8 @@
 /datum/wires/poolcontroller/get_status()
 	var/obj/machinery/poolcontroller/P = holder
 	var/list/status = list()
-	status += "The red light is [P.emagged ? "on" : "off"]."
+	status += "The blue light is [P.drainable ? "on" : "off"]."
+	status += "The red light is [P.tempunlocked ? "on" : "off"]."
 	status += "The yellow light is [P.shocked ? "on" : "off"]."
 	return status
 
@@ -27,11 +30,8 @@
 	switch(wire)
 		if(POOL_WIRE_DRAIN)
 			P.drainable = 0
-		if(WIRE_HACK)
-			if(P.emagged)
-				P.emagged = 0
-			if(!P.emagged)
-				P.emagged = 1
+		if(POOL_WIRE_TEMP)
+			P.tempunlocked = 0
 		if(WIRE_SHOCK)
 			P.shocked = !P.shocked
 			addtimer(CALLBACK(P, /obj/machinery/autolathe.proc/reset, wire), 60)
@@ -44,8 +44,15 @@
 				P.drainable = 0
 			else
 				P.drainable = 1
-		if(WIRE_HACK)
+		if(POOL_WIRE_TEMP)
 			if(mend)
-				P.emagged = 0
-		if(WIRE_SHOCK)
+				P.tempunlocked = 0
+			else
+				P.tempunlocked = 1
+		if(WIRE_ZAP)
 			P.shock(usr, 50)
+		if(WIRE_SHOCK)
+			if(mend)
+				P.stat |= NOPOWER
+			else
+				P.stat &= ~NOPOWER
