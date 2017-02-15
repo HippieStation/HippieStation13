@@ -69,17 +69,17 @@
 
 /obj/effect/proc_holder/spell/targeted/cluwnecurse/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		user << "<span class='notice'>No target found in range.</span>"
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/target = targets[1]
 
 	if(!(target.type in compatible_mobs))
-		user << "<span class='notice'>You are unable to curse [target]!</span>"
+		to_chat(user, "<span class='notice'>You are unable to curse [target]!</span>")
 		return
 
 	if(!(target in oview(range)))
-		user << "<span class='notice'>They are too far away!</span>"
+		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		return
 
 // here begins the cluwning

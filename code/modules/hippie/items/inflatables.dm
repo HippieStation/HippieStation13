@@ -8,10 +8,10 @@
 
 /obj/item/inflatable/attack_self(mob/user)
 	if(locate(/obj/structure/inflatable) in user.loc)
-		user << "<span class='warning'>You cannot place inflatable walls upon eachother!</span>"
+		to_chat(user, "<span class='warning'>You cannot place inflatable walls upon eachother!</span>")
 		return
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	user << "<span class='notice'>You inflate [src].</span>"
+	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	if(do_mob(user, src, 10))
 		var/obj/structure/inflatable/R = new structuretype(user.loc)
 		transfer_fingerprints_to(R)
@@ -232,19 +232,19 @@
 	var/fixedtype = /obj/item/inflatable
 
 /obj/item/inflatable/torn/attack_self(mob/user)
-	user << "<span class='warning'>The inflatable wall is too torn to be inflated, fix it with something!</span>"
+	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated, fix it with something!</span>")
 	add_fingerprint(user)
 
 /obj/item/inflatable/torn/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/ducttape))
 		var/obj/item/stack/ducttape/T = I
 		if(T.amount < 2)
-			user << "<span class='danger'>There is not enough tape!</span>"
+			to_chat(user, "<span class='danger'>There is not enough tape!</span>")
 			return
-		user << "<span class='notice'>You begin fixing the [src]!</span>"
+		to_chat(user, "<span class='notice'>You begin fixing the [src]!</span>")
 		playsound(user, 'sound/items/ducttape1.ogg', 50, 1)
 		if(do_mob(user, src, 20))
-			user << "<span class='notice'>You fix the [src] using the ducttape!</span>"
+			to_chat(user, "<span class='notice'>You fix the [src] using the ducttape!</span>")
 			T.use(2)
 			new fixedtype(user.loc)
 			qdel(src)

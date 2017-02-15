@@ -347,7 +347,7 @@
 		if(prob(80))
 			H.SpinAnimation(10,1)
 		if(prob(10))
-			M << "<span class='notice'>[high_message].</span>"
+			to_chat(M, "<span class='notice'>[high_message].</span>")
 
 	..()
 	return
@@ -362,7 +362,7 @@
 				for(var/i = 0, i < 4, i++)
 				step(M, pick(cardinal))
 		if(prob(15))
-			M << "<span class='danger'>The flipping is so intense you begin to tire </span>"
+			to_chat(M, "<span class='danger'>The flipping is so intense you begin to tire </span>")
 			H.confused +=4
 			M.adjustStaminaLoss(10)
 			H.transform *= -1
@@ -403,7 +403,7 @@
 		var/mob/living/carbon/human/H = M
 		H.SpinAnimation(2,100)
 		if(prob(10))
-			M << "<span class='danger'>Your flipping has become so intense you've become an improvised generator </span>"
+			to_chat(M, "<span class='danger'>Your flipping has become so intense you've become an improvised generator </span>")
 			H.Dizzy(25)
 			M.electrocute_act(rand(1,5), 1, 1)
 			playsound(M, "sparks", 50, 1)
@@ -445,13 +445,13 @@
 		if(prob(10))
 			H.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
 			if (H.ear_damage >= 15)
-				H << "<span class='warning'>Your ears are ringing badly from all of the burping!</span>"
+				to_chat(H, "<span class='warning'>Your ears are ringing badly from all of the burping!</span>")
 				if(prob(H.ear_damage - 10 + 5))
-					H << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(H, "<span class='warning'>You can't hear anything!</span>")
 					H.disabilities |= DEAF
 			else
 				if (H.ear_damage >= 5)
-					H << "<span class='warning'>Your ears are ringing from all of the burping!</span>"
+					to_chat(H, "<span class='warning'>Your ears are ringing from all of the burping!</span>")
 	..()
 	return
 
@@ -462,7 +462,7 @@
 	color = "#d6d6d6" //rgb(214, 214, 214)
 	reagent_state = LIQUID
 	overdose_threshold = 40
-	
+
 
 /datum/reagent/drug/spookium/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -504,7 +504,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach rumbles as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach rumbles as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(1*REM)
 	..()
 	return
@@ -517,7 +517,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts a bit as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts a bit as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(2*REM)
 	..()
 
@@ -529,7 +529,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(3*REM)
 	..()
 
@@ -541,7 +541,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts a lot as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts a lot as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(4*REM)
 	..()
 
@@ -554,7 +554,7 @@
 				if(prob(2) && !B.loose) H.emote("superfart")
 				else H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(5*REM)
 	..()
 
@@ -567,6 +567,6 @@
 				if(prob(5) && !B.loose) H.emote("superfart")
 				else H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(6*REM)
 	..()

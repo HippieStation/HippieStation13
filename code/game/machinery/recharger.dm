@@ -63,7 +63,7 @@
 			use_power = 2
 			update_icon(1)
 		else
-			user << "<span class='notice'>[src] isn't connected to anything!</span>"
+			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
 
 	if(anchored && !charging)

@@ -190,21 +190,21 @@
 /obj/effect/clockwork/sigil/transmission/examine(mob/user)
 	..()
 	if(is_servant_of_ratvar(user) || isobserver(user))
-		user << "<span class='[power_charge ? "brass":"alloy"]'>It is storing <b>[ratvar_awakens ? "INFINITY":"[power_charge]"]W</b> of power.</span>"
+		to_chat(user, "<span class='[power_charge ? "brass":"alloy"]'>It is storing <b>[ratvar_awakens ? "INFINITY":"[power_charge]"]W</b> of power.</span>")
 		if(iscyborg(user))
-			user << "<span class='brass'>You can recharge from the [sigil_name] by crossing it.</span>"
+			to_chat(user, "<span class='brass'>You can recharge from the [sigil_name] by crossing it.</span>")
 
 /obj/effect/clockwork/sigil/transmission/sigil_effects(mob/living/L)
 	if(is_servant_of_ratvar(L))
 		if(iscyborg(L))
 			charge_cyborg(L)
 	else if(power_charge)
-		L << "<span class='brass'>You feel a slight, static shock.</span>"
+		to_chat(L, "<span class='brass'>You feel a slight, static shock.</span>")
 
 /obj/effect/clockwork/sigil/transmission/proc/charge_cyborg(mob/living/silicon/robot/cyborg)
 	if(!cyborg_checks(cyborg))
 		return
-	cyborg << "<span class='brass'>You start to charge from the [sigil_name]...</span>"
+	to_chat(cyborg, "<span class='brass'>You start to charge from the [sigil_name]...</span>")
 	if(!do_after(cyborg, 50, target = src))
 		return
 	if(!cyborg_checks(cyborg))

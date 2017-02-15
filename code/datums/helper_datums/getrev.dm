@@ -71,7 +71,7 @@ var/global/datum/getrev/revdata = new()
 			for(var/ctag in probs)
 				if(config.probabilities[ctag] > 0)
 					var/percentage = round(config.probabilities[ctag] / prob_sum * 100, 0.1)
-					src << "[ctag] [percentage]%"
+					to_chat(src, "[ctag] [percentage]%")
 
 		src <<"<b>All Game Mode Odds:</b>"
 		var/sum = 0
@@ -80,5 +80,5 @@ var/global/datum/getrev/revdata = new()
 		for(var/ctag in config.probabilities)
 			if(config.probabilities[ctag] > 0)
 				var/percentage = round(config.probabilities[ctag] / sum * 100, 0.1)
-				src << "[ctag] [percentage]%"
+				to_chat(src, "[ctag] [percentage]%")
 	return

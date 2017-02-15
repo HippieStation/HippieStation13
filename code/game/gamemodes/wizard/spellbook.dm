@@ -257,7 +257,7 @@
 /datum/spellbook_entry/cluwnecurse
 	name = "Cluwne Curse"
 	spell_type = /obj/effect/proc_holder/spell/targeted/cluwnecurse
-	log_name = "CC"	
+	log_name = "CC"
 
 /datum/spellbook_entry/charge
 	name = "Charge"
@@ -511,7 +511,7 @@
 	rightandwrong(0, user, 25)
 	active = 1
 	playsound(get_turf(user),"sound/magic/CastSummon.ogg",50,1)
-	user << "<span class='notice'>You have cast summon guns!</span>"
+	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
 	return 1
 
 /datum/spellbook_entry/summon/magic
@@ -529,7 +529,7 @@
 	rightandwrong(1, user, 25)
 	active = 1
 	playsound(get_turf(user),"sound/magic/CastSummon.ogg",50,1)
-	user << "<span class='notice'>You have cast summon magic!</span>"
+	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
 	return 1
 
 /datum/spellbook_entry/summon/events
@@ -549,7 +549,7 @@
 	summonevents()
 	times++
 	playsound(get_turf(user),"sound/magic/CastSummon.ogg",50,1)
-	user << "<span class='notice'>You have cast summon events.</span>"
+	to_chat(user, "<span class='notice'>You have cast summon events.</span>")
 	return 1
 
 /datum/spellbook_entry/summon/events/GetInfo()

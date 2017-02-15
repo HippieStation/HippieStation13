@@ -331,7 +331,7 @@
 		stamped += P.icon_state
 		add_overlay(stampoverlay)
 
-		user << "<span class='notice'>You stamp the paper with your rubber stamp.</span>"
+		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
 	if(P.is_hot())
 		if(user.disabilities & CLUMSY && prob(10))

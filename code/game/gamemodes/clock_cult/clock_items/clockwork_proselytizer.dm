@@ -198,9 +198,9 @@
 
 	if(!can_use_power(proselytize_values["power_cost"]))
 		if(stored_power - proselytize_values["power_cost"] < 0)
-			user << "<span class='warning'>You need <b>[proselytize_values["power_cost"]]W</b> power to proselytize [target]!</span>"
+			to_chat(user, "<span class='warning'>You need <b>[proselytize_values["power_cost"]]W</b> power to proselytize [target]!</span>")
 		else if(stored_power - proselytize_values["power_cost"] > max_power)
-			user << "<span class='warning'>Your [name] contains too much power to proselytize [target]!</span>"
+			to_chat(user, "<span class='warning'>Your [name] contains too much power to proselytize [target]!</span>")
 		return FALSE
 
 	proselytize_values["operation_time"] *= speed_multiplier

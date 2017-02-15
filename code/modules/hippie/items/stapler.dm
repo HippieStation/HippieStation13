@@ -48,11 +48,11 @@
 
 /obj/item/weapon/staplegun/examine(mob/user)
 	..()
-	user << "It contains [ammo]/[max_ammo] staples."
+	to_chat(user, "It contains [ammo]/[max_ammo] staples.")
 	if(istype(P))
-		user << "There's [P] loaded in it."
+		to_chat(user, "There's [P] loaded in it.")
 	if(istype(B))
-		user << "There's... a butt loaded in it?What."
+		to_chat(user, "There's... a butt loaded in it?What.")
 
 /obj/item/weapon/staplegun/update_icon()
 	var/amt = max(0, min(round(ammo/1.5), 6))
@@ -75,10 +75,10 @@
 						B.loose = TRUE
 						B = null
 				else
-					user << "<span class='danger'>[target == user ? "You" : "[target]"] already [target == user ? "have" : "has"] a butt!</span>"
+					to_chat(user, "<span class='danger'>[target == user ? "You" : "[target]"] already [target == user ? "have" : "has"] a butt!</span>")
 					return 0
 			else
-				user << "<span class='danger'>You must remove [target == user ? "your" : "[target]'s"] jumpsuit before doing that!</span>"
+				to_chat(user, "<span class='danger'>You must remove [target == user ? "your" : "[target]'s"] jumpsuit before doing that!</span>")
 				return 0
 		var/obj/item/bodypart/O = H.get_bodypart(ran_zone(check_zone(user.zone_selected), 65))
 		var/armor = H.run_armor_check(O, "melee")
@@ -126,15 +126,15 @@
 
 /obj/item/weapon/staplegun/attack_self(mob/user)
 	if(istype(P))
-		user << "<span class='notice'>You take out \the [P] out of \the [src]."
+		to_chat(user, "<span class='notice'>You take out \the [P] out of \the [src].")
 		P.loc = user.loc
 		P = null
 	else if(istype(B))
-		user << "<span class='notice'>You take out \the [B] out of \the [src]."
+		to_chat(user, "<span class='notice'>You take out \the [B] out of \the [src].")
 		B.loc = user.loc
 		B = null
 	else if(ammo)
-		user << "<span class='notice'>You take out the [ammo > 1 ? "staples" : "staple"] out of \the [src]."
+		to_chat(user, "<span class='notice'>You take out the [ammo > 1 ? "staples" : "staple"] out of \the [src].")
 		new /obj/item/stack/staples(user.loc, ammo)
 		ammo = 0
 
@@ -152,29 +152,29 @@
 				qdel(S)
 			ammo += maxamt
 			update_icon()
-			user << "<span class='notice'>You insert [maxamt] staples in \the [src]. Now it contains [ammo] staples."
+			to_chat(user, "<span class='notice'>You insert [maxamt] staples in \the [src]. Now it contains [ammo] staples.")
 		else
-			user << "<span class='notice'>\The [src] is already full!</span>"
+			to_chat(user, "<span class='notice'>\The [src] is already full!</span>")
 
 	if(istype(I, /obj/item/weapon/paper))
 		if(!istype(P))
 			user.drop_item()
 			I.loc = src
 			P = I
-			user << "<span class='notice'>You put \the [P] in \the [src]."
+			to_chat(user, "<span class='notice'>You put \the [P] in \the [src].")
 		else
-			user << "<span class='notice'>There is already a paper in \the [src]!"
+			to_chat(user, "<span class='notice'>There is already a paper in \the [src]!")
 	if(istype(I, /obj/item/organ/internal/butt))
 		if(!istype(P))
 			if(!istype(B))
 				user.drop_item()
 				I.loc = src
 				B = I
-				user << "<span class='notice'>You put \the [B] in \the [src].</span>"
+				to_chat(user, "<span class='notice'>You put \the [B] in \the [src].</span>")
 			else
-				user << "<span class='notice'>There is already a butt in \the [src]!</span>"
+				to_chat(user, "<span class='notice'>There is already a butt in \the [src]!</span>")
 		else
-			user << "<span class='notice'>There is already a paper in \the [src]!</span>"
+			to_chat(user, "<span class='notice'>There is already a paper in \the [src]!</span>")
 
 //coffin nailing for stapler instead of welding
 /obj/structure/closet/coffin/update_icon()
@@ -211,27 +211,27 @@
 	else if(istype(W, /obj/item/weapon/staplegun) && !welded)
 		var/obj/item/weapon/staplegun/WS = W
 		if(WS.ammo >= 10)
-			user << "<span class='notice'>You begin stapling \the [src]...</span>"
+			to_chat(user, "<span class='notice'>You begin stapling \the [src]...</span>")
 			playsound(loc, 'sound/weapons/staplegun.ogg', 50, 1)
 			if(do_after(user,40,5,1, target = src))
 				if(opened || !istype(src, /obj/structure/closet) || !user || !WS || !user.loc )
 					return
 				playsound(loc, 'sound/weapons/staplegun.ogg', 50, 1)
 				welded = 1
-				user << "<span class='notice'>You staple [src] shut.</span>"
+				to_chat(user, "<span class='notice'>You staple [src] shut.</span>")
 				update_icon()
 				user.visible_message("[user.name] has stapled [src] shut with \the [WS].", "<span class='warning'>You staple [src] shut.</span>")
 				WS.ammo = WS.ammo-10
 			return
 	else if(istype(W, /obj/item/weapon/crowbar) && welded)
-		user << "<span class='notice'>You begin prying out staples from \the [src]...</span>"
+		to_chat(user, "<span class='notice'>You begin prying out staples from \the [src]...</span>")
 		playsound(loc, 'sound/items/crowbar.ogg', 50, 1)
 		if(do_after(user,80,5,1, target = src))
 			if(opened || !istype(src, /obj/structure/closet) || !user || !W || !user.loc )
 				return
 			playsound(loc, 'sound/items/crowbar.ogg', 50, 1)
 			welded = 0
-			user << "<span class='notice'>You pry off the staples keeping [src] shut.</span>"
+			to_chat(user, "<span class='notice'>You pry off the staples keeping [src] shut.</span>")
 			update_icon()
 			user.visible_message("[user.name] has pried out the staples keeping [src] shut.", "<span class='warning'>You pry out staples keeping [src] shut.</span>")
 			for(var/i = 1; i <= 9; i++)

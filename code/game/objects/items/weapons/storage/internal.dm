@@ -82,7 +82,7 @@
 		if(B.owner && ishuman(B.owner))
 			var/mob/living/carbon/human/H = B.owner
 			if(H.w_uniform)
-				user << "<span class='danger'>Remove the jumpsuit first!</span>"
+				to_chat(user, "<span class='danger'>Remove the jumpsuit first!</span>")
 				return
 		if(istype(W, /obj/item/weapon/reagent_containers/pill) || istype(W, /obj/item/weapon/reagent_containers/food))
 			START_PROCESSING(SSobj, W)

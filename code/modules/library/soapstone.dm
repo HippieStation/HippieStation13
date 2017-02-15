@@ -60,11 +60,11 @@
 
 	if(!remaining_uses && !our_message)
 		// The dull chisel is dull.
-		user << "<span class='warning'>[src] is [w_dull].</span>"
+		to_chat(user, "<span class='warning'>[src] is [w_dull].</span>")
 		return
 
 	if(!good_chisel_message_location(T))
-		user << "<span class='warning'>It's not appropriate to [w_engrave] on [T].</span>"
+		to_chat(user, "<span class='warning'>It's not appropriate to [w_engrave] on [T].</span>")
 		return
 
 	if(already_message)

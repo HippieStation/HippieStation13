@@ -49,13 +49,13 @@ var/global/list/rad_collectors = list()
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [user.key]. [loaded_tank?"Fuel: [round(loaded_tank.air_contents.gases["plasma"][MOLES]/0.29)]%":"<font color='red'>It is empty</font>"].","singulo")
 			return
 		else
-			user << "<span class='warning'>The controls are locked!</span>"
+			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 			return
 ..()
 
 /obj/machinery/power/rad_collector/can_be_unfasten_wrench(mob/user)
 	if(loaded_tank)
-		user << "<span class='warning'>Remove the plasma tank first!</span>"
+		to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
 		return FAILED_UNFASTEN
 	return ..()
 

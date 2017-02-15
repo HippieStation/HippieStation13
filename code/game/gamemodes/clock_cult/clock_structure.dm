@@ -74,7 +74,7 @@
 
 /obj/structure/destructible/clockwork/can_be_unfasten_wrench(mob/user)
 	if(anchored && obj_integrity <= round(max_integrity * 0.25, 1))
-		user << "<span class='warning'>[src] is too damaged to unsecure!</span>"
+		to_chat(user, "<span class='warning'>[src] is too damaged to unsecure!</span>")
 		return FAILED_UNFASTEN
 	return ..()
 
@@ -160,7 +160,7 @@
 
 /obj/structure/destructible/clockwork/powered/can_be_unfasten_wrench(mob/user)
 	if(active)
-		user << "<span class='warning'>[src] needs to be disabled before it can be unsecured!</span>"
+		to_chat(user, "<span class='warning'>[src] needs to be disabled before it can be unsecured!</span>")
 		return FAILED_UNFASTEN
 	return ..()
 

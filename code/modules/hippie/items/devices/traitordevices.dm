@@ -35,7 +35,7 @@
 
 	if(isclosedturf(newTurf)) /* If you get stuck in a closed turf, you die */
 		user.emote("scream")
-		user << "<span class='userdanger'>You scream out in pain as your body materialises inside of the [newTurf.name]!</span>"
+		to_chat(user, "<span class='userdanger'>You scream out in pain as your body materialises inside of the [newTurf.name]!</span>")
 		active = TRUE /* so that it's not perma broke */
 		user.gib()
 		return
@@ -46,7 +46,7 @@
 		var/body = "body"
 		if(issilicon(victim))
 			body = "chassis"
-		victim << "<span class='userdanger'>You scream out in pain as your [body] is ripped apart by [user.name]!</span>"
+		to_chat(victim, "<span class='userdanger'>You scream out in pain as your [body] is ripped apart by [user.name]!</span>")
 		victim.emote("scream")
 		victim.gib()
 
@@ -70,7 +70,7 @@
 			newTurf = locate(oldTurf.x - dist, oldTurf.y, oldTurf.z)
 
 	if(!newTurf) /* Teleported out of the map itself */
-		user << "<span class='userdanger'>You scream out- No, wait, you're already dead. You've become one with the void itself.</span>"
+		to_chat(user, "<span class='userdanger'>You scream out- No, wait, you're already dead. You've become one with the void itself.</span>")
 		user.death(1)
 		user.ghostize()
 		qdel(user)

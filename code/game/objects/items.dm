@@ -185,7 +185,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 		else
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
-		user << msg
+		to_chat(user, msg)
 
 	if(user.robustness_scanner && list_obj_robustness()) //if they have a robustness scanner that can tell us anything
 		user << "[list_obj_robustness()]"

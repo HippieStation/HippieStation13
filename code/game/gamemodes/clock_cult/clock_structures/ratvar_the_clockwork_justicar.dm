@@ -72,13 +72,13 @@
 					meals += L
 			if(meals.len)
 				prey = pick(meals)
-				prey << "<span class='heavy_brass'><font size=5>\"You will do.\"</font></span>\n\
-				<span class='userdanger'>Something very large and very malevolent begins lumbering its way towards you...</span>"
+				to_chat(prey, "<span class='heavy_brass'><font size=5>\"You will do.\"</font></span>\n\
+				<span class='userdanger'>Something very large and very malevolent begins lumbering its way towards you...</span>")
 				prey << 'sound/effects/ratvar_reveal.ogg'
 	else
 		if(prob(10) || is_servant_of_ratvar(prey) || prey.z != z)
-			prey << "<span class='heavy_brass'><font size=5>\"How dull. Leave me.\"</font></span>\n\
-			<span class='userdanger'>You feel tremendous relief as a set of horrible eyes loses sight of you...</span>"
+			to_chat(prey, "<span class='heavy_brass'><font size=5>\"How dull. Leave me.\"</font></span>\n\
+			<span class='userdanger'>You feel tremendous relief as a set of horrible eyes loses sight of you...</span>")
 			prey = null
 		else
 			dir_to_step_in = get_dir(src, prey) //Unlike Nar-Sie, Ratvar ruthlessly chases down his target

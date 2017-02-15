@@ -609,7 +609,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(!screw)
 			screw = TRUE
 			flags |= OPENCONTAINER
-			user << "<span class='notice'>You open the cap on the [name].</span>"
+			to_chat(user, "<span class='notice'>You open the cap on the [name].</span>")
 			if(emagged)
 				var/image/I = (image(icon, "vapeopen_high"))
 				overlays += I
@@ -622,7 +622,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		else
 			screw = FALSE
 			flags &= ~OPENCONTAINER
-			user << "<span class='notice'>You close the cap on the [name].</span>"
+			to_chat(user, "<span class='notice'>You close the cap on the [name].</span>")
 			cut_overlays()
 
 	if(istype(O, /obj/item/device/multitool))
@@ -630,18 +630,18 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			if(!super)
 				cut_overlays()
 				super = TRUE
-				user << "<span class='notice'>You increase the voltage in the [name].</span>"
+				to_chat(user, "<span class='notice'>You increase the voltage in the [name].</span>")
 				var/image/I = (image(icon, "vapeopen_med"))
 				overlays += I
 			else
 				cut_overlays()
 				super = FALSE
-				user << "<span class='notice'>You decrease the voltage in the [name].</span>"
+				to_chat(user, "<span class='notice'>You decrease the voltage in the [name].</span>")
 				var/image/I = (image(icon, "vapeopen_low"))
 				overlays += I
 
 		if(screw && emagged)
-			user << "<span class='notice'>The [name] can't be modified!</span>"
+			to_chat(user, "<span class='notice'>The [name] can't be modified!</span>")
 
 
 /obj/item/clothing/mask/vape/emag_act(mob/user)
@@ -650,31 +650,31 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			cut_overlays()
 			emagged = TRUE
 			super = FALSE
-			user << "<span class='warning'>You maximize the voltage in the [name]!</span>"
+			to_chat(user, "<span class='warning'>You maximize the voltage in the [name]!</span>")
 			var/image/I = (image(icon, "vapeopen_high"))
 			overlays += I
 			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread //for effect
 			sp.set_up(5, 1, src)
 			sp.start()
 		else
-			user << "<span class='warning'>The [name] is already emagged!</span>"
+			to_chat(user, "<span class='warning'>The [name] is already emagged!</span>")
 	else
-		user << "<span class='notice'>You need to open the cap to do that!</span>"
+		to_chat(user, "<span class='notice'>You need to open the cap to do that!</span>")
 
 /obj/item/clothing/mask/vape/attack_self(mob/user)
 	if(reagents.total_volume > 0)
-		user << "<span class='notice'>You empty [src] of all reagents.</span>"
+		to_chat(user, "<span class='notice'>You empty [src] of all reagents.</span>")
 		reagents.clear_reagents()
 	return
 
 /obj/item/clothing/mask/vape/equipped(mob/user, slot)
 	if(slot == slot_wear_mask)
 		if(!screw)
-			user << "<span class='notice'>You start ripping fat vapes with [src].</span>"
+			to_chat(user, "<span class='notice'>You start ripping fat vapes with [src].</span>")
 			reagents.set_reacting(TRUE) // allowing reagents to react after being lit
 			START_PROCESSING(SSobj, src)
 		else //it will not start if the vape is opened.
-			user << "<span class='warning'>You need to close the cap first!</span>"
+			to_chat(user, "<span class='warning'>You need to close the cap first!</span>")
 
 /obj/item/clothing/mask/vape/dropped(mob/user)
 	var/mob/living/carbon/C = user
@@ -734,7 +734,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
 			sp.set_up(5, 1, src)
 			sp.start()
-			M << "<span class='userdanger'>The [name] suddenly explodes in your mouth!</span>"
+			to_chat(M, "<span class='userdanger'>The [name] suddenly explodes in your mouth!</span>")
 			qdel(src)
 
 	if(emagged && vapetime > 3)
@@ -750,7 +750,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
 			sp.set_up(5, 1, src)
 			sp.start()
-			M << "<span class='userdanger'>The [name] suddenly explodes in your mouth!</span>"
+			to_chat(M, "<span class='userdanger'>The [name] suddenly explodes in your mouth!</span>")
 			qdel(src)
 
 	if(reagents && reagents.total_volume)

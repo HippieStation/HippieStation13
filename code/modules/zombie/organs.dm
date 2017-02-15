@@ -35,9 +35,9 @@
 		deltimer(timer_id)
 
 /obj/item/organ/zombie_infection/on_find(mob/living/finder)
-	finder << "<span class='warning'>Inside the head is a disgusting black \
+	to_chat(finder, "<span class='warning'>Inside the head is a disgusting black \
 		web of pus and vicera, bound tightly around the brain like some \
-		biological harness.</span>"
+		biological harness.</span>")
 
 /obj/item/organ/zombie_infection/process()
 	if(!owner)

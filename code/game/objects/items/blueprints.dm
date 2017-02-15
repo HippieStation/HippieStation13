@@ -227,7 +227,7 @@
 		A.contents += turfs
 		A.SetDynamicLighting()
 	A.has_gravity = old_gravity
-	creator << "<span class='notice'>You have created a new area, named [str]. It is now weather proof, and constructing an APC will allow it to be powered.</span>"
+	to_chat(creator,"<span class='notice'>You have created a new area, named [str]. It is now weather proof, and constructing an APC will allow it to be powered.</span>")
 	return 1
 
 
@@ -243,7 +243,7 @@
 	set_area_machinery_title(A,str,prevname)
 	for(var/area/RA in A.related)
 		RA.name = str
-	usr << "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>"
+	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
 	return 1
 

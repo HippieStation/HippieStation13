@@ -1107,10 +1107,10 @@
 						if(devilinfo)
 							devilinfo.regress_blood_lizard()
 						else
-							usr << "<span class='warning'>Something went wrong with removing the devil, we were unable to find an attached devilinfo.</span>."
+							to_chat(usr, "<span class='warning'>Something went wrong with removing the devil, we were unable to find an attached devilinfo.</span>.")
 					ticker.mode.devils -= src
 					special_role = null
-					current << "<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>"
+					to_chat(current, "<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 					RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
 					RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
 					RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)

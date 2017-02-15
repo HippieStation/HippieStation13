@@ -762,7 +762,7 @@
 	if(Adjacent(usr))
 		if(over_object == M && loc != M)
 			M.put_in_hands(src)
-			usr << "<span class='notice'>You pick up the deck.</span>"
+			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
 		else if(istype(over_object, /obj/screen/inventory/hand))
 			var/obj/screen/inventory/hand/H = over_object
@@ -771,10 +771,10 @@
 			if(!M.put_in_hand(src, H.held_index))
 				qdel(src)
 				return
-			usr << "<span class='notice'>You pick up the deck.</span>"
+			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
 	else
-		usr << "<span class='warning'>You can't reach it from here!</span>"
+		to_chat(usr, "<span class='warning'>You can't reach it from here!</span>")
 
 
 

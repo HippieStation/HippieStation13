@@ -57,13 +57,13 @@
 			if (istype(M, /mob/living/simple_animal))
 				var/mob/living/simple_animal/critter = M
 				if (!(critter.healable))
-					user << "<span class='notice'> You cannot use [src] on [M]!</span>"
+					to_chat(user, "<span class='notice'> You cannot use [src] on [M]!</span>")
 					return
 				else if (critter.health == critter.maxHealth)
-					user << "<span class='notice'> [M] is at full health.</span>"
+					to_chat(user, "<span class='notice'> [M] is at full health.</span>")
 					return
 				else if(src.heal_brute < 1)
-					user << "<span class='notice'> [src] won't help [M] at all.</span>"
+					to_chat(user, "<span class='notice'> [src] won't help [M] at all.</span>")
 					return
 			user.visible_message("<span class='notice'>[user] applies [src] on [M].</span>", "<span class='notice'>You apply [src] on [M].</span>")
 		else

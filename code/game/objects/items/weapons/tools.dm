@@ -244,7 +244,7 @@
 		var/mob/living/carbon/human/H = C
 		var/obj/item/bodypart/head/O = locate() in H.bodyparts
 		if(!O || !O.get_teeth())
-			user << "<span class='notice'>[H] doesn't have any teeth left!</span>"
+			to_chat(user, "<span class='notice'>[H] doesn't have any teeth left!</span>")
 			return
 		if(user.next_move > world.time)
 			user.changeNext_move(50)
@@ -267,11 +267,11 @@
 				playsound(H, 'sound/misc/tear.ogg', 40, 1, -1) //RIP AND TEAR. RIP AND TEAR.
 				H.emote("scream")
 			else
-				user << "<span class='notice'>Your attempt to pull out a teeth fails...</span>"
+				to_chat(user, "<span class='notice'>Your attempt to pull out a teeth fails...</span>")
 				user.changeNext_move(0)
 			return
 		else
-			user << "<span class='notice'>You are already trying to pull out a teeth!</span>"
+			to_chat(user, "<span class='notice'>You are already trying to pull out a teeth!</span>")
 		return
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
@@ -332,7 +332,7 @@
 /obj/item/weapon/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user),"sound/items/change_jaws.ogg",50,1)
 	var/obj/item/weapon/crowbar/power/pryjaws = new /obj/item/weapon/crowbar/power
-	user << "<span class='notice'>You attach the pry jaws to [src].</span>"
+	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(pryjaws)
 /*
@@ -770,6 +770,6 @@
 /obj/item/weapon/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user),"sound/items/change_jaws.ogg",50,1)
 	var/obj/item/weapon/wirecutters/power/cutjaws = new /obj/item/weapon/wirecutters/power
-	user << "<span class='notice'>You attach the cutting jaws to [src].</span>"
+	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(cutjaws)

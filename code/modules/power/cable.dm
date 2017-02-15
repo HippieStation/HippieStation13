@@ -446,15 +446,15 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list ( \
 		if(!istype(user.loc,/turf))
 			return
 		if(src.amount <= 14)
-			usr << "<span class='danger'>You need at least 15 lengths to make restraints!</span>"
+			to_chat(usr, "<span class='danger'>You need at least 15 lengths to make restraints!</span>")
 			return
 		var/obj/item/weapon/restraints/handcuffs/cable/B = new /obj/item/weapon/restraints/handcuffs/cable(user.loc)
 		B.icon_state = "cuff_[item_color]"
 		user.put_in_hands(B)
-		user << "<span class='notice'>You wind some cable together to make some restraints.</span>"
+		to_chat(user, "<span class='notice'>You wind some cable together to make some restraints.</span>")
 		src.use(15)
 	else
-		user << "<span class='notice'>You cannot do that.</span>"
+		to_chat(user, "<span class='notice'>You cannot do that.</span>")
 
 /obj/item/stack/cable_coil/verb/make_restraint()
 	set name = "Make Cable Restraints"

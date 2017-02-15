@@ -131,7 +131,7 @@
 				else
 					C.alpha = 0
 	if(locked)
-		user << "<span class='danger'>Wait for [occupant.name] to finish being loaded!</span>"
+		to_chat(user, "<span class='danger'>Wait for [occupant.name] to finish being loaded!</span>")
 	if(occupant)
 		startgibbing(user)
 

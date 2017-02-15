@@ -276,16 +276,16 @@
 	if(!iscultist(user))
 		user.dropItemToGround(src, TRUE)
 		user.Weaken(5)
-		user << "<span class='warning'>A powerful force shoves you away from [src]!</span>"
+		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
-		user << "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>"
+		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
-		user << "<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>"
+		to_chat(user, "<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
 		playsound(user.loc, "sound/effects/Glassbr1.ogg", 50, 1)
 		qdel(src)
 		sleep(20)

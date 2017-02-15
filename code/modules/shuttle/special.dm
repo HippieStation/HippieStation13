@@ -246,9 +246,9 @@
 		for(var/obj/I in counted_money)
 			qdel(I)
 
-		mover << "Thank you for your payment! Please enjoy your flight."
+		to_chat(mover, "Thank you for your payment! Please enjoy your flight.")
 		approved_passengers += mover
 		return 1
 	else
-		mover << "You don't have enough money to enter the main shuttle. You'll have to fly coach."
+		to_chat(mover, "You don't have enough money to enter the main shuttle. You'll have to fly coach.")
 		return 0

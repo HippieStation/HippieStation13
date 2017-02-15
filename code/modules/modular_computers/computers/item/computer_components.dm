@@ -22,7 +22,7 @@
 
 	all_components[H.device_type] = H
 
-	user << "<span class='notice'>You install \the [H] into \the [src].</span>"
+	to_chat(user, "<span class='notice'>You install \the [H] into \the [src].</span>")
 	H.holder = src
 	H.on_install(src, user)
 

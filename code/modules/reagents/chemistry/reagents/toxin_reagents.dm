@@ -812,7 +812,7 @@
 	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
 		M.adjustStaminaLoss(10)
 	if(prob(30))
-		M << "You should sit down and take a rest..."
+		to_chat(M, "You should sit down and take a rest...")
 	..()
 
 /datum/reagent/toxin/bleach

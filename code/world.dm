@@ -251,7 +251,7 @@ var/last_irc_status = 0
 	Master.Shutdown()	//run SS shutdowns
 	RoundEndSound(round_end_sound_sent)
 	kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1) //second parameter ensures only afk clients are kicked
-	world << "<span class='boldannounce'>Rebooting world.</span>"
+	to_chat(world, "<span class='boldannounce'>Rebooting world.</span>")
 	for(var/thing in clients)
 		var/client/C = thing
 		if(C && config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
@@ -281,7 +281,7 @@ var/last_irc_status = 0
 		'sound/hippie/roundend/disappointed.ogg'\
 		)
 	world << sound(round_end_sound)
-	
+
 var/inerror = 0
 /world/Error(var/exception/e)
 	//runtime while processing runtimes

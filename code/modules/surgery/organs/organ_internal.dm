@@ -736,7 +736,7 @@
 		if(isalien(src))
 			var/obj/item/organ/internal/butt/xeno/X = new()
 			X.Insert(src)
-	
+
 	if(ishuman(src))
 		var/obj/item/bodypart/head/U = locate() in bodyparts
 		if(istype(U))
@@ -822,7 +822,7 @@
 			B.xeno = 1
 			B.icon_state = "buttbot_xeno"
 			B.speech_list = list("hissing butts", "hiss hiss motherfucker", "nice trophy nerd", "butt", "woop get an alien inspection")
-		user << "<span class='notice'>You add the robot arm to the butt and... What?</span>"
+		to_chat(user, "<span class='notice'>You add the robot arm to the butt and... What?</span>")
 		user.drop_item(src)
 		qdel(src)
 

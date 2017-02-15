@@ -75,11 +75,11 @@ field_generator power level display
 
 				add_fingerprint(user)
 	else
-		user << "<span class='warning'>The [src] needs to be firmly secured to the floor first!</span>"
+		to_chat(user, "<span class='warning'>The [src] needs to be firmly secured to the floor first!</span>")
 
 /obj/machinery/field/generator/can_be_unfasten_wrench(mob/user)
 	if(state == FG_WELDED)
-		user  << "<span class='warning'>[src] is welded to the floor!</span>"
+		to_chat(user, "<span class='warning'>[src] is welded to the floor!</span>")
 		return FAILED_UNFASTEN
 	return ..()
 

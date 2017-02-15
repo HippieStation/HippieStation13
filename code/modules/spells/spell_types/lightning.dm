@@ -23,7 +23,7 @@
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
 	ready = 1
-	user << "<span class='notice'>You start gathering the power.</span>"
+	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
 	Snd = new/sound('sound/magic/lightning_chargeup.ogg',channel = 7)
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
 	user.overlays.Add(halo)
@@ -43,7 +43,7 @@
 
 /obj/effect/proc_holder/spell/targeted/lightning/revert_cast(mob/user = usr, message = 1)
 	if(message)
-		user << "<span class='notice'>No target found in range.</span>"
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
 	Reset(user)
 	..()
 

@@ -156,7 +156,7 @@
 
 /proc/browse_messages(type, target_ckey, index, linkless = 0)
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/output
 	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"

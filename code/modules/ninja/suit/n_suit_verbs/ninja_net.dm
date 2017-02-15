@@ -12,7 +12,7 @@
 			if(!locate(/obj/structure/energy_net) in C.loc)//Check if they are already being affected by an energy net.
 				for(var/turf/T in getline(H.loc, C.loc))
 					if(T.density)//Don't want them shooting nets through walls. It's kind of cheesy.
-						H << "<span class='warning'>You may not use an energy net through solid obstacles!</span>"
+						to_chat(H, "<span class='warning'>You may not use an energy net through solid obstacles!</span>")
 						return
 				spawn(0)
 					H.Beam(C,"n_beam",time=15,alphafade=1)

@@ -863,16 +863,16 @@
 
 /obj/mecha/proc/mmi_move_inside(obj/item/device/mmi/mmi_as_oc,mob/user)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
-		user << "<span class='warning'>Consciousness matrix not detected!</span>"
+		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
 		return 0
 	else if(mmi_as_oc.brainmob.stat)
-		user << "<span class='warning'>Beta-rhythm below acceptable level!</span>"
+		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
 		return 0
 	else if(occupant)
-		user << "<span class='warning'>Occupant detected!</span>"
+		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return 0
 	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || dna_lock!=mmi_as_oc.brainmob.stored_dna.unique_enzymes))
-		user << "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>"
+		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return 0
 
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
@@ -881,21 +881,21 @@
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else
-			user << "<span class='warning'>Occupant detected!</span>"
+			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
-		user << "<span class='notice'>You stop inserting the MMI.</span>"
+		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
 	return 0
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/device/mmi/mmi_as_oc,mob/user)
 	if(mmi_as_oc && user in range(1))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
-			user << "<span class='notice'>Consciousness matrix not detected!</span>"
+			to_chat(user, "<span class='notice'>Consciousness matrix not detected!</span>")
 			return 0
 		else if(mmi_as_oc.brainmob.stat)
-			user << "<span class='warning'>Beta-rhythm below acceptable level!</span>"
+			to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
 			return 0
 		if(!user.transferItemToLoc(mmi_as_oc, src))
-			user << "<span class='warning'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]!</span>"
+			to_chat(user, "<span class='warning'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
 		var/mob/brainmob = mmi_as_oc.brainmob
 		occupant = brainmob

@@ -1120,12 +1120,12 @@
 			var/mob/living/carbon/human/H = locate(href_list["cluwneing"])
 
 			if(!H)
-				usr << "Mob doesn't exist anymore"
+				to_chat(usr, "Mob doesn't exist anymore")
 				return
 
 			if(H)
 				H.dna.add_mutation(CLUWNEMUT)
-				H << "You suddenly feel miserable and valid."
+				to_chat(H, "You suddenly feel miserable and valid.")
 				message_admins("<span class='notice'>[key_name(usr)] has made [key_name(H)] into a Cluwne.</span>")
 			H.regenerate_icons()
 			return
