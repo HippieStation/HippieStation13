@@ -8060,7 +8060,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/sleep)
 "aqZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8068,6 +8067,10 @@
 	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	tag = "icon-manifold-r-f (WEST)";
+	dir = 8
+	},
 /turf/open/floor/plasteel/yellowsiding/corner{
 	dir = 2
 	},
@@ -8394,6 +8397,11 @@
 	},
 /area/hallway/primary/fore)
 "arP" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
+	dir = 8;
+	on = 1;
+	scrub_Toxins = 0
+	},
 /turf/open/floor/plasteel/yellowsiding,
 /area/crew_quarters/pool)
 "arQ" = (
@@ -8527,12 +8535,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump{
-	dir = 4;
-	external_pressure_bound = 101.325;
-	on = 1;
-	pressure_checks = 1
 	},
 /turf/open/floor/plasteel/yellowsiding/corner{
 	dir = 2
@@ -9113,12 +9115,6 @@
 	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/unary/vent_scrubber{
-	dir = 1;
-	on = 1;
-	scrub_N2O = 0;
-	scrub_Toxins = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable{
 	d1 = 1;
@@ -11527,7 +11523,9 @@
 	c_tag = "Fitness Room South";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel/yellowsiding/corner{
 	dir = 1
 	},
@@ -64127,6 +64125,45 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/pool)
+"cIw" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/turf/open/floor/plasteel/yellowsiding{
+	dir = 8
+	},
+/area/crew_quarters/pool)
+"cIx" = (
+/obj/machinery/atmospherics/components/unary/vent_pump{
+	dir = 4;
+	external_pressure_bound = 101.325;
+	on = 1;
+	pressure_checks = 1
+	},
+/turf/open/floor/plasteel/yellowsiding{
+	dir = 8
+	},
+/area/crew_quarters/pool)
+"cIy" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/glass{
+	name = "Holodeck Door"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	tag = "icon-manifold-b-f (EAST)";
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/pool)
+"cIz" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	tag = "icon-manifold-b-f (EAST)";
+	dir = 4
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/crew_quarters/pool)
 
 (1,1,1) = {"
 aaa
@@ -99434,7 +99471,7 @@ anT
 aoA
 apn
 aqf
-cIj
+cIi
 ash
 asJ
 asJ
@@ -99691,7 +99728,7 @@ ahg
 ahg
 ahg
 ahg
-cIk
+cIi
 ash
 asJ
 asJ
@@ -99948,13 +99985,13 @@ aaf
 aaa
 aaa
 aae
-cIl
+cIi
 cIn
 asN
 asN
 atM
-asN
-asN
+cIw
+cIx
 ayR
 aqX
 aqX
@@ -100207,12 +100244,12 @@ aaa
 aqg
 ara
 cIo
-asM
+cIo
 atL
-asM
-asM
-atL
+cIo
 ayQ
+cIy
+cIz
 ayZ
 ayZ
 aCe
@@ -101748,11 +101785,11 @@ aaa
 aaa
 aqj
 cIm
-cIp
-cIs
+cIm
+cIm
 auk
-asM
-asM
+cIo
+cIo
 axJ
 ayZ
 ayZ
@@ -102521,8 +102558,8 @@ aoK
 aoK
 apF
 aqX
-asM
-asM
+cIo
+cIo
 aqX
 aqX
 aqX
