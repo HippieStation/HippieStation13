@@ -9,10 +9,14 @@
 	name = "/tg/ Station 13"
 	fps = 20
 	visibility = 0
+#ifdef GC_FAILURE_HARD_LOOKUP
+	loop_checks = FALSE
+#endif
 
 var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
+	log_world("World loaded at [world.timeofday]")
 	map_ready = 1
 	world.log << "Map is ready."
 
@@ -52,9 +56,9 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	if(config.sql_enabled)
 		if(!setup_database_connection())
-			world.log << "Your server failed to establish a connection with the database."
+			log_world("Your server failed to establish a connection with the database.")
 		else
-			world.log << "Database connection established."
+			log_world("Database connection established.")
 
 
 	data_core = new /datum/datacore()
@@ -190,13 +194,15 @@ var/last_irc_status = 0
 			return ircadminwho()
 
 
+#define WORLD_REBOOT(X) log_world("World rebooted at [world.timeofday]"); ..(X)
+
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if (reason == 1) //special reboot, do none of the normal stuff
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
 		world << "<span class='boldannounce'>Rebooting World immediately due to host request</span>"
-		return ..(1)
+		WORLD_REBOOT(1)
 	var/delay
 	if(time)
 		delay = time
@@ -205,7 +211,7 @@ var/last_irc_status = 0
 	if(ticker.delay_end)
 		world << "<span class='boldannounce'>An admin has delayed the round end.</span>"
 		return
-	world << "<span class='boldannounce'>Rebooting World in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>"
+	world << "<span class='boldannounce'>Rebooting World in [delay/10] [(delay >= 10 && delay < 20) ? "second" : "seconds"]. [reason]</span>"
 	var/round_end_sound_sent = FALSE
 	if(ticker.round_end_sound)
 		round_end_sound_sent = TRUE
@@ -227,12 +233,11 @@ var/last_irc_status = 0
 				Reboot("Map change timed out", time = 10)
 		return
 	OnReboot(reason, feedback_c, feedback_r, round_end_sound_sent)
-	..(0)
+	WORLD_REBOOT(0)
 
 /world/proc/OnReboot(reason, feedback_c, feedback_r, round_end_sound_sent)
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting World. [reason]</span>")
-	kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1) //second parameter ensures only afk clients are kicked
 #ifdef dellogging
 	var/log = file("data/logs/del.log")
 	log << time2text(world.realtime)
@@ -241,30 +246,42 @@ var/last_irc_status = 0
 		if(count > 10)
 			log << "#[count]\t[index]"
 #endif
-	var/soundwait = 0
-	if (ticker.round_end_sound && !round_end_sound_sent)
-		soundwait = 10
-		for(var/thing in clients)
-			var/client/C = thing
-			if (!C)
-				continue
-			C.Export("##action=load_rsc", ticker.round_end_sound)
-	spawn(soundwait/2)
-		if(ticker && ticker.round_end_sound)
-			world << sound(ticker.round_end_sound)
-		else
-			world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg','sound/misc/leavingtg.ogg', 'sound/misc/its_only_game.ogg', 'sound/misc/yeehaw.ogg')) // random end sounds!! - LastyBatsy
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
-	sleep(soundwait)
 	Master.Shutdown()	//run SS shutdowns
+	RoundEndSound(round_end_sound_sent)
+	kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1) //second parameter ensures only afk clients are kicked
+	world << "<span class='boldannounce'>Rebooting world.</span>"
 	for(var/thing in clients)
 		var/client/C = thing
-		if (!C)
-			continue
-		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+		if(C && config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
+	if(config.update_check_enabled)
+		install_update()
 
+/world/proc/RoundEndSound(round_end_sound_sent)
+	set waitfor = FALSE
+	var/round_end_sound
+	if(!ticker && ticker.round_end_sound)
+		round_end_sound = ticker.round_end_sound
+		if (!round_end_sound_sent)
+			for(var/thing in clients)
+				var/client/C = thing
+				if (!C)
+					continue
+				C.Export("##action=load_rsc", round_end_sound)
+	else
+		round_end_sound = pick(\
+		'sound/hippie/roundend/newroundsexy.ogg',
+		'sound/hippie/roundend/apcdestroyed.ogg',
+		'sound/hippie/roundend/bangindonk.ogg',
+		'sound/hippie/roundend/leavingtg.ogg',
+		'sound/hippie/roundend/its_only_game.ogg',
+		'sound/hippie/roundend/yeehaw.ogg',
+		'sound/hippie/roundend/disappointed.ogg'\
+		)
+	world << sound(round_end_sound)
+	
 var/inerror = 0
 /world/Error(var/exception/e)
 	//runtime while processing runtimes
@@ -392,7 +409,7 @@ var/failed_db_connections = 0
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.
 		if(config.sql_enabled)
-			world.log << "SQL error: " + dbcon.ErrorMsg()
+			log_world("SQL error: " + dbcon.ErrorMsg())
 
 	return .
 
@@ -500,3 +517,33 @@ var/rebootingpendingmapchange = 0
 			log_game("Failed to change map: Unknown error: Error code #[.]")
 	if(rebootingpendingmapchange)
 		world.Reboot("Map change finished", time = 10)
+
+// Shamelessly stolen from Goonstation
+// https://github.com/goonstation/goonstation-2016/blob/master/code/world.dm#L510
+/proc/install_update()
+	log_admin("Checking for updated [config.dmb_filename].dmb...")
+	message_admins("Checking for updated [config.dmb_filename].dmb...")
+
+	// Check if the DMB exists in the update folder
+	if(fexists("update/[config.dmb_filename].dmb"))
+		log_admin("Updated [config.dmb_filename].dmb found. Updating...")
+		message_admins("Updated [config.dmb_filename].dmb found. Updating....")
+
+		// Copy all files in the update folder
+		for(var/f in flist("update/"))
+			log_admin("\tMoving [f]...")
+			message_admins("\tMoving [f]...")
+			fcopy("update/[f]", "[f]")
+
+			// Make sure we clean the update folder back up again
+			fdel("update/[f]")
+
+		// Make sure we delete the .dyn.rsc which holds dynamic resources
+		// These could collide with new resource ids
+		fdel("[config.dmb_filename].dyn.rsc")
+
+		log_admin("Update complete.")
+		message_admins("Update complete.")
+	else
+		log_admin("No update found. Skipping update process.")
+		message_admins("No update found. Skipping update process.")
