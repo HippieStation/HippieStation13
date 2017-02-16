@@ -21,9 +21,9 @@
 
 	var/explosion_level = 0	//for preventing explosion dodging
 	var/explosion_id = 0
-	
+
 	var/list/decals
-	var/requires_activation
+	var/requires_activation	//add to air processing after initialize?
 	var/changing_turf = FALSE
 
 /turf/SDQL_update(const/var_name, new_value)
@@ -55,7 +55,7 @@
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
- 	SSair.remove_from_active(src)
+	SSair.remove_from_active(src)
 	visibilityChanged()
 	initialized = FALSE
 	requires_activation = FALSE
@@ -200,6 +200,7 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air)
+
 	return W
 
 /turf/proc/AfterChange(ignore_air = FALSE) //called after a turf has been replaced in ChangeTurf()
