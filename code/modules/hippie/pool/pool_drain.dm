@@ -9,6 +9,7 @@
 	var/timer = 0
 	var/cooldown
 	var/obj/machinery/poolcontroller/poolcontrol = null
+	var/drainsound = 'sound/effects/pooldrain.ogg'
 
 /obj/machinery/drain/Initialize()
 	for(var/obj/machinery/poolcontroller/control in range(5,src))
@@ -55,7 +56,7 @@
 			return
 		if(!status) //if draining, change everything.
 			if(timer > 0)
-				playsound(src, 'sound/effects/pooldrain.ogg', 100, 1)
+				playsound(src, drainsound, 100, 1)
 				playsound(src, pick('sound/effects/water_wade1.ogg','sound/effects/water_wade2.ogg','sound/effects/water_wade3.ogg','sound/effects/water_wade4.ogg'), 60, 1)
 				timer--
 				for(var/obj/whirlo in orange(2,src))

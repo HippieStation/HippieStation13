@@ -131,28 +131,24 @@
 /obj/machinery/poolcontroller/proc/updatePool()
 	if(!drained)
 		for(var/turf/open/pool/water/W in linkedturfs) //Check for pool-turfs linked to the controller.
-			for(var/mob/M in W) //Check for mobs in the linked pool-turfs.
-				if(isobserver(M))
-					continue
-
-				//End sanity checks, go on
+			for(var/mob/living/M in W) //Check for mobs in the linked pool-turfs.
 				switch(temperature) //Apply different effects based on what the temperature is set to.
-					if(5) //Burn the mob.
-						M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
+					if(5) //Scalding
+						M.bodytemperature = min(500, M.bodytemperature + 50) //heat mob at 35k(elvin) per cycle
 						// if(M.bodytemperature >= 400 && !M.stat)
 							// M << "<span class='danger'>You're boiling alive!</span>"
 
-					if(4) //Freeze the mob.
-						M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle, less would not affect the mob enough.
-						// if(M.bodytemperature <= 215 && !M.stat)
-							// M << "<span class='danger'>You're being frozen solid!</span>"
+					if(1) //Freezing
+						M.bodytemperature = max(0, M.bodytemperature - 60) //cool mob at -35k per cycle, less would not affect the mob enough.
+						if(M.bodytemperature <= 50 && !M.stat)
+							M.apply_status_effect(/datum/status_effect/freon)
 
 					if(3) //Normal temp does nothing, because it's just room temperature water.
 
-					if(2) //Gently warm the mob.
+					if(4) //Warm
 						M.bodytemperature = min(360, M.bodytemperature + 20) //Heats up mobs till the termometer shows up
 
-					else //Gently cool the mob.
+					else //Cool
 						M.bodytemperature = max(250, M.bodytemperature - 20) //Cools mobs till the termometer shows up
 				var/mob/living/carbon/human/drownee = M
 				if(drownee.stat == DEAD)
@@ -222,6 +218,7 @@
 
 /obj/machinery/poolcontroller/proc/handle_temp()
 	timer = 10
+	mistoff()
 	switch(temperature)
 		if(1)
 			canminus = FALSE
@@ -244,6 +241,7 @@
 				canminus = TRUE
 				canplus = FALSE
 		if(5)
+			miston()
 			canminus = TRUE
 			canplus = FALSE
 	icon_state = "poolc_[temperature]"
