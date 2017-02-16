@@ -53,7 +53,7 @@ var/global/total_runtimes_skipped = 0
 			var/skipcount = abs(error_cooldown[erroruid]) - 1
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				to_chat(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
+				world.log << "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line]."
 				error_cache.log_error(E, skip_count = skipcount)
 
 	error_last_seen[erroruid] = world.time
@@ -61,7 +61,7 @@ var/global/total_runtimes_skipped = 0
 
 	var/list/usrinfo = null
 	var/locinfo
-	if(istype(usr))
+if(istype(usr))
 		usrinfo = list("  usr: [datum_info_line(usr)]")
 		locinfo = atom_loc_line(usr)
 		if(locinfo)

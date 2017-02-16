@@ -90,7 +90,8 @@
 //This replaces world.log so it displays both in DD and the file
 /proc/log_world(text)
 	if(config && config.log_runtimes)
-		runtime_diary << text
+		world.log = runtime_diary
+		world.log << text
 	world.log = null
 	world.log << text
 
