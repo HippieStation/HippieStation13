@@ -87,7 +87,9 @@
 		if(panel_open)
 			overlays += image(icon, "wires")
 		return
-	..()
+	else
+		return attack_hand(user)
+
 
 //procs
 /obj/machinery/poolcontroller/proc/shock(mob/user, prb)
@@ -164,6 +166,7 @@
 								drownee << "<span class='danger'>You're lacking air!</span>"
 
 			for(var/obj/effect/decal/cleanable/decal in W)
+				CHECK_TICK
 				if(bloody < 800)
 					animate(decal, alpha = 10, time = 20)
 					QDEL_IN(decal, 25)
@@ -317,7 +320,13 @@
 	..()
 
 /obj/machinery/poolcontroller/attack_paw(mob/user)
-	attack_hand(user)
+	return attack_hand(user)
+
+/obj/machinery/poolcontroller/attack_alien(mob/user)
+	return attack_hand(user)
+
+/obj/machinery/poolcontroller/attack_hulk(mob/user)
+	return attack_hand(user)
 
 /obj/machinery/poolcontroller/proc/reset(wire)
 	switch(wire)
