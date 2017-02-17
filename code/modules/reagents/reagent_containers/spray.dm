@@ -216,12 +216,33 @@
 /obj/item/weapon/reagent_containers/spray/chemsprayer/bioterror
 	list_reagents = list("sodium_thiopental" = 100, "coniine" = 100, "venom" = 100, "condensedcapsaicin" = 100, "initropidril" = 100, "polonium" = 100)
 
-// Plant-B-Gone
-/obj/item/weapon/reagent_containers/spray/plantbgone // -- Skie
-	name = "Plant-B-Gone"
-	desc = "Kills those pesky weeds!"
+// Hydroponics
+
+/obj/item/weapon/reagent_containers/spray/hydroponics
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
-	list_reagents = list("plantbgone" = 100)
+
+/obj/item/weapon/reagent_containers/spray/hydroponics/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (TOXLOSS)
+
+/obj/item/weapon/reagent_containers/spray/hydroponics/plantbgone // -- Skie
+	name = "plant-b-gone"
+	desc = "Kills those pesky weeds!"
+	list_reagents = list("plantbgone" = "[volume]")
+
+/obj/item/weapon/reagent_containers/spray/hydroponics/weedspray // -- Skie
+	name = "weed spray"
+	desc = "It's a toxic mixture, in spray form, to kill small weeds."
+	icon_state = "weedspray"
+	item_state = "weedspray"
+	list_reagents = list("weedkiller" = "[volume]")
+
+/obj/item/weapon/reagent_containers/spray/hydroponics/pestspray // -- Skie
+	name = "pest spray"
+	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
+	icon_state = "pestspray"
+	item_state = "pestspray"
+	list_reagents = list("pestkiller" = "[volume]")

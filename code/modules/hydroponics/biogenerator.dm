@@ -15,8 +15,7 @@
 	var/productivity = 0
 	var/max_items = 40
 	var/datum/research/files
-	var/list/show_categories = list("Food", "Botany Chemicals", "Leather and Cloth")
-	var/list/timesFiveCategories = list("Food", "Botany Chemicals")
+	var/list/show_categories = list("Food", "Botany Chemicals", "Botany Chemical Bottles" , "Leather and Cloth")
 
 /obj/machinery/biogenerator/New()
 	..()
@@ -204,10 +203,8 @@
 				for(var/V in categories[cat])
 					var/datum/design/D = V
 					dat += "[D.name]: <A href='?src=\ref[src];create=\ref[D];amount=1'>Make</A>"
-					if(cat in timesFiveCategories)
-						dat += "<A href='?src=\ref[src];create=\ref[D];amount=5'>x5</A>"
-					if(ispath(D.build_path, /obj/item/stack))
-						dat += "<A href='?src=\ref[src];create=\ref[D];amount=10'>x10</A>"
+					dat += "<A href='?src=\ref[src];create=\ref[D];amount=5'>x5</A>"
+					dat += "<A href='?src=\ref[src];create=\ref[D];amount=10'>x10</A>"
 					dat += "([D.materials[MAT_BIOMASS]/efficiency])<br>"
 				dat += "</div>"
 		else

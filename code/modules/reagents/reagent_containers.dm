@@ -9,7 +9,7 @@
 	var/volume = 30
 	var/list/list_reagents = null
 	var/spawned_disease = null
-	var/disease_amount = 20
+	var/disease_amount = "[volume]"
 	var/spillable = 0
 
 /obj/item/weapon/reagent_containers/New(location, vol = 0)
