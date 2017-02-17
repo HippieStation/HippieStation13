@@ -1175,6 +1175,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/device/experimental_teleporter
 	cant_discount = TRUE
 
+<<<<<<< HEAD
 /datum/uplink_item/commservice
 	category = "Communications/Services"
 
@@ -1192,6 +1193,15 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/announcer/fake_extended
 	surplus = 0
 	refundable = TRUE
+=======
+/* Botany */
+/datum/uplink_item/role_restricted/lawnmower
+	name = "Gas powered lawn mower"
+	desc = "A lawn mower is a machine utilizing one or more revolving blades to cut a grass surface to an even height, or bodies if that's your thing"
+	restricted_roles = list("Botanist")
+	cost = 14
+	item = /obj/vehicle/lawnmower/emagged
+>>>>>>> upstream/master
 
 // Pointless
 /datum/uplink_item/badass
