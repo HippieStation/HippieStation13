@@ -102,7 +102,7 @@
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons)
 	minimal_access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons)
 
-/datum/job/cook/New()
+/datum/job/chef/New()
 	..()
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons)
 	minimal_access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons)

@@ -573,7 +573,7 @@
 /turf/closed/wall/mineral/sandstone,
 /area/awaymission/wwmines)
 "cd" = (
-/obj/effect/mob_spawn/human/cook{
+/obj/effect/mob_spawn/human/chef{
 	mob_name = "Chef"
 	},
 /turf/open/floor/plasteel/cafeteria{
@@ -741,7 +741,7 @@
 /turf/open/floor/plasteel/stage_bleft,
 /area/awaymission/wwgov)
 "cH" = (
-/obj/effect/mob_spawn/human/cook{
+/obj/effect/mob_spawn/human/chef{
 	mob_name = "Chef"
 	},
 /turf/open/floor/plasteel/stage_bleft,

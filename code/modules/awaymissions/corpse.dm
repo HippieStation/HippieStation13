@@ -279,9 +279,9 @@
 
 ///////////Civilians//////////////////////
 
-/obj/effect/mob_spawn/human/cook
-	name = "Cook"
-	outfit_type = /datum/outfit/job/cook
+/obj/effect/mob_spawn/human/chef
+	name = "Chef"
+	outfit_type = /datum/outfit/job/chef
 
 
 /obj/effect/mob_spawn/human/doctor

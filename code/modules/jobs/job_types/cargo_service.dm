@@ -165,11 +165,11 @@ Bartender
 	shoes = /obj/item/clothing/shoes/laceup
 
 /*
-Cook
+Chef, Cook is horrible.
 */
-/datum/job/cook
-	title = "Cook"
-	flag = COOK
+/datum/job/chef
+	title = "Chef"
+	flag = CHEF
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -177,18 +177,18 @@ Cook
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
-	var/cooks = 0 //Counts cooks amount
+	var/chefs = 0 //Counts chefs amount
 
-	outfit = /datum/outfit/job/cook
+	outfit = /datum/outfit/job/chef
 
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
 	minimal_access = list(access_kitchen, access_morgue)
 
-/datum/outfit/job/cook
-	name = "Cook"
-	jobtype = /datum/job/cook
+/datum/outfit/job/chef
+	name = "Chef"
+	jobtype = /datum/job/chef
 
-	belt = /obj/item/device/pda/cook
+	belt = /obj/item/device/pda/chef
 	ears = /obj/item/device/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/toggle/chef
