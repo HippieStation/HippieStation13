@@ -1175,7 +1175,6 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/device/experimental_teleporter
 	cant_discount = TRUE
 
-<<<<<<< HEAD
 /datum/uplink_item/commservice
 	category = "Communications/Services"
 
@@ -1193,7 +1192,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/announcer/fake_extended
 	surplus = 0
 	refundable = TRUE
-=======
+
 /* Botany */
 /datum/uplink_item/role_restricted/lawnmower
 	name = "Gas powered lawn mower"
