@@ -82,6 +82,14 @@
 	make_reagents = list("robustharvestnutriment" = 10)
 	category = list("initial","Botany Chemicals")
 
+/datum/design/plantbgone
+	name = "Plant-B-Gone"
+	id = "plantbgone"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 10)
+	make_reagents = list("plantbgone" = 10)
+	category = list("initial","Botany Chemicals")
+
 /datum/design/weedkiller
 	name = "Weed Killer"
 	id = "weedkiller"
@@ -160,6 +168,14 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
 	build_path = /obj/item/weapon/reagent_containers/glass/bottle/precision/robustharvestnutriment
+	category = list("initial","Botany Chemical Bottles")
+
+/datum/design/plantbgone_bottle
+	name = "Plant-B-Gone Bottle"
+	id = "plantbgone_bottle"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/weapon/reagent_containers/glass/bottle/precision/plantbgone
 	category = list("initial","Botany Chemical Bottles")
 
 /datum/design/weedkiller_bottle

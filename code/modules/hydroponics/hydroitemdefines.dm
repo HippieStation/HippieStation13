@@ -14,7 +14,7 @@
 // Hydroponics Tools
 // *************************************
 
-// spray defines for hydroponics moved to spray.dm in the reagent module
+// spray defines for hydroponics moved to spray.dm in the reagents module
 
 /obj/item/weapon/cultivator
 	name = "cultivator"
@@ -79,4 +79,4 @@
 			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
 	return (BRUTELOSS)
 
-// Nutrient defines for hydroponics moved to bottle.dm in the reagent module
+// Nutrient defines for hydroponics moved to bottle.dm in the reagents module

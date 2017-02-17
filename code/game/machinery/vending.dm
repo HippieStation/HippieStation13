@@ -838,9 +838,12 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	product_ads = "We like plants!;Don't you want some?;The greenest thumbs ever.;We like big plants.;Soft soil..."
 	icon_state = "nutri"
 	icon_deny = "nutri-deny"
-	products = list(/obj/item/weapon/reagent_containers/glass/bottle/nutrient/ez = 30,/obj/item/weapon/reagent_containers/glass/bottle/nutrient/l4z = 20,/obj/item/weapon/reagent_containers/glass/bottle/nutrient/rh = 10,/obj/item/weapon/reagent_containers/spray/pestspray = 20,
-					/obj/item/weapon/reagent_containers/syringe = 5,/obj/item/weapon/storage/bag/plants = 5,/obj/item/weapon/cultivator = 3,/obj/item/weapon/shovel/spade = 3,/obj/item/device/plant_analyzer = 4)
-	contraband = list(/obj/item/weapon/reagent_containers/glass/bottle/ammonia = 10,/obj/item/weapon/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/weapon/reagent_containers/glass/bottle/precision/eznutriment = 30,/obj/item/weapon/reagent_containers/glass/bottle/precision/left4zednutriment = 30,/obj/item/weapon/reagent_containers/glass/bottle/precision/robustharvestnutriment = 30,/obj/item/weapon/reagent_containers/glass/bottle/precision/mutagen = 30,/obj/item/weapon/reagent_containers/glass/bottle/precision/ash = 25,
+					/obj/item/weapon/reagent_containers/glass/bottle/precision/ammonia = 20,/obj/item/weapon/reagent_containers/glass/bottle/precision/saltpetre = 15,/obj/item/weapon/reagent_containers/glass/bottle/precision/diethylamine = 10,/obj/item/weapon/reagent_containers/glass/bottle/precision/plantbgone = 10,/obj/item/weapon/reagent_containers/glass/bottle/precision/weedkiller = 10,
+					/obj/item/weapon/reagent_containers/glass/bottle/precision/pestkiller = 10,/obj/item/weapon/reagent_containers/glass/bottle/precision = 10,/obj/item/weapon/reagent_containers/spray/hydroponics/plantbgone = 5,/obj/item/weapon/reagent_containers/spray/hydroponics/weedspray = 5,/obj/item/weapon/reagent_containers/spray/hydroponics/pestspray = 5,/obj/item/weapon/reagent_containers/spray/hydroponics = 5,
+					/obj/item/weapon/reagent_containers/glass/beaker/large = 5,/obj/item/weapon/reagent_containers/syringe = 5,/obj/item/weapon/storage/bag/plants = 5,/obj/item/weapon/storage/box/disks_plantgene = 5,/obj/item/device/plant_analyzer = 3,/obj/item/weapon/cultivator = 3,/obj/item/weapon/shovel/spade = 3,/obj/item/device/multitool = 3,/obj/item/weapon/reagent_containers/glass/bucket =3)
+	contraband = list(/obj/item/weapon/disk/plantgene = 30,/obj/item/weapon/reagent_containers/glass/beaker/large/charcoal = 5,/obj/item/weapon/reagent_containers/glass/bottle/antitoxin = 5,/obj/item/weapon/reagent_containers/glass/bottle/cryoxadone = 5,/obj/item/weapon/reagent_containers/dropper = 3,/obj/item/weapon/hatchet = 3)
+	premium = list(/obj/item/weapon/reagent_containers/glass/beaker/large/precision = 10,/obj/item/weapon/watertank = 3,/obj/item/weapon/scythe = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
