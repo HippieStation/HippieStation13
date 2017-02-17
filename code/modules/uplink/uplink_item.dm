@@ -1200,7 +1200,6 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	restricted_roles = list("Botanist")
 	cost = 14
 	item = /obj/vehicle/lawnmower/emagged
->>>>>>> upstream/master
 
 // Pointless
 /datum/uplink_item/badass
