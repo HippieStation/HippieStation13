@@ -338,7 +338,7 @@
 
 /obj/item/proc/equip_to_best_slot(var/mob/M)
 	if(src != M.get_active_held_item())
-		M << "<span class='warning'>You are not holding anything to equip!</span>"
+		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
@@ -368,7 +368,7 @@
 		S.handle_item_insertion(src)
 		return TRUE
 
-	M << "<span class='warning'>You are unable to equip that!</span>"
+	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 	return FALSE
 
 

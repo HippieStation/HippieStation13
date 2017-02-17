@@ -46,14 +46,14 @@
 			add_overlay(stampoverlay)
 
 /obj/item/weapon/paperplane/attack_self(mob/user)
-	user << "<span class='notice'>You unfold [src].</span>"
+	to_chat(user, "<span class='notice'>You unfold [src].</span>")
 	qdel(src)
 	user.put_in_hands(internalPaper)
 
 /obj/item/weapon/paperplane/attackby(obj/item/weapon/P, mob/living/carbon/human/user, params)
 	..()
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		user << "<span class='notice'>You should unfold [src] before changing it.</span>"
+		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
 		return
 
 	else if(istype(P, /obj/item/weapon/stamp)) 	//we don't randomize stamps on a paperplane
@@ -65,7 +65,7 @@
 		internalPaper.stamps += "<img src=large_[P.icon_state].png>" //stamps the paper inside!
 		internalPaper.stamped = stamped
 		internalPaper.attackby(P) //spoofed attack to update internal paper.
-		user << "<span class='notice'>You stamp [src] with your rubber stamp.</span>"
+		to_chat(user, "<span class='notice'>You stamp [src] with your rubber stamp.</span>")
 		update_icon()
 
 	else if(P.is_hot())
@@ -106,9 +106,9 @@
 	if ( istype(user) )
 		if( (!in_range(src, user)) || user.stat || user.restrained() )
 			return
-		user << "<span class='notice'>You fold [src] into the shape of a plane!</span>"
+		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
 		user.temporarilyRemoveItemFromInventory(src)
 		I = new /obj/item/weapon/paperplane(loc, src)
 		user.put_in_hands(I)
 	else
-		user << "<span class='notice'> You lack the dexterity to fold \the [src]. </span>"
+		to_chat(user, "<span class='notice'> You lack the dexterity to fold \the [src]. </span>")

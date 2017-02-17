@@ -23,11 +23,11 @@
 	if(H.see_in_dark < 8)
 		H.see_in_dark = 8
 		H.see_invisible = SEE_INVISIBLE_MINIMUM
-		H << "<span class='notice'>You adjust your vision to pierce the darkness.</span>"
+		to_chat(H, "<span class='notice'>You adjust your vision to pierce the darkness.</span>")
 	else
 		H.see_in_dark = 2
 		H.see_invisible = SEE_INVISIBLE_LIVING
-		H << "<span class='notice'>You adjust your vision to recognize the shadows.</span>"
+		to_chat(H, "<span class='notice'>You adjust your vision to recognize the shadows.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()

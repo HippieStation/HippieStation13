@@ -343,7 +343,7 @@
 /datum/action/item_action/toggle_research_scanner/Trigger()
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
-		owner << "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>"
+		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
 		return 1
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/M)
@@ -364,7 +364,7 @@
 /datum/action/item_action/toggle_robustness_scanner/Trigger()
 	if(IsAvailable())
 		owner.robustness_scanner = !owner.robustness_scanner
-		owner << "<span class='notice'>Robustness analyzer is now [owner.robustness_scanner ? "active" : "deactivated"].</span>"
+		to_chat(owner, "<span class='notice'>Robustness analyzer is now [owner.robustness_scanner ? "active" : "deactivated"].</span>")
 		return 1
 
 /datum/action/item_action/toggle_robustness_scanner/Remove(mob/M)

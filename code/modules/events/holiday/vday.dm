@@ -39,7 +39,7 @@
 
 
 		else
-			L << "<span class='warning'><B>You didn't get a date! They're all having fun without you! you'll show them though...</B></span>"
+			to_chat(L, "<span class='warning'><B>You didn't get a date! They're all having fun without you! you'll show them though...</B></span>")
 			var/datum/objective/martyr/normiesgetout = new
 			normiesgetout.owner = L.mind
 			ticker.mode.traitors |= L.mind
@@ -55,7 +55,7 @@
 	protect_objective.target = date.mind
 	protect_objective.explanation_text = "Protect [date.real_name], your date."
 	lover.mind.objectives += protect_objective
-	lover << "<span class='warning'><B>You're on a date with [date]! Protect them at all costs. This takes priority over all other loyalties.</B></span>"
+	to_chat(lover, "<span class='warning'><B>You're on a date with [date]! Protect them at all costs. This takes priority over all other loyalties.</B></span>")
 
 
 /datum/round_event/valentines/announce()
@@ -132,7 +132,7 @@
 			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[message]</BODY></HTML>", "window=[name]")
 			onclose(user, "[name]")
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		to_chat(user, "<span class='notice'>It is too far away.</span>")
 
 /obj/item/weapon/valentine/attack_self(mob/user)
 	user.examinate(src)

@@ -217,17 +217,17 @@
 
 /obj/item/clothing/tie/necklace/examine(mob/user)
 	..()
-	user << "It contains:"
+	to_chat(user, "It contains:")
 	for(var/obj/item/I in ornaments)
 		var/getname = I.name
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
 			getname = S.singular_name
-		user << "\icon[I] \a [getname]"
+		to_chat(user, "bicon(I) \a [getname]")
 
 /obj/item/clothing/tie/necklace/attack_self(mob/user)
 	if(ornaments.len)
-		user << "You shuffle the ornaments on the necklace."
+		to_chat(user, "You shuffle the ornaments on the necklace.")
 		ornaments = shuffle(ornaments)
 		update_icon()
 
@@ -236,12 +236,12 @@
 		new /obj/item/stack/cable_coil(user.loc, 4, updatecolor)
 		for(var/obj/item/I in ornaments)
 			I.loc = user.loc
-		user << "You cut the necklace."
+		to_chat(user, "You cut the necklace.")
 		qdel(src)
 		return
 	if(istype(W, /obj/item/stack/teeth))
 		if(ornaments.len >= max_ornaments)
-			user << "There's no room for \the [src]!"
+			to_chat(user, "There's no room for \the [src]!")
 			return
 		var/obj/item/stack/teeth/O = W
 		var/obj/item/stack/teeth/T = new O.type(user, 1)
@@ -251,14 +251,14 @@
 		T.loc = src
 		O.use(1) //Take some teeth from the teeth stack
 		update_icon()
-		user << "You add one [T] to \the [src]."
+		to_chat(user, "You add one [T] to \the [src].")
 
 /obj/item/stack/teeth/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		src.add_fingerprint(user)
 		var/obj/item/stack/cable_coil/C = W
 		if(C.amount < 4)
-			usr << "<span class='danger'>You need at least 4 lengths to make a necklace!</span>"
+			to_chat(usr, "<span class='danger'>You need at least 4 lengths to make a necklace!</span>")
 			return
 		var/obj/item/clothing/tie/necklace/N = new (usr.loc)
 		N.updatecolor = C.item_color

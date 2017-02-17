@@ -81,12 +81,12 @@
 	set name = "Adminhelp"
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='danger'>Speech is currently admin-disabled.</span>"
+		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_ADMINHELP)
-		src << "<span class='danger'>Error: Admin-PM: You cannot send adminhelps (Muted).</span>"
+		to_chat(src, "<span class='danger'>Error: Admin-PM: You cannot send adminhelps (Muted).</span>")
 		return
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
@@ -117,7 +117,7 @@
 		if(X.prefs.toggles & SOUND_ADMINHELP)
 			X << 'sound/effects/adminhelp.ogg'
 		window_flash(X)
-		X << msg
+		to_chat(X, msg)
 
 
 	//show it to the person adminhelping too
@@ -157,7 +157,7 @@
 			final = "[msg] - All admins AFK ([adm["afk"]]/[adm["total"]]), stealthminned ([adm["stealth"]]/[adm["total"]]), or lack[rights2text(requiredflags, " ")] ([adm["noflags"]]/[adm["total"]])"
 		send2irc(source,final)
 		send2otherserver(source,final)
-		
+
 
 
 /proc/send2irc(msg,msg2)

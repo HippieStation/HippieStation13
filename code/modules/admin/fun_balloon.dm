@@ -56,7 +56,7 @@
 		var/mob/dead/observer/ghost = pick_n_take(candidates)
 		var/mob/living/body = pick_n_take(bodies)
 
-		body << "Your mob has been taken over by a ghost!"
+		to_chat(body, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(ghost)] has taken control of ([key_name_admin(body)])")
 		body.ghostize(0)
 		body.key = ghost.key
@@ -81,7 +81,7 @@
 		var/turf/T = find_safe_turf()
 		new /obj/effect/overlay/temp/gravpush(get_turf(M))
 		M.forceMove(T)
-		M << "<span class='notice'>Pop!</span>"
+		to_chat(M, "<span class='notice'>Pop!</span>")
 
 /obj/effect/station_crash
 	name = "station crash"

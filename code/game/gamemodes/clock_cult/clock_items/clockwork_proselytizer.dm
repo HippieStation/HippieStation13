@@ -123,26 +123,26 @@
 /obj/item/clockwork/clockwork_proselytizer/examine(mob/living/user)
 	..()
 	if(is_servant_of_ratvar(user) || isobserver(user))
-		user << "<span class='brass'>Can be used to convert walls, floors, windows, airlocks, and a variety of other objects to clockwork variants.</span>"
-		user << "<span class='brass'>Can also form some objects into Brass sheets, as well as reform Clockwork Walls into Clockwork Floors, and vice versa.</span>"
+		to_chat(user, "<span class='brass'>Can be used to convert walls, floors, windows, airlocks, and a variety of other objects to clockwork variants.</span>")
+		to_chat(user, "<span class='brass'>Can also form some objects into Brass sheets, as well as reform Clockwork Walls into Clockwork Floors, and vice versa.</span>")
 		if(uses_power)
+			var/msg = "<span class='alloy'>It can convert brass to power at a rate of <b>1:[POWER_FLOOR]W</b>.</span>"
 			if(metal_to_power)
-				user << "<span class='alloy'>It can convert rods, metal, plasteel, and brass to power at rates of <b>1:[POWER_ROD]W</b>, <b>1:[POWER_METAL]W</b>, \
+				msg = "<span class='alloy'>It can convert rods, metal, plasteel, and brass to power at rates of <b>1:[POWER_ROD]W</b>, <b>1:[POWER_METAL]W</b>, \
 				<b>1:[POWER_PLASTEEL]W</b>, and <b>1:[POWER_FLOOR]W</b>, respectively.</span>"
-			else
-				user << "<span class='alloy'>It can convert brass to power at a rate of <b>1:[POWER_FLOOR]W</b>.</span>"
-			user << "<span class='alloy'>It is storing <b>[get_power()]W/[get_max_power()]W</b> of power, and is gaining <b>[charge_rate*0.5]W</b> of power per second.</span>"
-			user << "<span class='alloy'>Use it in-hand to produce brass sheets.</span>"
+			to_chat(user, msg)
+			to_chat(user, "<span class='alloy'>It is storing <b>[get_power()]W/[get_max_power()]W</b> of power, and is gaining <b>[charge_rate*0.5]W</b> of power per second.</span>")
+			to_chat(user, "<span class='alloy'>Use it in-hand to produce brass sheets.</span>")
 
 /obj/item/clockwork/clockwork_proselytizer/attack_self(mob/living/user)
 	if(is_servant_of_ratvar(user))
 		if(!can_use_power(POWER_WALL_TOTAL))
-			user << "<span class='warning'>[src] requires <b>[POWER_WALL_TOTAL]W</b> of power to produce brass sheets!</span>"
+			to_chat(user, "<span class='warning'>[src] requires <b>[POWER_WALL_TOTAL]W</b> of power to produce brass sheets!</span>")
 			return
 		modify_stored_power(-POWER_WALL_TOTAL)
 		playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
 		new/obj/item/stack/tile/brass(user.loc, 5)
-		user << "<span class='brass'>You user [stored_power ? "some":"all"] of [src]'s power to produce some brass sheets. It now stores <b>[get_power()]W/[get_max_power()]W</b> of power.</span>"
+		to_chat(user, "<span class='brass'>You user [stored_power ? "some":"all"] of [src]'s power to produce some brass sheets. It now stores <b>[get_power()]W/[get_max_power()]W</b> of power.</span>")
 
 /obj/item/clockwork/clockwork_proselytizer/pre_attackby(atom/target, mob/living/user, params)
 	if(!target || !user || !is_servant_of_ratvar(user) || istype(target, /obj/item/weapon/storage))
@@ -176,14 +176,14 @@
 	if(!target || !user)
 		return FALSE
 	if(repairing)
-		user << "<span class='warning'>You are currently repairing [repairing] with [src]!</span>"
+		to_chat(user, "<span class='warning'>You are currently repairing [repairing] with [src]!</span>")
 		return FALSE
 	var/list/proselytize_values = target.proselytize_vals(user, src) //relevant values for proselytizing stuff, given as an associated list
 	if(!islist(proselytize_values))
 		if(proselytize_values != TRUE) //if we get true, fail, but don't send a message for whatever reason
 			if(!isturf(target)) //otherwise, if we didn't get TRUE and the original target wasn't a turf, try to proselytize the turf
 				return proselytize(get_turf(target), user, no_table_check)
-			user << "<span class='warning'>[target] cannot be proselytized!</span>"
+			to_chat(user, "<span class='warning'>[target] cannot be proselytized!</span>")
 			if(!no_table_check)
 				return TRUE
 		return FALSE
@@ -198,9 +198,9 @@
 
 	if(!can_use_power(proselytize_values["power_cost"]))
 		if(stored_power - proselytize_values["power_cost"] < 0)
-			user << "<span class='warning'>You need <b>[proselytize_values["power_cost"]]W</b> power to proselytize [target]!</span>"
+			to_chat(user, "<span class='warning'>You need <b>[proselytize_values["power_cost"]]W</b> power to proselytize [target]!</span>")
 		else if(stored_power - proselytize_values["power_cost"] > max_power)
-			user << "<span class='warning'>Your [name] contains too much power to proselytize [target]!</span>"
+			to_chat(user, "<span class='warning'>Your [name] contains too much power to proselytize [target]!</span>")
 		return FALSE
 
 	proselytize_values["operation_time"] *= speed_multiplier

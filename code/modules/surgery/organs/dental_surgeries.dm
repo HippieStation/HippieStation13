@@ -16,7 +16,7 @@
 		return -1
 	if(istype(T))
 		if(O.get_teeth() >= O.max_teeth)
-			user << "<span class='notice'>All of [target]'s teeth are intact."
+			to_chat(user, "<span class='notice'>All of [target]'s teeth are intact.")
 			return -1
 		user.visible_message("<span class='notice'>[user] begins to insert [T] into [target]'s [target_zone].</span>")
 	else

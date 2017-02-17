@@ -181,16 +181,16 @@
 					user.visible_message("<span class='warning'>[user] fails to inspect [user == src ? "his own" : "[src]'s"] ass!</span>", "<span class='warning'>You fail to inspect [user == src ? "your" : "[src]'s"] ass!</span>")
 					return 0
 			else
-				user << "<span class='warning'>There's nothing to inspect!</span>"
+				to_chat(user, "<span class='warning'>There's nothing to inspect!</span>")
 				return 0
 		else
 			if(user == src)
 				user.visible_message("<span class='warning'>[user] grabs his own butt!</span>", "<span class='warning'>You grab your own butt!</span>")
-				user << "<span class='warning'>You'll need to remove your jumpsuit first!</span>"
+				to_chat(user, "<span class='warning'>You'll need to remove your jumpsuit first!</span>")
 			else
 				user.visible_message("<span class='warning'>[user] grabs [src]'s butt!</span>", "<span class='warning'>You grab [src]'s butt!</span>")
-				user << "<span class='warning'>You'll need to remove [src]'s jumpsuit first!</span>"
-				src << "<span class='warning'>You feel your butt being grabbed!</span>"
+				to_chat(user, "<span class='warning'>You'll need to remove [src]'s jumpsuit first!</span>")
+				to_chat(src, "<span class='warning'>You feel your butt being grabbed!</span>")
 			return 0
 	if(user == src && pulling && !pulling.anchored && grab_state >= GRAB_AGGRESSIVE && (disabilities & FAT) && ismonkey(pulling))
 		devour_mob(pulling)
@@ -502,7 +502,7 @@
 	for(var/obj/item/bodypart/L in src.bodyparts)
 		if(L.status == BODYPART_ROBOTIC)
 			if(!informed)
-				src << "<span class='userdanger'>You feel a sharp pain as your robotic limbs overload.</span>"
+				to_chat(src, "<span class='userdanger'>You feel a sharp pain as your robotic limbs overload.</span>")
 				informed = 1
 			switch(severity)
 				if(1)
@@ -536,7 +536,7 @@
 				update_inv_neck()
 				update_inv_head()
 			else
-				src << "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>"
+				to_chat(src, "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>")
 		else
 			. = get_bodypart("head")
 			if(.)
@@ -557,7 +557,7 @@
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				src << "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>"
+				to_chat(src, "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>")
 		else
 			. = get_bodypart("chest")
 			if(.)
@@ -589,7 +589,7 @@
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				src << "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>"
+				to_chat(src, "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>")
 		else
 			. = get_bodypart("r_arm")
 			if(.)
@@ -615,7 +615,7 @@
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				src << "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>"
+				to_chat(src, "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>")
 		else
 			. = get_bodypart("r_leg")
 			if(.)
@@ -704,21 +704,21 @@
 					status += "numb"
 				if(status == "")
 					status = "OK"
-				src << "\t [status == "OK" ? "\blue" : "\red"] Your [LB.name] is [status]."
+				to_chat(src, "\t [status == "OK" ? "\blue" : "\red"] Your [LB.name] is [status].")
 
 				for(var/obj/item/I in LB.embedded_objects)
-					src << "\t <a href='byond://?src=\ref[src];embedded_object=\ref[I];embedded_limb=\ref[LB]'>\red There is \a [I] embedded in your [LB.name]!</a>"
+					to_chat(src, "\t <a href='byond://?src=\ref[src];embedded_object=\ref[I];embedded_limb=\ref[LB]'>\red There is \a [I] embedded in your [LB.name]!</a>")
 
 			for(var/t in missing)
-				src << "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
+				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
 			if(bleed_rate)
-				src << "<span class='danger'>You are bleeding!</span>"
+				to_chat(src, "<span class='danger'>You are bleeding!</span>")
 			if(staminaloss)
 				if(staminaloss > 30)
-					src << "<span class='info'>You're completely exhausted.</span>"
+					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
 				else
-					src << "<span class='info'>You feel fatigued.</span>"
+					to_chat(src, "<span class='info'>You feel fatigued.</span>")
 		else
 			if(wear_suit)
 				wear_suit.add_fingerprint(M)

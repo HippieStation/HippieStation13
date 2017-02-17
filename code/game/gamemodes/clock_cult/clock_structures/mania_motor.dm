@@ -30,7 +30,7 @@
 /obj/structure/destructible/clockwork/powered/mania_motor/examine(mob/user)
 	..()
 	if(is_servant_of_ratvar(user) || isobserver(user))
-		user << "<span class='sevtug_small'>It requires <b>[mania_cost]W</b> to run, and at least <b>[convert_cost]W</b> to attempt to convert humans adjacent to it.</span>"
+		to_chat(user, "<span class='sevtug_small'>It requires <b>[mania_cost]W</b> to run, and at least <b>[convert_cost]W</b> to attempt to convert humans adjacent to it.</span>")
 
 /obj/structure/destructible/clockwork/powered/mania_motor/forced_disable(bad_effects)
 	if(active)
@@ -44,7 +44,7 @@
 /obj/structure/destructible/clockwork/powered/mania_motor/attack_hand(mob/living/user)
 	if(user.canUseTopic(src, !issilicon(user), NO_DEXTERY) && is_servant_of_ratvar(user))
 		if(!total_accessable_power() >= mania_cost)
-			user << "<span class='warning'>[src] needs more power to function!</span>"
+			to_chat(user, "<span class='warning'>[src] needs more power to function!</span>")
 			return 0
 		toggle(0, user)
 

@@ -19,11 +19,11 @@
 
 	for(var/client/X in mentors)
 		X << 'sound/items/bikehorn.ogg'
-		X << mentor_msg
+		to_chat(X, mentor_msg)
 
 	for(var/client/A in admins)
 		A << 'sound/items/bikehorn.ogg'
-		A << mentor_msg
+		to_chat(A, mentor_msg)
 
 	src << "<span class='mentornotice'><font color='purple'>PM to-<b>Mentors</b>: [msg]</font></span>"
 	return

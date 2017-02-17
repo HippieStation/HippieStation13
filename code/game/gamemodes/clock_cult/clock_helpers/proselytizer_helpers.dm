@@ -50,7 +50,7 @@
 	if(locate(/obj/structure/table) in loc)
 		return FALSE
 	if(is_blocked_turf(src, TRUE))
-		user << "<span class='warning'>Something is in the way, preventing you from proselytizing [src] into a clockwork wall.</span>"
+		to_chat(user, "<span class='warning'>Something is in the way, preventing you from proselytizing [src] into a clockwork wall.</span>")
 		return TRUE
 	return list("operation_time" = 100, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_MINUS_FLOOR, "spawn_dir" = SOUTH)
 
@@ -80,7 +80,7 @@
 	if(proselytizer.metal_to_power)
 		var/no_delete = FALSE
 		if(amount_temp < 2)
-			user << "<span class='warning'>You need at least <b>2</b> floor tiles to convert into power.</span>"
+			to_chat(user, "<span class='warning'>You need at least <b>2</b> floor tiles to convert into power.</span>")
 			return TRUE
 		if(IsOdd(amount_temp))
 			amount_temp--
@@ -98,7 +98,7 @@
 		new /obj/item/stack/tile/brass(get_turf(src), sheets_to_make)
 		use(used)
 	else
-		user << "<span class='warning'>You need at least <b>20</b> floor tiles to convert into brass.</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>20</b> floor tiles to convert into brass.</span>")
 	return TRUE
 
 /obj/item/stack/rods/proselytize_vals(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)
@@ -116,7 +116,7 @@
 		new /obj/item/stack/tile/brass(get_turf(src), sheets_to_make)
 		use(used)
 	else
-		user << "<span class='warning'>You need at least <b>10</b> rods to convert into brass.</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>10</b> rods to convert into brass.</span>")
 	return TRUE
 
 /obj/item/stack/sheet/metal/proselytize_vals(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)
@@ -134,7 +134,7 @@
 		new /obj/item/stack/tile/brass(get_turf(src), sheets_to_make)
 		use(used)
 	else
-		user << "<span class='warning'>You need at least <b>5</b> sheets of metal to convert into brass.</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>5</b> sheets of metal to convert into brass.</span>")
 	return TRUE
 
 /obj/item/stack/sheet/plasteel/proselytize_vals(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)
@@ -152,7 +152,7 @@
 		new /obj/item/stack/tile/brass(get_turf(src), sheets_to_make)
 		use(used)
 	else
-		user << "<span class='warning'>You need at least <b>2</b> sheets of plasteel to convert into brass.</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>2</b> sheets of plasteel to convert into brass.</span>")
 	return TRUE
 
 //Brass directly to power
@@ -264,17 +264,17 @@
 /obj/structure/destructible/clockwork/proselytize_vals(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)
 	. = TRUE
 	if(!can_be_repaired)
-		user << "<span class='warning'>[src] cannot be repaired!</span>"
+		to_chat(user, "<span class='warning'>[src] cannot be repaired!</span>")
 		return
 	if(obj_integrity >= max_integrity)
-		user << "<span class='warning'>[src] is at maximum integrity!</span>"
+		to_chat(user, "<span class='warning'>[src] is at maximum integrity!</span>")
 		return
 	var/amount_to_heal = max_integrity - obj_integrity
 	var/healing_for_cycle = min(amount_to_heal, repair_amount)
 	var/power_required = round(healing_for_cycle*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)
 	if(!healing_for_cycle || (!proselytizer.can_use_power(RATVAR_POWER_CHECK) && !proselytizer.can_use_power(power_required)))
-		user << "<span class='warning'>You need at least <b>[power_required]W</b> power to start repairing [src], and at least \
-		<b>[round(amount_to_heal*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)]W</b> to fully repair it!</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>[power_required]W</b> power to start repairing [src], and at least \
+		<b>[round(amount_to_heal*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)]W</b> to fully repair it!</span>")
 		return
 	user.visible_message("<span class='notice'>[user]'s [proselytizer.name] starts covering [src] in glowing orange energy...</span>", \
 	"<span class='alloy'>You start repairing [src]...</span>")
@@ -310,17 +310,17 @@
 //Proselytizer mob heal proc, to avoid as much copypaste as possible.
 /mob/living/proc/proselytizer_heal(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)
 	if(!is_servant_of_ratvar(src))
-		user << "<span class='warning'>[src] does not serve Ratvar!</span>"
+		to_chat(user, "<span class='warning'>[src] does not serve Ratvar!</span>")
 		return FALSE
 	if(health >= maxHealth || (flags & GODMODE))
-		user << "<span class='warning'>[src == user ? "You" : "[src]"] [src == user ? "are" : "is"] at maximum health!</span>"
+		to_chat(user, "<span class='warning'>[src == user ? "You" : "[src]"] [src == user ? "are" : "is"] at maximum health!</span>")
 		return FALSE
 	var/amount_to_heal = maxHealth - health
 	var/healing_for_cycle = min(amount_to_heal, 4)
 	var/power_required = round(healing_for_cycle*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)
 	if(!healing_for_cycle || (!proselytizer.can_use_power(RATVAR_POWER_CHECK) && !proselytizer.can_use_power(power_required)))
-		user << "<span class='warning'>You need at least <b>[power_required]W</b> power to start repairing[src == user ? " yourself" : " [src]"], and at least \
-		<b>[round(amount_to_heal*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)]W</b> to fully repair [src == user ? "yourself" : "[p_them()]"]!</span>"
+		to_chat(user, "<span class='warning'>You need at least <b>[power_required]W</b> power to start repairing[src == user ? " yourself" : " [src]"], and at least \
+		<b>[round(amount_to_heal*MIN_CLOCKCULT_POWER, MIN_CLOCKCULT_POWER)]W</b> to fully repair [src == user ? "yourself" : "[p_them()]"]!</span>")
 		return FALSE
 	user.visible_message("<span class='notice'>[user]'s [proselytizer.name] starts coverin[src == user ? "g [user.p_them()]" : "g [src]"] in glowing orange energy...</span>", \
 	"<span class='alloy'>You start repairin[src == user ? "g yourself" : "g [src]"]...</span>")
@@ -387,7 +387,7 @@
 			user.visible_message("<span class='notice'>[user]'s [proselytizer.name] stops coverin[src == user ? "g [user.p_them()]" : "g [src]"] with glowing orange energy.</span>", \
 			"<span class='alloy'>You finish repairin[src == user ? "g yourself" : "g [src]"].</span>")
 	else
-		user << "<span class='warning'>[src == user ? "You" : "[src]"] [src == user ? "are" : "is"] at maximum health!</span>"
+		to_chat(user, "<span class='warning'>[src == user ? "You" : "[src]"] [src == user ? "are" : "is"] at maximum health!</span>")
 
 //Convert shards and replicant alloy directly to power
 /obj/item/clockwork/alloy_shards/proselytize_vals(mob/living/user, obj/item/clockwork/clockwork_proselytizer/proselytizer)

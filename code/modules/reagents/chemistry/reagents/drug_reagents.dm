@@ -20,7 +20,7 @@
 	..()
 
 /datum/reagent/drug/space_drugs/overdose_start(mob/living/M)
-	M << "<span class='userdanger'>You start tripping hard!</span>"
+	to_chat(M, "<span class='userdanger'>You start tripping hard!</span>")
 
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M)
@@ -39,7 +39,7 @@
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
-		M << "<span class='notice'>[smoke_message]</span>"
+		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	M.AdjustParalysis(-1, 0)
 	M.AdjustStunned(-1, 0)
 	M.AdjustWeakened(-1, 0)
@@ -59,7 +59,7 @@
 /datum/reagent/drug/crank/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.AdjustParalysis(-1, 0)
 	M.AdjustStunned(-1, 0)
 	M.AdjustWeakened(-1, 0)
@@ -107,7 +107,7 @@
 /datum/reagent/drug/krokodil/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/M)
@@ -124,12 +124,12 @@
 
 /datum/reagent/krokodil/addiction_act_stage2(mob/living/M)
 	if(prob(25))
-		M << "<span class='danger'>Your skin feels loose...</span>"
+		to_chat(M, "<span class='danger'>Your skin feels loose...</span>")
 	..()
 
 /datum/reagent/drug/krokodil/addiction_act_stage3(mob/living/M)
 	if(prob(25))
-		M << "<span class='danger'>Your skin starts to peel away...</span>"
+		to_chat(M, "<span class='danger'>Your skin starts to peel away...</span>")
 	M.adjustBruteLoss(3*REM, 0)
 	..()
 	. = 1
@@ -137,7 +137,7 @@
 /datum/reagent/drug/krokodil/addiction_act_stage4(mob/living/carbon/human/M)
 	CHECK_DNA_AND_SPECIES(M)
 	if(!istype(M.dna.species, /datum/species/krokodil_addict))
-		M << "<span class='userdanger'>Your skin falls off easily!</span>"
+		to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
 		M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
 		M.set_species(/datum/species/krokodil_addict)
 	else
@@ -158,7 +158,7 @@
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.AdjustParalysis(-2, 0)
 	M.AdjustStunned(-2, 0)
 	M.AdjustWeakened(-2, 0)
@@ -235,7 +235,7 @@
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.AdjustParalysis(-3, 0)
 	M.AdjustStunned(-3, 0)
 	M.AdjustWeakened(-3, 0)
@@ -321,7 +321,7 @@
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.adjustStaminaLoss(-18, 0)
 	M.adjustToxLoss(0.5, 0)
 	if(prob(50))
@@ -347,7 +347,7 @@
 		if(prob(80))
 			H.SpinAnimation(10,1)
 		if(prob(10))
-			M << "<span class='notice'>[high_message].</span>"
+			to_chat(M, "<span class='notice'>[high_message].</span>")
 
 	..()
 	return
@@ -362,7 +362,7 @@
 				for(var/i = 0, i < 4, i++)
 				step(M, pick(cardinal))
 		if(prob(15))
-			M << "<span class='danger'>The flipping is so intense you begin to tire </span>"
+			to_chat(M, "<span class='danger'>The flipping is so intense you begin to tire </span>")
 			H.confused +=4
 			M.adjustStaminaLoss(10)
 			H.transform *= -1
@@ -403,7 +403,7 @@
 		var/mob/living/carbon/human/H = M
 		H.SpinAnimation(2,100)
 		if(prob(10))
-			M << "<span class='danger'>Your flipping has become so intense you've become an improvised generator </span>"
+			to_chat(M, "<span class='danger'>Your flipping has become so intense you've become an improvised generator </span>")
 			H.Dizzy(25)
 			M.electrocute_act(rand(1,5), 1, 1)
 			playsound(M, "sparks", 50, 1)
@@ -445,13 +445,13 @@
 		if(prob(10))
 			H.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
 			if (H.ear_damage >= 15)
-				H << "<span class='warning'>Your ears are ringing badly from all of the burping!</span>"
+				to_chat(H, "<span class='warning'>Your ears are ringing badly from all of the burping!</span>")
 				if(prob(H.ear_damage - 10 + 5))
-					H << "<span class='warning'>You can't hear anything!</span>"
+					to_chat(H, "<span class='warning'>You can't hear anything!</span>")
 					H.disabilities |= DEAF
 			else
 				if (H.ear_damage >= 5)
-					H << "<span class='warning'>Your ears are ringing from all of the burping!</span>"
+					to_chat(H, "<span class='warning'>Your ears are ringing from all of the burping!</span>")
 	..()
 	return
 
@@ -462,7 +462,7 @@
 	color = "#d6d6d6" //rgb(214, 214, 214)
 	reagent_state = LIQUID
 	overdose_threshold = 40
-	
+
 
 /datum/reagent/drug/spookium/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -504,7 +504,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach rumbles as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach rumbles as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(1*REM)
 	..()
 	return
@@ -517,7 +517,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts a bit as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts a bit as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(2*REM)
 	..()
 
@@ -529,7 +529,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(3*REM)
 	..()
 
@@ -541,7 +541,7 @@
 			if(B)
 				H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts a lot as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts a lot as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(4*REM)
 	..()
 
@@ -554,7 +554,7 @@
 				if(prob(2) && !B.loose) H.emote("superfart")
 				else H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(5*REM)
 	..()
 
@@ -567,6 +567,6 @@
 				if(prob(5) && !B.loose) H.emote("superfart")
 				else H.emote("fart")
 			else
-				H << "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>"
+				to_chat(H, "<span class='danger'>Your stomach hurts too much as pressure builds up inside of you.</span>")
 				H.adjustToxLoss(6*REM)
 	..()

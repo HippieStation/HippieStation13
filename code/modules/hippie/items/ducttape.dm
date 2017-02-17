@@ -17,7 +17,7 @@
 		return ..()
 	var/mob/living/carbon/human/H = user
 	if(loc == user && H.wear_mask == src)
-		H << "<span class='userdanger'>Your tape was forcefully removed from your mouth. It's not pleasant.</span>"
+		to_chat(H, "<span class='userdanger'>Your tape was forcefully removed from your mouth. It's not pleasant.</span>")
 		playsound(user, 'sound/items/ducttape2.ogg', 50, 1)
 		H.apply_damage(2, BRUTE, "head")
 		user.emote("scream")
@@ -34,7 +34,7 @@
 	var/mob/living/carbon/human/H = user
 	..()
 	if(H.wear_mask == src && !src.used)
-		H << "<span class='userdanger'>Your tape was forcefully removed from your mouth. It's not pleasant.</span>"
+		to_chat(H, "<span class='userdanger'>Your tape was forcefully removed from your mouth. It's not pleasant.</span>")
 		playsound(user, 'sound/items/ducttape2.ogg', 50, 1)
 		H.apply_damage(2, BRUTE, "head")
 		user.drop_item()
@@ -71,17 +71,17 @@
 				(H.head && H.head.flags & HEADCOVERSMOUTH) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSMOUTH) \
 			)
-			user << "<span class='danger'>You're going to need to remove that mask/helmet first.</span>"
+			to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet first.</span>")
 			return
 		playsound(loc, 'sound/items/ducttape1.ogg', 30, 1)
 		if(do_mob(user, H, 20) && !H.wear_mask)
 			// H.wear_mask = new/obj/item/clothing/mask/muzzle/tape(H)
 			H.equip_to_slot_or_del(new /obj/item/clothing/mask/muzzle/tape(H), slot_wear_mask)
-			user << "<span class='notice'>You tape [H]'s mouth.</span>"
+			to_chat(user, "<span class='notice'>You tape [H]'s mouth.</span>")
 			playsound(loc, 'sound/items/ducttape1.ogg', 50, 1)
 			if(src.use(2) == 0)
 				user.drop_item()
 				qdel(src)
 			add_logs(user, H, "mouth-taped")
 		else
-			user << "<span class='warning'>You fail to tape [H]'s mouth.</span>"
+			to_chat(user, "<span class='warning'>You fail to tape [H]'s mouth.</span>")
