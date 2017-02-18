@@ -4,13 +4,13 @@
 
 //Meteors probability of spawning during a given wave
 /var/list/meteors_normal = list(/obj/effect/meteor/dust=3, /obj/effect/meteor/medium=8, /obj/effect/meteor/big=3, \
-						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3) //for normal meteor event
+						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3, /obj/effect/meteor/standarrow=1) //for normal meteor event
 
 /var/list/meteors_threatening = list(/obj/effect/meteor/medium=4, /obj/effect/meteor/big=8, \
-						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3) //for threatening meteor event
+						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3, /obj/effect/meteor/standarrow=1) //for threatening meteor event
 
 /var/list/meteors_catastrophic = list(/obj/effect/meteor/medium=5, /obj/effect/meteor/big=75, \
-						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1) //for catastrophic meteor event
+						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1, /obj/effect/meteor/standarrow=1) //for catastrophic meteor event
 
 /var/list/meteorsB = list(/obj/effect/meteor/meaty=5, /obj/effect/meteor/meaty/xeno=1) //for meaty ore event
 
@@ -261,6 +261,22 @@
 	explosion(src.loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	radiation_pulse(get_turf(src), 2, 5, 50, 1)
+
+//Stand Meteor
+/obj/effect/meteor/standarrow
+	name = "mysterious meteor"
+	icon_state = "glowing"
+	heavy = 1
+	meteordrop = list(/obj/item/weapon/guardiancreator/standarrow)
+	dropamt = 1
+	threat = 15
+
+
+/obj/effect/meteor/standarrow/meteor_effect()
+	..()
+	explosion(src.loc, 0, 0, 4, 3, 0)
+	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
+
 
 //Meaty Ore
 /obj/effect/meteor/meaty
