@@ -673,7 +673,9 @@
 	icon = 'icons/misc/fullscreen.dmi'
 	icon_state = "title"
 	screen_loc = "1,1"
-	alpha = 0
+	layer = SPLASHSCREEN_LAYER
+	plane = SPLASHSCREEN_PLANE
+	var/client/holder
 
 /obj/screen/splash/New(client/C, fadeout, qdel_after = TRUE)
 	..()
