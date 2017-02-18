@@ -64,7 +64,6 @@
 /obj/item/weapon/reagent_containers/glass/bottle/chloralhydrate
 	name = "Chloral Hydrate Bottle"
 	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
-	list_reagents = list("chloralhydrate" = volume)
 	list_reagents_fill = list("chloralhydrate")
 
 /obj/item/weapon/reagent_containers/glass/bottle/antitoxin
