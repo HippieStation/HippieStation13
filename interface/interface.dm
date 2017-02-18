@@ -53,6 +53,19 @@
 	set hidden = 1
 
 	var/compileinfo = ""
+	var/message = "This will open the issue reporter. Are you sure?"
+	var/first = TRUE
+	
+	if(config.githuburl)
+		for(var/line in revdata.testmerge)
+			if(line)
+				if(first)
+					first = FALSE
+					message += ". The following experimental changes are active and are probably the cause of any new or sudden issues you may experience. If possible, please try to find a specific thread for your issue instead of posting to the general issue tracker:"
+			message += " <a href='[config.githuburl]/pull/[line]'>#[line]</a>"
+
+	if(tgalert(src, message, "Report Issue","Yes","No")=="No")
+		return
 
 	if(revdata.parentcommit)
 		compileinfo = url_encode("Server revision [revdata.parentcommit] compiled on: [revdata.date]")
