@@ -10,6 +10,7 @@
 	anchored = 1
 	var/precision = 1 // how close to the portal you will teleport. 0 = on the portal, 1 = adjacent
 	var/mech_sized = FALSE
+	var/spam_flag = FALSE
 
 /obj/effect/portal/Bumped(mob/M as mob|obj)
 	teleport(M)
@@ -59,6 +60,14 @@
 	if (!( target ))
 		qdel(src)
 		return
+	if(target.z != z && z != ZLEVEL_STATION) //if our target is a different zlevel and our zlevel isn't the station
+		if(blockExiles(M))
+			if(!spam_flag)
+				spam_flag = TRUE
+				visible_message("<span class='alert'>\The [src] rejects [M]!</span>")
+				spawn(30)
+					spam_flag = FALSE
+			return
 	if (istype(M, /atom/movable))
 		if(ismegafauna(M))
 			message_admins("[M] (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) has teleported through [src].")

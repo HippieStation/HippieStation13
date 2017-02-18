@@ -11,6 +11,7 @@
 	var/calibrating
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+	var/spam_flag = FALSE
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -319,6 +320,14 @@
 	if (!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
+	if(com.target.z != z && z != ZLEVEL_STATION) //if our target is a different zlevel and our zlevel isn't the station
+		if(blockExiles(M))
+			if(!com.spam_flag)
+				com.spam_flag = TRUE
+				com.say("Exile implant detected. Teleportation denied.")
+				spawn(30)
+					com.spam_flag = FALSE
+			return
 	if (istype(M, /atom/movable))
 		if(do_teleport(M, com.target))
 			for(var/mob/living/carbon/human/human in M.contents)

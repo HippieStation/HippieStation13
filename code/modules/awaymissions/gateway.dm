@@ -216,10 +216,8 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		return
 	if(!stationgate || QDELETED(stationgate))
 		return
-	if(istype(AM, /mob/living/carbon))
-		var/mob/living/carbon/C = AM
-		for(var/obj/item/weapon/implant/exile/E in C.implants)//Checking that there is an exile implant
-			AM << "\black The station gate has detected your exile implant and is blocking your entry."
+	if(z != ZLEVEL_STATION)
+		if(blockExiles(AM))
 			return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)
