@@ -321,6 +321,16 @@ SECOND_TOPIC_LIMIT 10
 
 MINUTE_TOPIC_LIMIT 100
 
+##Text To Speech Stuff
+##Uncomment to enable TTS
+#TTS_ENABLED
+
+##The URL for the TTS Server
+#TTS_URL [url]
+
+
+
+
 ##Error handling related options
 ## The "cooldown" time for each occurence of an unique error
 #ERROR_COOLDOWN 600

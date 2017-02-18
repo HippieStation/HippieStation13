@@ -255,6 +255,12 @@
 	var/error_silence_time = 6000 // How long a unique error will be silenced for
 	var/error_msg_delay = 50 // How long to wait between messaging admins about occurrences of a unique error
 
+	//TTS shit
+	var/ttsurl
+	var/ttsenabled
+
+
+
 	// Updater
 	var/update_check_enabled = FALSE
 	var/dmb_filename
@@ -532,6 +538,10 @@
 					error_silence_time = text2num(value)
 				if("error_msg_delay")
 					error_msg_delay = text2num(value)
+				if("tts_enabled")
+					config.ttsenabled = 1
+				if("tts_url")
+					config.ttsurl = value
 				if("update_check_enabled")
 					update_check_enabled = TRUE
 				if("dmb_filename")
