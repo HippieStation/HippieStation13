@@ -50,6 +50,7 @@
 
 	var/invis_sight = SEE_INVISIBLE_LIVING
 	var/darksight = 2
+	var/list/mutations_to_have = list()
 
 	// species flags. these can be found in flags.dm
 	var/list/species_traits = list()
@@ -821,6 +822,11 @@
 	return 0
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
+
+	for(var/M in mutations_to_have)
+		if(M in H.dna.mutations)
+			continue
+		H.dna.mutations.Add(M)
 
 	if(!(RADIMMUNE in species_traits))
 		if(H.radiation)

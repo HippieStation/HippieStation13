@@ -8,6 +8,7 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct
+	mutations_to_have = list(CLUMSY, EPILEPSY, UNINTELLIGABLE, NERVOUS, COUGH)
 	skinned_type = /obj/item/stack/sheet/animalhide/cat
 	exotic_bloodtype = "L"
 	burnmod = 1.25
