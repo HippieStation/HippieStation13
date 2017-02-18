@@ -213,6 +213,10 @@
 	if(legcuffed)
 		dat += "<tr><td><A href='?src=\ref[src];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
 
+	for(var/obj/item/bodypart/L in bodyparts)
+		for(var/obj/item/I in L.embedded_objects)
+			dat += "<tr><td><a href='byond://?src=\ref[src];embedded_object=\ref[I];embedded_limb=\ref[L]'>Embedded in [L]: [I]</a><br></td></tr>"
+
 	dat += {"</table>
 	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
 	"}
@@ -240,7 +244,8 @@
 			if(!I || !L || I.loc != src || !(I in L.embedded_objects)) //no item, no limb, or item is not in limb or in the person anymore
 				return
 			var/time_taken = I.embedded_unsafe_removal_time*I.w_class
-			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from their [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
+			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from [usr == src ? "their" : name + "'s"] [L.name].</span>",\
+				                "<span class='notice'>You attempt to remove [I] from [usr == src ? "your" : name + "'s"] [L.name]... (It will take [time_taken/10] seconds.)</span>")
 			if(do_after(usr, time_taken, needhand = 1, target = src))
 				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
 					return
@@ -248,8 +253,10 @@
 				L.receive_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
 				I.forceMove(get_turf(src))
 				usr.put_in_hands(I)
-				usr.emote("scream")
-				usr.visible_message("[usr] successfully rips [I] out of their [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
+				emote("scream")
+
+				visible_message("[usr] successfully rips [I] out of [usr == src ? "their" : name + "'s"] [L.name]!",\
+					            "<span class='notice'>You successfully remove [I] from [usr == src ? "your" : name + "'s"] [L.name].</span>")
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 			return
