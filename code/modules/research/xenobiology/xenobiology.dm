@@ -545,22 +545,6 @@
 	name = "Admin Rune"
 	desc = "A rune used by badmins to turn ghosts into humans. Oh boy."
 
-	New()
-		..()
-		SSobj.processing |= src
-
-/obj/effect/golemrune/humanrune/process()
-	var/mob/dead/observer/ghost
-	for(var/mob/dead/observer/O in src.loc)
-		if(!O.client)	continue
-		if(O.mind && O.mind.current && O.mind.current.stat != DEAD)	continue
-		ghost = O
-		break
-	if(ghost)
-		icon_state = "golem2"
-	else
-		icon_state = "golem"
-
 /obj/effect/golemrune/humanrune/attack_hand(mob/living/user)
 	var/mob/dead/observer/ghost
 	for(var/mob/dead/observer/O in src.loc)

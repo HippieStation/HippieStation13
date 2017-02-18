@@ -1201,6 +1201,7 @@ var/list/datum/outfit/custom_outfits = list() //Admin created outfits
 			var/datum/gas_mixture/A = T.air
 			T.overlays.Cut()
 			if(A)
+				CHECK_TICK
 				A = initial(A)
 	message_admins("[key_name(src)] cleaned air within [size] tiles.")
 	log_game("[key_name(src)] cleaned air within [size] tiles.")
@@ -1213,6 +1214,7 @@ var/list/datum/outfit/custom_outfits = list() //Admin created outfits
 	if(size == "Cancel")
 		return 0
 	for(var/turf/open/space/T in range(size))
+		CHECK_TICK
 		T.ChangeTurf(/turf/open/floor/plating)
 	message_admins("[key_name(src)] filled the hullbreachs in [size] tiles.")
 	log_game("[key_name(src)] filled the hullbreachs in [size] tiles.")
