@@ -62,22 +62,22 @@
 	list_reagents_fill = list("morphine")
 
 /obj/item/weapon/reagent_containers/glass/bottle/chloralhydrate
-	name = "Chloral Hydrate Bottle"
-	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
+	name = "choral hydrate bottle"
+	desc = "A small bottle of choral hydrate. Mickey's Favorite!"
 	list_reagents_fill = list("chloralhydrate")
 
 /obj/item/weapon/reagent_containers/glass/bottle/antitoxin
-	name = "Anti-Toxin bottle"
-	desc = "A small bottle of Anti-Toxin. Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
+	name = "anti-toxin bottle"
+	desc = "A small bottle of anti-toxin. Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
 	list_reagents_fill = list("antitoxin")
 
 /obj/item/weapon/reagent_containers/glass/bottle/charcoal
-	name = "Charcoal bottle"
+	name = "charcoal bottle"
 	desc = "A small bottle of charcoal. Heals toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	list_reagents_fill = list("charcoal")
 
 /obj/item/weapon/reagent_containers/glass/bottle/cryoxadone
-	name = "Cryoxadone bottle"
+	name = "cryoxadone bottle"
 	desc = "A small bottle of cryoxadone."
 	list_reagents_fill = list("cryoxadone")
 
@@ -107,24 +107,24 @@
 	list_reagents_fill = list("diethylamine")
 
 /obj/item/weapon/reagent_containers/glass/bottle/facid
-	name = "Fluorosulfuric Acid Bottle"
-	desc = "A small bottle. Contains a small amount of Fluorosulfuric Acid"
+	name = "fluorosulfuric acid Bottle"
+	desc = "A small bottle. Contains a small amount of fluorosulfuric acid"
 	list_reagents_fill = list("facid")
 
 /obj/item/weapon/reagent_containers/glass/bottle/adminordrazine
-	name = "Adminordrazine Bottle"
+	name = "adminordrazine bottle"
 	desc = "A small bottle. Contains the liquid essence of the gods."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "holyflask"
 	list_reagents_fill = list("adminordrazine")
 
 /obj/item/weapon/reagent_containers/glass/bottle/capsaicin
-	name = "Capsaicin Bottle"
+	name = "capsaicin bottle"
 	desc = "A small bottle. Contains hot sauce."
 	list_reagents_fill = list("capsaicin")
 
 /obj/item/weapon/reagent_containers/glass/bottle/frostoil
-	name = "Frost Oil Bottle"
+	name = "frost oil bottle"
 	desc = "A small bottle. Contains cold sauce."
 	list_reagents_fill = list("frostoil")
 
@@ -219,37 +219,37 @@
 	list_reagents_fill = list("romerol")
 
 /obj/item/weapon/reagent_containers/glass/bottle/flu_virion
-	name = "Flu virion culture bottle"
+	name = "flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/flu
 
 /obj/item/weapon/reagent_containers/glass/bottle/epiglottis_virion
-	name = "Epiglottis virion culture bottle"
+	name = "epiglottis virion culture bottle"
 	desc = "A small bottle. Contains Epiglottis virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/voice_change
 
 /obj/item/weapon/reagent_containers/glass/bottle/liver_enhance_virion
-	name = "Liver enhancement virion culture bottle"
+	name = "liver enhancement virion culture bottle"
 	desc = "A small bottle. Contains liver enhancement virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/heal
 
 /obj/item/weapon/reagent_containers/glass/bottle/hullucigen_virion
-	name = "Hullucigen virion culture bottle"
+	name = "hullucigen virion culture bottle"
 	desc = "A small bottle. Contains hullucigen virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/hullucigen
 
 /obj/item/weapon/reagent_containers/glass/bottle/pierrot_throat
-	name = "Pierrot's Throat culture bottle"
+	name = "pierrot's Throat culture bottle"
 	desc = "A small bottle. Contains H0NI<42 virion culture in synthblood medium."
 	spawned_disease = /datum/disease/pierrot_throat
 
 /obj/item/weapon/reagent_containers/glass/bottle/cold
-	name = "Rhinovirus culture bottle"
+	name = "rhinovirus culture bottle"
 	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/cold
 
 /obj/item/weapon/reagent_containers/glass/bottle/retrovirus
-	name = "Retrovirus culture bottle"
+	name = "retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."
 	spawned_disease = /datum/disease/dna_retrovirus
 
@@ -266,37 +266,37 @@
 	spawned_disease = /datum/disease/fake_gbs
 
 /obj/item/weapon/reagent_containers/glass/bottle/brainrot
-	name = "Brainrot culture bottle"
+	name = "brainrot culture bottle"
 	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
 	spawned_disease = /datum/disease/brainrot
 
 /obj/item/weapon/reagent_containers/glass/bottle/magnitis
-	name = "Magnitis culture bottle"
+	name = "magnitis culture bottle"
 	desc = "A small bottle. Contains a small dosage of Fukkos Miracos."
 	spawned_disease = /datum/disease/magnitis
 
 /obj/item/weapon/reagent_containers/glass/bottle/wizarditis
-	name = "Wizarditis culture bottle"
+	name = "wizarditis culture bottle"
 	desc = "A small bottle. Contains a sample of Rincewindus Vulgaris."
 	spawned_disease = /datum/disease/wizarditis
 
 /obj/item/weapon/reagent_containers/glass/bottle/anxiety
-	name = "Severe Anxiety culture bottle"
+	name = "severe anxiety culture bottle"
 	desc = "A small bottle. Contains a sample of Lepidopticides."
 	spawned_disease = /datum/disease/anxiety
 
 /obj/item/weapon/reagent_containers/glass/bottle/beesease
-	name = "Beesease culture bottle"
+	name = "beesease culture bottle"
 	desc = "A small bottle. Contains a sample of invasive Apidae."
 	spawned_disease = /datum/disease/beesease
 
 /obj/item/weapon/reagent_containers/glass/bottle/fluspanish
-	name = "Spanish flu culture bottle"
+	name = "spanish flu culture bottle"
 	desc = "A small bottle. Contains a sample of Inquisitius."
 	spawned_disease = /datum/disease/fluspanish
 
 /obj/item/weapon/reagent_containers/glass/bottle/tuberculosis
-	name = "Fungal Tuberculosis culture bottle"
+	name = "fungal tuberculosis culture bottle"
 	desc = "A small bottle. Contains a sample of Fungal Tubercle bacillus."
 	spawned_disease = /datum/disease/tuberculosis
 

@@ -175,7 +175,6 @@
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents_fill = list("water")
@@ -189,7 +188,6 @@
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	stream_mode = 1
@@ -219,6 +217,8 @@
 // Hydroponics
 
 /obj/item/weapon/reagent_containers/spray/hydroponics
+	name = "hydroponics spray bottle"
+	desc = "A hydroponics spray bottle, with an unscrewable top."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
@@ -228,21 +228,19 @@
 	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (TOXLOSS)
 
-/obj/item/weapon/reagent_containers/spray/hydroponics/plantbgone // -- Skie
-	name = "plant-b-gone"
+/obj/item/weapon/reagent_containers/spray/hydroponics/plantbgonespray // -- Skie
+	name = "plant-b-gone spray"
 	desc = "Kills those pesky weeds!"
 	list_reagents_fill = list("plantbgone")
 
-/obj/item/weapon/reagent_containers/spray/hydroponics/weedspray // -- Skie
-	name = "weed spray"
+/obj/item/weapon/reagent_containers/spray/hydroponics/weedkillerspray // -- Skie
+	name = "weed killer spray"
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
 	icon_state = "weedspray"
-	item_state = "weedspray"
 	list_reagents_fill = list("weedkiller")
 
-/obj/item/weapon/reagent_containers/spray/hydroponics/pestspray // -- Skie
-	name = "pest spray"
+/obj/item/weapon/reagent_containers/spray/hydroponics/pestkillerspray // -- Skie
+	name = "pest killer spray"
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon_state = "pestspray"
-	item_state = "pestspray"
 	list_reagents_fill = list("pestkiller")
