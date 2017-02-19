@@ -3,7 +3,7 @@
 	name = "holy"
 	icon = 'icons/hippie/effects/holy.dmi'
 	layer = MOB_LAYER+1
-	use_fade = 0 //This should really be FALSE/TRUE I think
+	use_fade = FALSE
 	mouse_opacity = 0
 	pixel_x = -32
 	pixel_y = 0

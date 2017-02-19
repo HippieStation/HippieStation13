@@ -17,6 +17,10 @@
 	var/damtype_word = null
 	var/dam = 0
 
+	var/holylighteffect = FALSE
+
+	var/datum/callback/smitecall = null
+
 	confirm = input(src, "Really smite [M.name]([M.ckey])?", "Divine Retribution") in list("Yeah", "Nah")
 	if(confirm == "Nah")
 		return
@@ -34,28 +38,31 @@
 	var/obj/effect/holy/lightning/L = new /obj/effect/holy/lightning()
 	L.start(M)
 
-	spawn(10)
-		switch(damtype_word)
-			if("Brute")
-				M.adjustBruteLoss(dam)
-			if("Burn")
-				M.adjustFireLoss(dam)
-			if("Toxin")
-				M.adjustToxLoss(dam)
-			if("Oxygen")
-				M.adjustOxyLoss(dam)
-			if("Clone")
-				M.adjustCloneLoss(dam)
-			if("Brain")
-				M.adjustBrainLoss(dam)
-			if("Stamina")
-				M.adjustStaminaLoss(dam)
-			if("Heal")
-				var/obj/effect/holy/HL = new /obj/effect/holy()
-				HL.start(M)
-				M.revive(full_heal = 1, admin_revive = 1)
-			if("Gib")
-				M.gib()
+	switch(damtype_word)
+		if("Brute")
+			smitecall = new(M, /mob/living/proc/adjustBruteLoss, dam)
+		if("Burn")
+			smitecall = new(M, /mob/living/proc/adjustFireLoss, dam)
+		if("Toxin")
+			smitecall = new(M, /mob/living/proc/adjustToxLoss, dam)
+		if("Oxygen")
+			smitecall = new(M, /mob/living/proc/adjustOxyLoss, dam)
+		if("Clone")
+			smitecall = new(M, /mob/living/proc/adjustCloneLoss, dam)
+		if("Brain")
+			smitecall = new(M, /mob/living/proc/adjustBrainLoss, dam)
+		if("Stamina")
+			smitecall = new(M, /mob/living/proc/adjustStaminaLoss, dam)
+		if("Heal")
+			holylighteffect = TRUE
+			smitecall = new(M, /mob/living/proc/revive, TRUE, TRUE)
+		if("Gib")
+			smitecall = new(M, /mob/living/gib)
+
+	if(holylighteffect)
+		var/obj/effect/holy/HL = new /obj/effect/holy()
+		addtimer(CALLBACK(HL, /obj/effect/holy/proc/start, M), 5)
+	addtimer(smitecall, 5)
 
 	if(damtype_word in requiresdam)
 		log_admin("[src]([src.ckey]) smote [M] ([M.ckey]) with [damtype_word] for [dam] damage.")
