@@ -5,6 +5,8 @@ var/global/default_martial_art = new/datum/martial_art
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,ANTAG_HUD)
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	pressure_resistance = 25
+	crit_can_crawl = 1
+	crit_crawl_damage = 1 //Crawling in crit should apply 1 oxyloss
 	//Hair colour and style
 	var/hair_color = "000"
 	var/hair_style = "Bald"

@@ -9,6 +9,8 @@
 	languages_spoken = MONKEY
 	languages_understood = MONKEY
 	ventcrawler = VENTCRAWLER_NUDE
+	crit_can_crawl = 1
+	crit_crawl_damage = 1 //Crawling in crit should apply 1 oxyloss
 	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/weapon/reagent_containers/food/snacks/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs

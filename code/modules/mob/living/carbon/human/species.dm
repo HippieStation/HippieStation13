@@ -928,6 +928,10 @@
 			. += (1.5 - flight)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+		if(H.lying) //This is for crawling
+			. += 10
+			if(is_nearcrit(H))//Can crawl only every 3 seconds if nearcrit, otherwise it's 1
+				. += 20
 	return .
 
 //////////////////

@@ -161,6 +161,21 @@
 	moving = 1
 	move_delay = mob.movement_delay() + world.time
 
+	if(isliving(mob))
+		var/mob/living/L = mob
+		if(L.lying && L.crit_can_crawl) //You can only crawl in nearcrit
+			if(L.crit_crawl_damage != 0 && (is_nearcrit(L))) // let 'em have their negative values
+				L.apply_damage(L.crit_crawl_damage, L.crit_crawl_damage_type)
+				L.visible_message("<span class='danger'>[L] crawls forward!</span>", \
+									"<span class='userdanger'>You crawl forward at the expense of some of your strength.</span>") //Visible message only when incrit
+			if(L.dir == WEST)
+				L.lying = 270
+				L.update_canmove()
+			else if(L.dir == EAST)
+				L.lying = 90
+				L.update_canmove()
+			playsound(L.loc, pick('sound/hippie/effects/bodyscrape-01.ogg', 'sound/hippie/effects/bodyscrape-02.ogg'), 20, 1, -4) //Crawling is VERY quiet
+
 	if(mob.confused)
 		if(mob.confused > 40)
 			step(mob, pick(cardinal))

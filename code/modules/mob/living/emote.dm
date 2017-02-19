@@ -76,6 +76,8 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/cough/run_emote(mob/living/user, params)
+	if(is_nearcrit(user))
+		message = "coughs painfully!"
 	. = ..()
 	if(. && ishuman(user))
 		var/coughsound = pick('sound/misc/cough1.ogg', 'sound/misc/cough2.ogg', 'sound/misc/cough3.ogg', 'sound/misc/cough4.ogg')
@@ -255,7 +257,7 @@
 	message_mime = "acts out a scream!"
 	emote_type = EMOTE_AUDIBLE
 	var/screamdown
-		
+
 /datum/emote/living/scream/run_emote(mob/living/user, params)
 	if(screamdown)
 		return

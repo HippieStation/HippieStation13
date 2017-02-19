@@ -75,3 +75,7 @@
 	var/list/status_effects //a list of all status effects the mob has
 
 	var/list/implants = null
+
+	var/crit_can_crawl = 0 //whether or not the mob can crawl in crit
+	var/crit_crawl_damage = 0 //No damage by default
+	var/crit_crawl_damage_type = OXY
