@@ -190,7 +190,7 @@
 /datum/reagent/pyrosium
 	name = "Pyrosium"
 	id = "pyrosium"
-	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents in the container."
+	description = "Comes into existence at 500K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents in the container up. Useful for delayed reactions."
 	color = "#64FAC8"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
@@ -223,3 +223,51 @@
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
+
+/datum/reagent/cryogenic_fluid
+	name = "Cryogenic Fluid"
+	id = "cryogenic_fluid"
+	description = "Extremely cold superfluid used to put out fires that will viciously freeze people on contact causing severe pain and burn damage, weak if ingested."
+	color = "#b3ffff"
+	metabolization_rate = 2
+
+/datum/reagent/cryogenic_fluid/on_tick()
+	holder.chem_temp -= 5
+	..()
+
+/datum/reagent/cryogenic_fluid/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(iscarbon(M) && M.stat != DEAD)
+		if(method in list(INGEST,INJECT))
+			M.adjust_fire_stacks(-(reac_volume))
+			M.adjustStaminaLoss(reac_volume)
+			M.adjustFireLoss(reac_volume)
+			M.bodytemperature = max(M.bodytemperature - 50, TCMB)
+			if(show_message)
+				M << "<span class='warning'>You feel like you are freezing from the inside!</span>"
+		else
+			if (reac_volume >= 5)
+				if(show_message)
+					M << "<span class='danger'>You can feel your body freezing up and your metabolism slow DEAR GOD THE PAIN!!</span>"
+				M.bodytemperature = max(M.bodytemperature - 10*reac_volume, TCMB)
+				M.adjust_fire_stacks(-(3*reac_volume))
+				M.adjustFireLoss(0.125*reac_volume)
+				M.adjustOxyLoss(0.375*reac_volume)
+				M.drowsyness += 3
+				M.confused += 12
+
+			else
+			 M.bodytemperature = max(M.bodytemperature - 5, TCMB)
+			 M.adjust_fire_stacks(-(2*reac_volume))
+	 ..()
+
+/datum/reagent/cryogenic_fluid/reaction_turf(turf/T, reac_volume)
+	if (!istype(T)) return
+	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
+	if(hotspot && isopenturf(T))
+		var/turf/open/O = T
+		if(O.air)
+			var/datum/gas_mixture/G = O.air
+			G.temperature = 0
+			G.react()
+			qdel(hotspot)
+	return
