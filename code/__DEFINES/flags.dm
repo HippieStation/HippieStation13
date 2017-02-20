@@ -16,13 +16,13 @@
 #define CONDUCT			64		// conducts electricity (metal etc.)
 #define ABSTRACT    	128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define NODECONSTRUCT  	128		// For machines and structures that should not break into parts, eg, holodeck stuff
-#define FPRINT			256		// takes a fingerprint
+#define OVERLAY_QUEUED  256		//atom queued to SSoverlay
 #define ON_BORDER		512		// item has priority to check when entering or leaving
 
 #define EARBANGPROTECT		1024
 
 #define NOSLIP		1024 		//prevents from slipping on wet floors, in space etc (NOTE: flag shared with THICKMATERIAL for external suits and helmet)
-#define OVERLAY_QUEUED  2048	//atom queued to SSoverlay
+
 #define HEADBANGPROTECT		4096
 
 // BLOCK_GAS_SMOKE_EFFECT only used in masks at the moment.
