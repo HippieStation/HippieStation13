@@ -151,5 +151,5 @@
 			qdel(src)
 		else
 			update_mob()
-			explosion(src.loc,1,2,4, flame_range = 6)
+			explosion(src.loc,1,1,4, flame_range = 6)
 			qdel(src)
