@@ -88,7 +88,59 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily."
-	restraint_check = TRUE
+
+	/datum/emote/living/dance/run_emote(mob/living/user, params)
+		if(iscarbon(user))
+			if (!user.restrained())
+
+				// implement some special visual moves
+				var/dancemove = rand(1,5)
+
+				switch(dancemove)
+					if (1)
+						message = "busts out some mad moves."
+						spawn(0)
+							for (var/i = 0, i < 4, i++)
+								user.dir = turn(user.dir, 90)
+								sleep(2)
+
+					if (2)
+						message = "does the twist, like they did last summer."
+						spawn(0)
+							for (var/i = 0, i < 4, i++)
+								user.dir = turn(user.dir, -90)
+								sleep(2)
+
+					if (3)
+						message = "moonwalks."
+						spawn(0)
+							for (var/i = 0, i < 4, i++)
+								user.pixel_x+= 2
+								sleep(2)
+							for (var/i = 0, i < 4, i++)
+								user.pixel_x-= 2
+								sleep(2)
+
+					if (4)
+						message = "boogies!"
+						spawn(0)
+							for (var/i = 0, i < 4, i++)
+								user.pixel_x+= 2
+								user.dir = turn(user.dir, 90)
+								sleep(2)
+							for (var/i = 0, i < 4, i++)
+								user.pixel_x-= 2
+								user.dir = turn(user.dir, 90)
+								sleep(2)
+
+					else
+						message = pick("gets on down.","dances!", "cranks out some dizzying windmills.")
+
+			else
+				message = "twitches feebly in time to music only they can hear."
+		else
+			message = "dances around happily."
+		. = ..()
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -145,6 +197,12 @@
 	key_third_person = "aflaps"
 	message = "flaps their wings ANGRILY!"
 	wing_time = 10
+
+/datum/emote/living/flex
+	key = "flex"
+	key_third_person = "flexes"
+	message = "flexes their muscles."
+	restraint_check = TRUE
 
 /datum/emote/living/flip
 	key = "flip"
@@ -247,6 +305,12 @@
 	key_third_person = "pouts"
 	message = "pouts."
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/raisehand
+	key = "raisehand"
+	key_third_person = "raiseshand"
+	message = "raises a hand."
+	restraint_check = TRUE
 
 /datum/emote/living/scream
 	key = "scream"

@@ -262,6 +262,26 @@
 	key_third_person = "shrugs"
 	message = "shrugs."
 
+/datum/emote/living/carbon/human/snap
+	key = "snap"
+	key_third_person = "snaps"
+	message = "snaps their fingers!"
+
+/datum/emote/living/carbon/human/snap/run_emote(mob/living/carbon/human/user, params)
+	if(!user.has_active_hand())
+		user << "<span class='notice'>You look at your arm and sigh.</span>"
+		return
+	if (prob(8))
+		message = "<font color=red>snaps their fingers RIGHT OFF!</font>"
+		var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
+		affecting.dismember(dam_type = BRUTE)
+		user.bleed_rate = 15
+		playsound(user.loc, 'sound/effects/snap.ogg', 50, 0)
+	else
+		message = "snaps their fingers."
+		playsound(user.loc, 'sound/hippie/effects/fingersnap.ogg', 50, 0)
+	. = ..()
+
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
