@@ -149,7 +149,7 @@
 			update_mob()
 			explosion(src.loc,-1,1,3, flame_range = 5)
 			qdel(src)
-		else
+		if(91 to 100)
 			update_mob()
 			explosion(src.loc,1,1,4, flame_range = 6)
 			qdel(src)
