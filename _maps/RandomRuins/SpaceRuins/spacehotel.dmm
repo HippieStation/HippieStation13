@@ -5267,7 +5267,9 @@
 /turf/open/floor/plasteel/yellowsiding,
 /area/ruin/hotel/pool)
 "nd" = (
-/obj/machinery/poolcontroller,
+/obj/machinery/poolcontroller{
+	srange = 20
+	},
 /turf/open/floor/plasteel/yellowsiding,
 /area/ruin/hotel/pool)
 "ne" = (
