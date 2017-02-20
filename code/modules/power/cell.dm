@@ -140,7 +140,7 @@
 
 /obj/item/weapon/stock_parts/cell/ex_act(severity, target)
 	..()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		switch(severity)
 			if(2)
 				if(prob(50))
@@ -155,7 +155,7 @@
 
 /obj/item/weapon/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return Clamp(round(charge/10000), 10, 90) + rand(-5,5)
+		return Clamp(round(charge/10000), 10, 500) + rand(-5,5)
 	else
 		return 0
 

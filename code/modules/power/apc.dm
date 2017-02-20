@@ -51,6 +51,7 @@
 	obj_integrity = 200
 	max_integrity = 200
 	integrity_failure = 50
+	resistance_flags = FIRE_PROOF
 	var/area/area
 	var/areastring = null
 	var/obj/item/weapon/stock_parts/cell/cell
@@ -275,12 +276,10 @@
 			icon_state = "apcewires"
 
 	if(!(update_state & UPSTATE_ALLGOOD))
-		if(overlays.len)
-			cut_overlays()
+		cut_overlays()
 
 	if(update & 2)
-		if(overlays.len)
-			cut_overlays()
+		cut_overlays()
 		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
 			var/list/O = list(
 				status_overlays_lock[locked+1],

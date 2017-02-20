@@ -136,7 +136,7 @@
 	var/obj/item/weapon/twohanded/O = user.get_inactive_held_item()
 	if (istype(O) && !istype(O, /obj/item/weapon/twohanded/offhand/))		//If you have a proper item in your other hand that the offhand is for, do nothing. This should never happen.
 		return
-	if (qdeleted(src))
+	if (QDELETED(src))
 		return
 	qdel(src)																//If it's another offhand, or literally anything else, qdel. If I knew how to add logging messages I'd put one here.
 
@@ -169,8 +169,8 @@
 	..()
 	var/slotbit = slotdefine2slotbit(slot)
 	if(slot_flags & slotbit)
-		var/O = user.is_holding_item_of_type(/obj/item/weapon/twohanded/offhand)
-		if(!O || qdeleted(O))
+		var/datum/O = user.is_holding_item_of_type(/obj/item/weapon/twohanded/offhand)
+		if(!O || QDELETED(O))
 			return
 		qdel(O)
 		return
@@ -496,7 +496,7 @@
 /obj/item/weapon/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
-		playsound(src, pick("sound/weapons/bulletflyby.ogg","sound/weapons/bulletflyby2.ogg","sound/weapons/bulletflyby3.ogg"), 75, 1)
+		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return 1
 	return 0
 
@@ -613,7 +613,7 @@
 		if(prob(final_block_chance))
 			if(attack_type == PROJECTILE_ATTACK)
 				owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
-				playsound(src, pick("sound/weapons/bulletflyby.ogg","sound/weapons/bulletflyby2.ogg","sound/weapons/bulletflyby3.ogg"), 75, 1)
+				playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
 				return 1
 			else
 				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
@@ -700,7 +700,7 @@
 	if(source.z == ZLEVEL_STATION && get_dist(turfhit, source) < maxdist || source.z != ZLEVEL_STATION)
 		..()
 		if(do_after_mob(user, src, 5, uninterruptible = 1, progress = 0))
-			if(qdeleted(src))
+			if(QDELETED(src))
 				return
 			var/turf/landing = get_turf(src)
 			if (loc != landing)

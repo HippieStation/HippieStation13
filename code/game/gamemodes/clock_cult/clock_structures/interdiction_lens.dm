@@ -8,8 +8,11 @@
 	active_icon = "interdiction_lens_active"
 	inactive_icon = "interdiction_lens"
 	unanchored_icon = "interdiction_lens_unwrenched"
-	break_message = "<span class='warning'>The lens flares a blinding violet before shattering!</span>"
+	break_message = "<span class='warning'>The lens flares a blinding violet before the totem beneath it shatters!</span>"
 	break_sound = 'sound/effects/Glassbr3.ogg'
+	debris = list(/obj/item/clockwork/alloy_shards/small = 2, \
+	/obj/item/clockwork/alloy_shards/large = 2, \
+	/obj/item/clockwork/component/belligerent_eye/lens_gem = 1)
 	var/recharging = 0 //world.time when the lens was last used
 	var/recharge_time = 1200 //if it drains no power and affects no objects, it turns off for two minutes
 	var/disabled = FALSE //if it's actually usable
@@ -84,7 +87,7 @@
 
 		for(var/M in atoms_to_test)
 			var/atom/movable/A = M
-			if(!A || qdeleted(A) || A == target_apc)
+			if(!A || QDELETED(A) || A == target_apc)
 				continue
 			power_drained += Floor(A.power_drain(TRUE) * efficiency, MIN_CLOCKCULT_POWER)
 

@@ -28,7 +28,7 @@ This file contains the arcane tome files.
 		return ..()
 	if(iscultist(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
-			user << "<span class='cult'>You remove the taint from [M].</span>"
+			user << "<span class='cult'>You remove the taint from [M].</span>" // fucking ow
 			var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 			M.reagents.del_reagent("holywater")
 			M.reagents.add_reagent("unholywater",holy2unholy)
@@ -108,7 +108,7 @@ This file contains the arcane tome files.
 
 	text += "<font color='red'><b>Talisman of Teleportation</b></font><br>The talisman form of the Teleport rune will transport the invoker to a selected Teleport rune once.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Construction</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 25 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to recieve a soul to occupy it.<br><br>"
+	text += "<font color='red'><b>Talisman of Construction</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 25 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to receive a soul to occupy it.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Tome Summoning</b></font><br>This talisman will produce a single tome at your feet.<br><br>"
 
@@ -180,7 +180,7 @@ This file contains the arcane tome files.
 	if(!possible_runes.len)
 		return
 	entered_rune_name = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
-	if(!src || qdeleted(src) || !Adjacent(user) || user.incapacitated() || !check_rune_turf(Turf, user))
+	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated() || !check_rune_turf(Turf, user))
 		return
 	for(var/T in typesof(/obj/effect/rune))
 		var/obj/effect/rune/R = T
@@ -196,7 +196,7 @@ This file contains the arcane tome files.
 		return
 	Turf = get_turf(user) //we may have moved. adjust as needed...
 	A = get_area(src)
-	if(!src || qdeleted(src) || !Adjacent(user) || user.incapacitated() || !check_rune_turf(Turf, user))
+	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated() || !check_rune_turf(Turf, user))
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))
 		if(ticker.mode.name == "cult")
@@ -235,7 +235,7 @@ This file contains the arcane tome files.
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay), target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/structure/emergency_shield/sanguine/S = V
-			if(S && !qdeleted(S))
+			if(S && !QDELETED(S))
 				qdel(S)
 		return
 	if(!check_rune_turf(Turf, user))
@@ -244,7 +244,7 @@ This file contains the arcane tome files.
 						 "<span class='cult'>You finish drawing the arcane markings of the Geometer.</span>")
 	for(var/V in shields)
 		var/obj/structure/emergency_shield/S = V
-		if(S && !qdeleted(S))
+		if(S && !QDELETED(S))
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(Turf, chosen_keyword)
 	user << "<span class='cult'>The [lowertext(R.cultist_name)] rune [R.cultist_desc]</span>"

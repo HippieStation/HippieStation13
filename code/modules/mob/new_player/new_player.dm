@@ -75,7 +75,10 @@
 		stat("Map:", MAP_NAME)
 
 		if(ticker.current_state == GAME_STATE_PREGAME)
-			stat("Time To Start:", (ticker.timeLeft >= 0) ? "[round(ticker.timeLeft / 10)]s" : "DELAYED")
+			var/time_remaining = ticker.GetTimeLeft()
+			if(time_remaining >= 0)
+				time_remaining /= 10
+			stat("Time To Start:", (time_remaining >= 0) ? "[round(time_remaining)]s" : "DELAYED")
 
 			stat("Players:", "[ticker.totalPlayers]")
 			if(client.holder)
@@ -103,8 +106,6 @@
 	if(href_list["ready"])
 		if(!ticker || ticker.current_state <= GAME_STATE_PREGAME) // Make sure we don't ready up after the round has started
 			ready = text2num(href_list["ready"])
-		else
-			ready = 0
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window

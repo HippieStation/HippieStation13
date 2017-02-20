@@ -360,6 +360,14 @@
 	desc = "This looks like it could really hurt in melee."
 	force = 50
 
+/obj/item/weapon/gun/ballistic/automatic/laser/ctf/dropped()
+	. = ..()
+	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
+
+/obj/item/weapon/gun/ballistic/automatic/laser/ctf/proc/floor_vanish()
+	if(isturf(loc))
+		qdel(src)
+
 /obj/item/ammo_box/magazine/recharge/ctf
 	ammo_type = /obj/item/ammo_casing/caseless/laser/ctf
 
@@ -580,7 +588,7 @@
 		CTF.dead_barricades += src
 
 /obj/effect/ctf/dead_barricade/proc/respawn()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		new /obj/structure/barricade/security/ctf(get_turf(src))
 		qdel(src)
 

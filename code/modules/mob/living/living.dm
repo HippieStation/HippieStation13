@@ -598,7 +598,7 @@
 	if(!override)
 		float(!has_gravity)
 
-/mob/living/proc/float(on)
+/mob/living/float(on)
 	if(throwing)
 		return
 	var/fixed = 0
@@ -756,7 +756,7 @@
 	return 0
 
 /mob/living/proc/harvest(mob/living/user)
-	if(qdeleted(src))
+	if(QDELETED(src))
 		return
 	if(butcher_results)
 		for(var/path in butcher_results)

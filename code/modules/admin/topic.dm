@@ -8,7 +8,7 @@
 	if(href_list["rejectadminhelp"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["rejectadminhelp"])
+		var/client/C = locate(href_list["rejectadminhelp"]) in clients
 		if(!C)
 			return
 		if (deltimer(C.adminhelptimerid))
@@ -22,6 +22,20 @@
 
 		message_admins("[key_name_admin(usr)] Rejected [C.key]'s admin help. [C.key]'s Adminhelp verb has been returned to them.")
 		log_admin("[key_name(usr)] Rejected [C.key]'s admin help.")
+
+	else if(href_list["icissue"])
+		var/client/C = locate(href_list["icissue"]) in clients
+		if(!C)
+			return
+
+		var/msg = "<font color='red' size='4'><b>- AdminHelp marked as IC issue! -</b></font><br>"
+		msg += "<font color='red'><b>Losing is part of the game!</b></font><br>"
+		msg += "<font color='red'>Your character will frequently die, sometimes without even a possibility of avoiding it. Events will often be out of your control. No matter how good or prepared you are, sometimes you just lose.</font>"
+
+		C << msg
+
+		message_admins("[key_name_admin(usr)] marked [C.key]'s admin help as an IC issue.")
+		log_admin("[key_name(usr)] marked [C.key]'s admin help as an IC issue.")
 
 	else if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -1083,6 +1097,9 @@
 	else if(href_list["showwatch"])
 		browse_messages("watchlist entry")
 
+	else if(href_list["showwatchfilter"])
+		browse_messages("watchlist entry", filter = 1)
+
 	else if(href_list["showmessageckey"])
 		var/target = href_list["showmessageckey"]
 		browse_messages(target_ckey = target)
@@ -1696,12 +1713,42 @@
 		H << "<span class='adminnotice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>"
 		H << 'sound/effects/pray_chaplain.ogg'
 
+	else if(href_list["adminsmite"])
+		if(!check_rights(R_ADMIN|R_FUN))
+			return
+
+		var/mob/living/carbon/human/H = locate(href_list["adminsmite"]) in mob_list
+		if(!H || !istype(H))
+			return
+
+		var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB)
+
+		var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in punishment_list
+
+		if(QDELETED(H) || !punishment)
+			return
+
+		switch(punishment)
+			if(ADMIN_PUNISHMENT_LIGHTNING)
+				var/turf/T = get_step(get_step(H, NORTH), NORTH)
+				T.Beam(H, icon_state="lightning[rand(1,12)]", time = 5)
+				H.adjustFireLoss(75)
+				H.electrocution_animation(40)
+				H << "<span class='userdanger'>The gods have punished you for your sins!</span>"
+			if(ADMIN_PUNISHMENT_BRAINDAMAGE)
+				H.adjustBrainLoss(75)
+			if(ADMIN_PUNISHMENT_GIB)
+				H.gib(FALSE)
+
+		message_admins("[key_name_admin(usr)] punished [key_name_admin(H)] with [punishment].")
+		log_admin("[key_name(usr)] punished [key_name(H)] with [punishment].")
+
 	else if(href_list["BlueSpaceArtillery"])
-		var/mob/living/M = locate(href_list["BlueSpaceArtillery"])
+		var/mob/living/M = locate(href_list["BlueSpaceArtillery"]) in mob_list
 		usr.client.bluespace_artillery(M)
 
 	else if(href_list["CentcommReply"])
-		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
+		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"]) in mob_list
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
@@ -2209,3 +2256,14 @@
 		message_admins("[key_name(usr)] created \"[G.name]\" station goal.")
 		ticker.mode.station_goals += G
 		modify_goals()
+
+	else if(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
+		if(!istype(error_viewer))
+			usr << "<span class='warning'>That runtime viewer no longer exists.</span>"
+			return
+
+		if(href_list["viewruntime_backto"])
+			error_viewer.show_to(owner, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+		else
+			error_viewer.show_to(owner, null, href_list["viewruntime_linear"])

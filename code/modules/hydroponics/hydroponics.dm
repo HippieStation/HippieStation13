@@ -259,7 +259,7 @@
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			add_atom_colour(rgb(255, 175, 0), FIXED_COLOUR_PRIORITY)
 		else
-			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
+			add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing"))
 		SetLuminosity(3)
 
 	update_icon_hoses()
@@ -685,7 +685,7 @@
 			return
 		if(alert(user, "This will make [src] self-sustaining but consume [O] forever. Are you sure?", "[name]", "I'm Sure", "Abort") == "Abort" || !user)
 			return
-		if(!O || qdeleted(O))
+		if(!O || QDELETED(O))
 			return
 		if(!Adjacent(user))
 			return
