@@ -36,7 +36,7 @@
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
-	frozen = 0
+	frozen = FALSE
 	allowshoses = TRUE
 
 /obj/machinery/hydroponics/constructable/New()
