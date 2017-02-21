@@ -1,7 +1,7 @@
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "hydrotray"
+	icon_state = "hydrotray2"
 	density = 1
 	anchored = 1
 	pixel_y = 8
@@ -28,7 +28,7 @@
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
-	var/frozen = -1	//Is the plant frozen? -1 is used to define trays that can't be frozen. 0 is unfrozen and 1 is frozen.
+	var/frozen = FALSE
 	var/allowshoses = FALSE //Used to see if that type of tray can have hoses.
 
 
@@ -79,12 +79,6 @@
 
 	if(default_pry_open(I))
 		return
-
-	if(istype(I, /obj/item/weapon/wrench))
-		if(using_irrigation)
-			user << "<span class='warning'>Disconnect the hoses first!</span>"
-		else if(default_unfasten_wrench(user, I))
-			return
 
 	if(istype(I, /obj/item/weapon/crowbar))
 		if(using_irrigation)
@@ -286,6 +280,9 @@
 		else
 			SetLuminosity(0)
 
+	if(frozen && !myseed)
+		update_icon_lights()
+
 	return
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
@@ -310,8 +307,11 @@
 		var/t_growthstate = min(round((age / myseed.maturation) * myseed.growthstages), myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
 	I.layer = OBJ_LAYER + 0.01
-	if(frozen)
-		I.color = "#91D5F9"
+	if(frozen)//Goofcode incoming his freon freezing thing
+		var/icon/O = new('icons/effects/freeze.dmi', "ice_cube")
+		var/icon/IC = new(I.icon, I.icon_state)
+		O.Blend(IC, ICON_ADD)
+		I.icon = O.icon
 	add_overlay(I)
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
@@ -319,14 +319,18 @@
 		add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowwater3"))
 	if(nutrilevel <= 2)
 		add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lownutri3"))
-	if(plant_health <= (myseed.endurance / 2))
+	if(myseed && plant_health <= (myseed.endurance / 2))
 		add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowhealth3"))
 	if(weedlevel >= 5 || pestlevel >= 5 || toxic >= 40)
 		add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_alert3"))
-	if(harvest && !frozen)//Frozen and harvest use the same "spot" and I can't be arsed respriting the whole thing
+	if(harvest)
 		add_overlay(image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3"))
 	if(frozen) //Frozen should appear regardless if there is a plant present
-		add_overlay(image('icons/hippie/obj/hydroponics/equipment.dmi', icon_state = "over_frozen3"))
+		for(var/i = 0 to 4)
+			var/image/I = image('icons/hippie/obj/hydroponics/equipment.dmi', icon_state = "over_frozen3")
+			I.pixel_x = I.pixel_x + i * 5
+			I.alpha = 100
+			add_overlay(I)
 
 /obj/machinery/hydroponics/examine(user)
 	..()
@@ -340,7 +344,8 @@
 			user << "<span class='warning'>It looks unhealthy.</span>"
 	else
 		user << "<span class='info'>[src] is empty.</span>"
-
+	if(frozen)
+		user << "<span class='info'>[src] is cryogenically frozen.</span>"
 	if(!self_sustaining)
 		user << "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
 		user << "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
@@ -351,8 +356,7 @@
 		user << "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
 		user << "<span class='warning'>[src] is filled with tiny worms!</span>"
-	if(frozen)
-		desc += " It is cryogenically frozen."
+
 	user << "" // Empty line for readability.
 
 
@@ -697,21 +701,9 @@
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
 	if(istype(O, /obj/item/device/multitool) && unwrenchable)
-		if(!anchored)
-			user << "<span class='warning'>Anchor it first!</span>"
-			return
-		if(anchored == 2 && allowshoses)
-			user << "<span class='warning'>Unscrew the hoses first!</span>"
-			return
-		if(frozen == -1)
-			return
 		user << "<span class='notice'>You [frozen ? "disable" : "enable"] the cryogenic freezing.</span>"
 		frozen = !frozen
 		update_icon()
-		return
-
-	if(frozen)
-		user << "<span class='warning'>Disable the cryogenic freezing first!</span>"
 		return
 
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/gaia)) //Checked early on so it doesn't have to deal with composting checks
@@ -846,7 +838,7 @@
 		else
 			user << "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>"
 
-	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/weapon/storage/bag/plants) && !frozen)
 		attack_hand(user)
 		var/obj/item/weapon/storage/bag/plants/S = O
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
@@ -914,10 +906,7 @@
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
 		return
-	if(frozen)
-		user << "<span class='warning'>Disable the cryogenic freezing first!</span>"
-		return
-	if(harvest)
+	if(harvest && !frozen)
 		myseed.harvest(user)
 	else if(dead)
 		dead = 0
