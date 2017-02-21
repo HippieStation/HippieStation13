@@ -39,7 +39,7 @@
 				filling.icon_state = "[icon_state]100"
 
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		add_overlay(filling)
 
 /obj/item/weapon/reagent_containers/glass/bottle/epinephrine
 	name = "epinephrine bottle"

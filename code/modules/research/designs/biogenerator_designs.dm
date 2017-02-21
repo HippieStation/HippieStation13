@@ -392,4 +392,4 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 100)
 	build_path = /obj/item/weapon/melee/baseball_bat
-category = list("initial","Leather and Cloth")
+	category = list("initial","Leather and Cloth")
