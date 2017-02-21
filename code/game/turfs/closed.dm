@@ -35,8 +35,9 @@
 	var/titlescreen = TITLESCREEN
 	var/currenticon
 	var/newicon
-	New() //Do not change this to Initialize().
-		LoadIcon()
+	
+/turf/closed/indestructible/splashscreen/New() //Do not change this to Initialize().
+	LoadIcon()
 
 /turf/closed/indestructible/splashscreen/proc/LoadIcon()
 	var savefile/s = new /savefile("data/npc_saves/TitleScreen.sav")
