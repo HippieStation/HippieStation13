@@ -90,6 +90,22 @@
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
 				msg += "\t[C] is a [C.holder.rank]\n"
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 	src << msg
 
+/client/verb/mentorwho()
+	set category = "Mentor"
+	set name = "Mentorwho"
+
+	var/msg = "<b>Current Mentors:</b>\n"
+	if(holder)
+		for(var/client/C in mentors)
+			if(isobserver(C.mob))
+				msg += " - Observing"
+			else if(istype(C.mob,/mob/new_player))
+				msg += " - Lobby"
+			else
+				msg += " - Playing"
+			if(C.is_afk())
+				msg += " (AFK)"
+		msg += "\t[C][msg]\n"
+	src << msg
