@@ -94,6 +94,12 @@
 	desc = "A small bottle of synaptizine."
 	icon_state = "bottle20"
 	list_reagents = list("synaptizine" = 30)
+	
+/obj/item/weapon/reagent_containers/glass/bottle/uranium
+	name = "liquid uranium bottle"
+	desc = "A small bottle of liquid uranium. Highly radioactive and reacts with micro-organisms inside blood."
+	icon_state = "bottle20"
+	list_reagents = list("uranium" = 30)	
 
 /obj/item/weapon/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
