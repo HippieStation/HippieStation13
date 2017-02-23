@@ -155,10 +155,10 @@
 /obj/item/projectile/energy/bolt //ebow bolts
 	name = "bolt"
 	icon_state = "cbbolt"
-	damage = 5
+	damage = 7
 	damage_type = TOX
 	nodamage = 0
-	weaken = 5
+	weaken = 3
 	stutter = 5
 
 /obj/item/projectile/energy/bolt/halloween
