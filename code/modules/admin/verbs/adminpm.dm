@@ -178,7 +178,7 @@
 					break
 				else if(T.permckey == C.ckey)
 					ticket = T
-
+					break
 			C << "<font color='red' size='4'><b>-- Administrator private message --</b></font>"
 			C << "<font color='red'>Admin PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>"
 			C << "<font color='red'><i>Click on the administrator's name to reply.</i></font>"
