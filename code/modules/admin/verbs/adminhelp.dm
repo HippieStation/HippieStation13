@@ -76,7 +76,6 @@
 	src.verbs |= /client/verb/adminhelp
 	adminhelptimerid = 0
 
-
 /client/verb/adminhelp(msg as text)
 	set category = "Admin"
 	set name = "Adminhelp"
@@ -92,15 +91,18 @@
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
+
+	var/datum/adminticket/ticket
 	var/ref_client = "\ref[src]"
-	for(var/datum/adminticket/T in admintickets)
+	for(var/I in admintickets)
+		var/datum/adminticket/T = I
 		if(T.permckey == src.ckey && T.resolved == "No")
 			if(alert(usr,"You already have an adminhelp open, would you like to bump it?", "Bump Adminhelp", "Yes", "No") == "Yes")
 				T.logs += "[src.ckey] has bumped this adminhelp!"
 				if(T.admin == "N/A")
 					usr << "<b>Due to the fact your Adminhelp had no assigned admin, admins have been pinged.</b>"
 					message_admins("[src.ckey] has bumped their adminhelp #[T.ID], still no assigned admin!")
-					msg = "<span class='adminnotice'><b><font color=red>HELP: </font><A HREF='?priv_msg=[ckey];ahelp_reply=1'>[key_name(src)]</A> [ADMIN_QUE(mob)] [ADMIN_PP(mob)] [ADMIN_VV(mob)] [ADMIN_SM(mob)] [ADMIN_FLW(mob)] [ADMIN_TP(mob)] (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) (<A HREF='?_src_=holder;icissue=[ref_client]'>IC</A>) (<A HREF='?_src_=ticket;resolve=[T.ID]'>R</a>):</b> [msg]</span>"
+					msg = "<span class='adminnotice'><b><font color='red'>HELP: </font><A HREF='?priv_msg=[ckey];ahelp_reply=1'>[key_name(src)]</A> [ADMIN_QUE(mob)] [ADMIN_PP(mob)] [ADMIN_VV(mob)] [ADMIN_SM(mob)] [ADMIN_FLW(mob)] [ADMIN_TP(mob)] (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) (<A HREF='?_src_=holder;icissue=[ref_client]'>IC</A>) (<A HREF='?_src_=ticket;resolve=[T.ID]'>R</a>):</b> [msg]</span>"
 					for(var/client/X in admins)
 						if(X.prefs.toggles & SOUND_ADMINHELP)
 							X << 'sound/effects/adminhelp.ogg'
@@ -129,12 +131,6 @@
 
 	createticket(src, msg, src.ckey, mob)
 
-	var/datum/adminticket/ticket
-
-	for(var/datum/adminticket/T in admintickets)
-		if(T.permckey == src.ckey)
-			ticket = T
-
 	msg = "<span class='adminnotice'><b><font color=red>HELP: </font><A HREF='?priv_msg=[ckey];ahelp_reply=1'>[key_name(src)]</A> [ADMIN_QUE(mob)] [ADMIN_PP(mob)] [ADMIN_VV(mob)] [ADMIN_SM(mob)] [ADMIN_FLW(mob)] [ADMIN_TP(mob)] (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) (<A HREF='?_src_=holder;icissue=[ref_client]'>IC</A>) (<A HREF='?_src_=holder;resolve=[ticket]'>R</a>):</b> [msg]</span>"
 
 	//send this msg to all admins
@@ -144,7 +140,6 @@
 			X << 'sound/effects/adminhelp.ogg'
 		window_flash(X, ignorepref = TRUE)
 		X << msg
-
 
 	//show it to the person adminhelping too
 	src << "<span class='adminnotice'>PM to-<b>Admins</b>: [original_msg]</span>"
@@ -158,7 +153,6 @@
 		src << "<span class='notice'>No active admins are online, your adminhelp was sent to the admin irc.</span>"
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
-
 
 /proc/get_admin_counts(requiredflags = R_BAN)
 	. = list("total" = list(), "noflags" = list(), "afk" = list(), "stealth" = list(), "present" = list())
@@ -190,7 +184,6 @@
 		send2irc(source,final)
 		send2otherserver(source,final)
 
-
 /proc/send2irc(msg,msg2)
 	if(config.useircbot)
 		shell("python nudge.py [msg] [msg2]")
@@ -206,7 +199,6 @@
 		message["crossmessage"] = type
 
 		world.Export("[global.cross_address]?[list2params(message)]")
-
 
 /proc/ircadminwho()
 	var/list/message = list("Admins: ")
