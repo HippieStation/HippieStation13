@@ -81,6 +81,11 @@
 		cmd_admin_pm(href_list["priv_msg"],null)
 		return
 
+	//Admin Ticket listings
+	if(check_rights(R_ADMIN))
+		if(ahelp_count(0) > 0)
+			list_ahelps(src, 0)
+
 	// Mentor Msg
 	if(href_list["mentor_msg"])
 		if(config.mentors_mobname_only)
@@ -225,7 +230,7 @@ var/next_external_rsc = 0
 	sethotkeys(1)						//set hoykeys from preferences (from_pref = 1)
 
 	. = ..()	//calls mob.Login()
-	
+
 	connection_time = world.time
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
