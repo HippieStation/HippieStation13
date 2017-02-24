@@ -27,7 +27,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	//Something's wrong here
 	var/list/medium = list("hudscrew"=15,"items"=15,"dangerflash"=15,"bolts"=10,"flood"=10,"husks"=10,"battle"=10)
 	//AAAAH
-	var/list/major = list("fake"=10,"death"=5,"xeno"=10,"singulo"=10,"delusion"=10)
+	var/list/major = list("fake"=10,"death"=5,"xeno"=10,"delusion"=10)
 
 	var/grade = 0
 	var/current = list()
@@ -218,6 +218,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/clown/scary
 	image_state = "scary_clown"
 
+//Singularity scare causes crashes for some reason
+/*
 /obj/effect/hallucination/singularity_scare
 	//Singularity moving towards you.
 	//todo Hide where it moved with fake space images
@@ -237,7 +239,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		s.Eat()
 	qdel(s)
 
-/obj/effect/hallucination/simple/singularity
+/obj/effect/hallucination/simple/
+
 	image_icon = 'icons/effects/224x224.dmi'
 	image_state = "singularity_s7"
 	image_layer = MASSIVE_OBJ_LAYER
@@ -250,7 +253,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		target.hal_screwyhud = 1
 		target.SetSleeping(20)
 		addtimer(CALLBACK(src, .proc/wake_and_restore), rand(50, 100))
-
+*/
 /obj/effect/hallucination/battle
 
 /obj/effect/hallucination/battle/New(loc,var/mob/living/carbon/T)
@@ -551,8 +554,8 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/ballistic, /obj/item
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(src.loc,src)
-		if("singulo")
-			new /obj/effect/hallucination/singularity_scare(src.loc,src)
+//		if("singulo")
+//			new /obj/effect/hallucination/singularity_scare(src.loc,src)
 		if("battle")
 			new /obj/effect/hallucination/battle(src.loc,src)
 		if("flood")
