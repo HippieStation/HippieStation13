@@ -554,6 +554,8 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/ballistic, /obj/item
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(src.loc,src)
+		if("singulo")
+			new /obj/effect/hallucination/singularity_scare(src.loc,src)
 		if("battle")
 			new /obj/effect/hallucination/battle(src.loc,src)
 		if("flood")
