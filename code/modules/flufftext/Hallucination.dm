@@ -219,7 +219,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	image_state = "scary_clown"
 
 //Singularity scare causes crashes for some reason
-/*
+
 /obj/effect/hallucination/singularity_scare
 	//Singularity moving towards you.
 	//todo Hide where it moved with fake space images
@@ -239,7 +239,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		s.Eat()
 	qdel(s)
 
-/obj/effect/hallucination/simple/
+/obj/effect/hallucination/simple/singularity
 
 	image_icon = 'icons/effects/224x224.dmi'
 	image_state = "singularity_s7"
@@ -253,7 +253,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		target.hal_screwyhud = 1
 		target.SetSleeping(20)
 		addtimer(CALLBACK(src, .proc/wake_and_restore), rand(50, 100))
-*/
+
 /obj/effect/hallucination/battle
 
 /obj/effect/hallucination/battle/New(loc,var/mob/living/carbon/T)
@@ -554,8 +554,6 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/ballistic, /obj/item
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(src.loc,src)
-//		if("singulo")
-//			new /obj/effect/hallucination/singularity_scare(src.loc,src)
 		if("battle")
 			new /obj/effect/hallucination/battle(src.loc,src)
 		if("flood")
