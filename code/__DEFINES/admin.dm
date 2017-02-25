@@ -60,3 +60,7 @@
 #define ADMIN_PUNISHMENT_LIGHTNING "Lightning bolt"
 #define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain damage"
 #define ADMIN_PUNISHMENT_GIB "Gib"
+
+#define TICKET_RESOLVED		"Yes"
+#define TICKET_UNRESOLVED	"No"
+#define TICKET_UNASSIGNED	"N/A"

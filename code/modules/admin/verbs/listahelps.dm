@@ -1,7 +1,3 @@
-#define TICKET_RESOLVED		"Yes"
-#define TICKET_UNRESOLVED	"No"
-#define TICKET_UNASSIGNED	"N/A"
-
 /datum/adminticket
 	var/active = FALSE //Is the adminhelp active, eg admin responded?
 	var/admin = TICKET_UNASSIGNED //The handling admin? Like come on.
