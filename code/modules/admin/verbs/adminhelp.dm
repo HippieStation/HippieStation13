@@ -101,15 +101,15 @@
 				T.logs += "[src.ckey] has bumped this adminhelp!"
 				if(T.admin == "N/A")
 					usr << "<b>Due to the fact your Adminhelp had no assigned admin, admins have been pinged.</b>"
-					message_admins("[src.ckey] has bumped their adminhelp #[T.ID], still no assigned admin!")
-					msg = "<span class='adminnotice'><b><font color='red'>HELP: </font><A HREF='?priv_msg=[ckey];ahelp_reply=1'>[key_name(src)]</A> [ADMIN_QUE(mob)] [ADMIN_PP(mob)] [ADMIN_VV(mob)] [ADMIN_SM(mob)] [ADMIN_FLW(mob)] [ADMIN_TP(mob)] (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) (<A HREF='?_src_=holder;icissue=[ref_client]'>IC</A>) (<A HREF='?_src_=ticket;resolve=[T.ID]'>R</a>):</b> [msg]</span>"
+					message_admins("[src.ckey] has bumped their adminhelp #[T.id], still no assigned admin!")
+					msg = "<span class='adminnotice'><b><font color='red'>HELP: </font><A HREF='?priv_msg=[ckey];ahelp_reply=1'>[key_name(src)]</A> [ADMIN_QUE(mob)] [ADMIN_PP(mob)] [ADMIN_VV(mob)] [ADMIN_SM(mob)] [ADMIN_FLW(mob)] [ADMIN_TP(mob)] (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) (<A HREF='?_src_=holder;icissue=[ref_client]'>IC</A>) (<A HREF='?_src_=ticket;resolve=[T.id]'>R</a>):</b> [msg]</span>"
 					for(var/client/X in admins)
 						if(X.prefs.toggles & SOUND_ADMINHELP)
 							X << 'sound/effects/adminhelp.ogg'
 						X << msg
 				else
 					usr << "<b>Admins have been notified.</b>"
-					message_admins("[src.ckey] has bumped their adminhelp #[T.ID].")
+					message_admins("[src.ckey] has bumped their adminhelp #[T.id].")
 				src.verbs -= /client/verb/adminhelp
 				adminhelptimerid = addtimer(CALLBACK(src, .proc/giveadminhelpverb), 1200, TIMER_STOPPABLE) //2 minute cooldown of admin helps
 				return
@@ -127,7 +127,8 @@
 
 	msg = keywords_lookup(msg)
 
-	if(!mob)	return						//this doesn't happen
+	if(!mob)
+		return						//this doesn't happen
 
 	createticket(src, msg, src.ckey, mob)
 
