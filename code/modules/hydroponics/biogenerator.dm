@@ -202,15 +202,20 @@
 				dat += "<div class='statusDisplay'>"
 				for(var/V in categories[cat])
 					var/datum/design/D = V
-					dat += "[D.name]: <A href='?src=\ref[src];create=\ref[D];amount=1'>Make</A>"
-					dat += "<A href='?src=\ref[src];create=\ref[D];amount=5'>x5</A>"
-					dat += "<A href='?src=\ref[src];create=\ref[D];amount=10'>x10</A>"
-					dat += "([D.materials[MAT_BIOMASS]/efficiency])<br>"
+					if(can_build(D.materials, 1))
+						dat += "<A href='?src=\ref[src];create=\ref[D];amount=1'>[D.name]</A>"
+						if(can_build(D.materials, 5))
+							dat += "<A href='?src=\ref[src];create=\ref[D];amount=5'>x5</A>"
+							if(can_build(D.materials, 10))
+								dat += "<A href='?src=\ref[src];create=\ref[D];amount=10'>x10</A>"
+					else
+						dat += "<span class='linkOff'>[D.name]</span>"
+					dat += "[D.materials[MAT_BIOMASS]/efficiency] biomass<br>"
 				dat += "</div>"
 		else
 			dat += "<div class='statusDisplay'>No container inside, please insert container.</div>"
 
-	var/datum/browser/popup = new(user, "biogen", name, 350, 520)
+	var/datum/browser/popup = new(user, "biogen", name, 350, 700)
 	popup.set_content(dat)
 	popup.open()
 	return
@@ -245,6 +250,13 @@
 	else
 		menustat = "void"
 	return
+
+/obj/machinery/biogenerator/proc/can_build(list/materials, amount = 1)
+	if(materials.len != 1 || materials[1] != MAT_BIOMASS)
+		return FALSE
+	if (materials[MAT_BIOMASS]*amount/efficiency > points)
+		return FALSE
+	return TRUE
 
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = 1)
 	if(materials.len != 1 || materials[1] != MAT_BIOMASS)
