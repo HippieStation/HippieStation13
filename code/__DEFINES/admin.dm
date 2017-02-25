@@ -61,6 +61,13 @@
 #define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain damage"
 #define ADMIN_PUNISHMENT_GIB "Gib"
 
+// Admin ticket things
 #define TICKET_RESOLVED		"Yes"
 #define TICKET_UNRESOLVED	"No"
 #define TICKET_UNASSIGNED	"N/A"
+
+#define TICKET_REPLIED		"Yes"
+#define TICKET_UNREPLIED	"No"
+
+#define TICKET_INACTIVE		"No"
+#define TICKET_ACTIVE		"Yes"
