@@ -150,6 +150,8 @@
 				user << "<span class='info'>You empty the plant bag into the biogenerator, filling it to its capacity.</span>"
 			else
 				user << "<span class='info'>You fill the biogenerator to its capacity.</span>"
+		update_icon()
+		updateUsrDialog()
 		return 1 //no afterattack
 
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
@@ -161,6 +163,8 @@
 		else
 			if(user.transferItemToLoc(O, src))
 				user << "<span class='info'>You put [O.name] in [src.name]</span>"
+		update_icon()
+		updateUsrDialog()
 		return 1 //no afterattack
 	else if (istype(O, /obj/item/weapon/disk/design_disk))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
@@ -173,6 +177,8 @@
 				if(B)
 					files.AddDesign2Known(B)
 		processing = 0
+		update_icon()
+		updateUsrDialog()
 		return 1
 	else
 		user << "<span class='warning'>You cannot put this in [src.name]!</span>"
