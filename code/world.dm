@@ -317,7 +317,7 @@ var/list/map_transition_config = MAP_TRANSITION_CONFIG
 	if (config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
-	s += "<big><b>[station_name()]</b></big>&#93;";
+	s += "<big><b>[station_name()]</b></big>";
 
 	if (!host && config && config.hostedby)
 		s += "<br>Hosted by <b>[config.hostedby]</b>."
