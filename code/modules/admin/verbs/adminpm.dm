@@ -58,7 +58,7 @@
 			message_admins("[key_name_admin(src)] has been assigned to [key_name(C, 0, 0)]'s admin help. This is the first reply. ([T.uID])")
 			T.replying = TICKET_REPLIED
 			T.user << "<b>[src.ckey] has been assigned to your admin help, please await a reply.</b>"
-		else if(T.replying = TICKET_REPLIED)
+		else if(T.replying == TICKET_REPLIED)
 			src << "<b>Error, this ticket is already being replied to!</b>"
 			return
 		else if(T.admin != TICKET_UNASSIGNED && T.replying == TICKET_UNREPLIED)
@@ -137,7 +137,7 @@
 			for(var/I in admintickets)
 				var/datum/adminticket/T = I
 				if(T.permckey == src.ckey && T.resolved == TICKET_UNRESOLVED)
-					LAZYADD(T.ticket_logs, "<span class='notice'>[src] TO [C]: [msg] </span>")
+					T.ticket_logs += "<span class='notice'>[src] TO [C]: [msg] </span>"
 					ticket = T
 					break
 				else if(T.permckey == src.ckey)
@@ -153,7 +153,7 @@
 			for(var/I in admintickets)
 				var/datum/adminticket/T = I
 				if(T.permckey == src.ckey && T.resolved == TICKET_UNRESOLVED)
-					LAZYADD(T.ticket_logs, "<span class='notice'>[src] TO [C]: [msg] </span>")
+					T.ticket_logs += "<span class='notice'>[src] TO [C]: [msg] </span>"
 					ticket = T
 					break
 				else if(T.permckey == src.ckey)
@@ -174,7 +174,7 @@
 			for(var/I in admintickets)
 				var/datum/adminticket/T = I
 				if(T.permckey == C.ckey && T.resolved == TICKET_UNRESOLVED)
-					LAZYADD(T.ticket_logs, "<span class='danger'>[src] TO [C]: [msg] </span>")
+					T.ticket_logs += "<span class='danger'>[src] TO [C]: [msg] </span>"
 					ticket = T
 					break
 				else if(T.permckey == C.ckey)
@@ -202,7 +202,7 @@
 							for(var/I in admintickets)
 								var/datum/adminticket/T = I
 								if(T.permckey == C.ckey && T.resolved == TICKET_UNRESOLVED)
-									LAZYADD(T.ticket_logs, "<span class='danger'>[sendername] TO [C]: [msg] </span>")	//sender is still about, let's reply to them
+									T.ticket_logs += "<span class='danger'>[sendername] TO [C]: [msg] </span>"	//sender is still about, let's reply to them
 						else
 							adminhelp(reply)													//sender has left, adminhelp instead
 					return

@@ -283,7 +283,7 @@
 		if(NuID == T.uID)
 			pass = TRUE
 
-	if(pass = FALSE)
+	if(pass == FALSE)
 		src << "Error, log system not found for [NuID]... "
 		return
 
@@ -304,9 +304,8 @@
 		return
 
 	if(href_list["view_logs"])
-		var/datum/adminticket/T = locate(href_list["view_logs"]) in ticket_logs
-		if(T && istype(T))
-			viewlogs(T.uID, usr)
+		var/datum/adminticket/T = locate(href_list["view_logs"])
+		viewlogs(T.uID, usr)
 	if(href_list["resolve"])
 		var/datum/adminticket/T = locate(href_list["resolve"]) in admintickets
 		if(T && istype(T))
