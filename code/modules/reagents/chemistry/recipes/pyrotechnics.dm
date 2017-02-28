@@ -346,7 +346,17 @@
 	required_reagents = list("stable_plasma" = 1, "radium" = 1, "phosphorus" = 1)
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
-	holder.chem_temp = 20 // also cools the fuck down
+	holder.chem_temp = 500 // also heats the fuck up because coders make no sense
+	return
+
+/datum/chemical_reaction/cryogenic_fluid
+	name = "cryogenic_fluid"
+	id = "cryogenic_fluid"
+	results = list("cryogenic_fluid" = 4)
+	required_reagents = list("cryostylane" = 4, "lube" = 1, "pyrosium" = 1)
+
+/datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
+	holder.chem_temp = 0 // cools the fuck down
 	return
 
 /datum/chemical_reaction/teslium
