@@ -257,7 +257,8 @@
 				var/obj/item/stack/teeth/T = new E.type(H.loc, 1)
 				T.copy_evidences(E)
 				E.use(1)
-				T.add_blood(H)
+				if(istype(T, /obj/item/stack/teeth))
+					T.add_blood(H)
 				E.zero_amount() //Try to delete the teeth
 				add_logs(user, H, "torn out the tooth from", src)
 				H.visible_message("<span class='danger'>[user] tears off [H]'s tooth with [src]!</span>",
@@ -279,7 +280,6 @@
 							"<span class='userdanger'>[user] starts to snip you into a bunch of little pieces!</span>")
 		if(!do_mob(user, H, 150))
 			return
-		H.emote("scream")
 		for(var/obj/item/bodypart/L in H.bodyparts)
 			L.drop_limb()
 			var/turf/target = get_turf(H.loc)

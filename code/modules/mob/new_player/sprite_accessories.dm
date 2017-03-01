@@ -1319,6 +1319,11 @@
 	name = "Aquatic"
 	icon_state = "aqua"
 
+/datum/sprite_accessory/frills/googlyeyes
+	name = "Googlyeyes"
+	icon_state = "googly"
+	color_src = null
+
 /datum/sprite_accessory/spines
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
