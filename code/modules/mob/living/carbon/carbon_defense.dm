@@ -26,7 +26,7 @@
 					var/obj/item/I = AM
 					if(isturf(I.loc))
 						var/obj/item/B = get_active_held_item()
-						if(istype(B) && B.deflectItem && B.specthrow_maxwclass >= I.w_class)
+						if(istype(B) && B.deflect_Item && B.specthrow_maxwclass >= I.w_class)
 							throw_mode_off()
 							visible_message("<span class='warning'>[src] has [B.specthrowmsg] [I]!</span>")
 							var/atom/throw_target = get_edge_target_turf(src, src.dir)
