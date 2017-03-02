@@ -78,7 +78,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 	var/throwrange_mult = 1 //Multiply the range of thrown item?
 	var/throwforce_mult = 1 //Multiply the force of thrown item?
 	var/specthrow_maxwclass = 2 //Max weight class of the thrown item
-	var/deflect_Item = 0 //For deflecting items thrown at you when you have throw intent on
+	var/deflect_item = FALSE //For deflecting items thrown at you when you have throw intent on
 	var/mult = 0 //For code to reset throwforce back to normal after it hits something
 
 	var/mob/thrownby = null
