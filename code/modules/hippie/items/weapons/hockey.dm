@@ -162,7 +162,7 @@
 
 /proc/check_pack_exists(parent_pack, mob/living/carbon/human/M, obj/O)
 	if(!parent_pack || !istype(parent_pack, /obj/item/weapon/hockeypack))
-		qdel(0)
+		qdel(O)
 		return 0
 	else
 		return 1
