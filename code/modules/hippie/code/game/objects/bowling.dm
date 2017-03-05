@@ -8,28 +8,34 @@
 	flags = NOSLIP
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 	permeability_coefficient = 0.01
-	armor = list(melee = 40, bullet = 20, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0, fire = 90, acid = 50)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100) //No fire or acid damage, this shit's top quality.
 
 /obj/item/clothing/under/bowling
 	name = "bowling jersey"
-	desc = "The latest in king pin fashion."
+	desc = "The latest in kingpin fashion."
 	icon = 'icons/hippie/obj/sports.dmi'
 	icon_state = "bowlinguniform"
 	item_color = "bowling"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
-	armor = list(melee = 40, bullet = 20, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0, fire = 90, acid = 50)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	can_adjust = 0
+	var/canbowl = 1
+
+/obj/item/clothing/under/bowling/proc/canbowl()
+	canbowl = 1
 
 /obj/item/weapon/twohanded/bowling
 	name = "bowling ball"
 	icon = 'icons/hippie/obj/sports.dmi'
 	icon_state = "bowling_ball"
 	desc = "A heavy, round device used to knock pins (or people) down."
-	force_unwielded = 4
-	force_wielded = 10
+	force_unwielded = 3
+	force_wielded = 6
+	w_class = 3.0
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1
+	var/prowielded = 0
 
 /obj/item/weapon/twohanded/bowling/New()
 	color = pick("white","green","yellow","purple")
@@ -38,15 +44,62 @@
 /obj/item/weapon/twohanded/bowling/attack_self(mob/living/carbon/human/user)
 	if(wielded) //Trying to unwield it
 		unwield(user)
-		unlimitedthrow = 0
-		throw_speed = 1
-		throwforce = 0
+		unspin()
 	else //Trying to wield it
-		if(user.w_uniform == /obj/item/clothing/under/bowling)
-			wield(user)
-			unlimitedthrow = 1
-			throw_speed = 3
-			throwforce = 8
+		if(user.w_uniform && istype(user.w_uniform, /obj/item/clothing/under/bowling))
+			var/obj/item/clothing/under/bowling/bowling = user.w_uniform
+			if(!bowling.canbowl)
+				user << "<span class='warning'>Your coach always said that you need to wait at least a second between bowls!</span>"
+				unspin()
+			else
+				wield(user)
+				if(!wielded)
+					return
+				bowling.canbowl = 0
+				addtimer(CALLBACK(bowling, /obj/item/clothing/under/bowling.proc/canbowl), 10) //1 second to avoid spam
+				unlimitedthrow = 1
+				prowielded = 1
 		else
 			user << "<span class='warning'>You don't have the skills to wield such an amazing weapon!</span>"
+			unspin()
 			return
+
+/obj/item/weapon/twohanded/bowling/throw_at(atom/target, range, speed, mob/thrower, spin=FALSE, diagonals_first = FALSE, datum/callback/callback)
+	if(prowielded) //Only pros can wield a bowling ball
+		icon_state = "bowling_ball_spin"
+		playsound(src,'sound/misc/bowl.ogg',40,0)
+	. = ..(target, range, speed, thrower, FALSE, diagonals_first, callback)
+
+/obj/item/weapon/twohanded/bowling/throw_impact(atom/hit_atom)
+	if(!ishuman(hit_atom))//if the ball hits a nonhuman
+		unspin()
+		return ..()
+	var/mob/living/carbon/human/H = hit_atom
+	if(prowielded)
+		visible_message("<span class='danger'>\The expertly-bowled [src] knocks over [H] like a bowling pin!</span>")
+		H.adjust_blurriness(6)
+		H.adjustStaminaLoss(15)
+		H.Weaken(6)
+		H.adjustBruteLoss(15)
+		playsound(src,'sound/misc/bowlhit.ogg',60,0)
+		unspin()
+		return
+	else //Caught and not spinning or something else weird.
+		unspin()
+		return ..()
+
+/obj/item/weapon/twohanded/bowling/proc/unspin()
+	icon_state = "bowling_ball"
+	unlimitedthrow = 0
+	prowielded = 0
+
+/obj/item/weapon/storage/box/syndie_kit/bowling
+	name = "right-up-your-alley bowling kit"
+
+/obj/item/weapon/storage/box/syndie_kit/bowling/New()
+	..()
+	new /obj/item/clothing/shoes/bowling(src)
+	new /obj/item/clothing/under/bowling(src)
+	new /obj/item/weapon/twohanded/bowling(src)
+	new /obj/item/weapon/twohanded/bowling(src)
+	new /obj/item/weapon/twohanded/bowling(src)

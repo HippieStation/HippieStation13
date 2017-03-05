@@ -1286,6 +1286,7 @@
 #include "code\modules\hippie\discord.dm"
 #include "code\modules\hippie\code\game\machinery\vending.dm"
 #include "code\modules\hippie\code\game\objects\bowling.dm"
+#include "code\modules\hippie\code\game\objects\wrestling.dm"
 #include "code\modules\hippie\code\game\objects\effects\holy.dm"
 #include "code\modules\hippie\code\game\objects\effects\spawners\lootdrop.dm"
 #include "code\modules\hippie\code\game\objects\structures\showcase.dm"
