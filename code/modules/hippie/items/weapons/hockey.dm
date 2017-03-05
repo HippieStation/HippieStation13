@@ -113,7 +113,7 @@
 	specthrowmsg = "chipped"
 	sharpness = IS_SHARP_ACCURATE //Very sharp to make up for the comparativly low damage.
 	var/click_delay = 1.3
-	var/deflect_chance = 50
+	var/deflect_chance = 50 //the game does have a built in block viarable for items but it would mean that you have an absurd chance not to get hit by tasers due to it rolling both reflect AND block and could block bullets and stun batons which would also be absurd
 
 	var/obj/item/weapon/hockeypack/pack
 
@@ -156,16 +156,16 @@
 /obj/item/weapon/twohanded/hockeystick/dropped(mob/user) //The Stick is undroppable but just in case they lose an arm better put this here.
 		..()
 		user << "<span class='notice'>The stick is drawn back to the backpack 'eh!</span>"
-		pack.on = 0
+		pack.on = FALSE
 		loc = pack
 
 
 /proc/check_pack_exists(parent_pack, mob/living/carbon/human/M, obj/O)
 	if(!parent_pack || !istype(parent_pack, /obj/item/weapon/hockeypack))
 		qdel(O)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/weapon/twohanded/hockeystick/Move()
 	..()
@@ -175,7 +175,7 @@
 /obj/item/weapon/twohanded/hockeystick/IsReflect()
 	if(wielded)
 		if(prob(deflect_chance))
-			return 1
+			return TRUE
 
 /obj/item/weapon/storage/belt/hockey
 	name = "Holopuck Generator"
@@ -188,7 +188,6 @@
 	can_hold = list(/obj/item/holopuck)
 	var/recharge_time = 100
 	var/charged = TRUE
-	var/timerid
 	var/obj/item/holopuck/newpuck
 
 /obj/item/weapon/storage/belt/hockey/ui_action_click()
@@ -210,7 +209,7 @@
 		return
 
 	newpuck = build_puck()
-	timerid = addtimer(CALLBACK(src,.proc/reset_puck),recharge_time)
+	addtimer(CALLBACK(src,.proc/reset_puck),recharge_time)
 	if(!user.put_in_hands(newpuck))
 		user << "<span class='warning'>You need a free hand to hold the puck!</span>"
 		return
