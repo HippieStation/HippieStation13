@@ -953,3 +953,4 @@ var/next_mob_id = 0
 		if ("attack_log")
 			return debug_variable(var_name, attack_log, 0, src, FALSE)
 	. = ..()
+
