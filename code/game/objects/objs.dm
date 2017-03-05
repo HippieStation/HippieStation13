@@ -4,7 +4,6 @@
 	var/crit_fail = 0
 	animate_movement = 2
 	var/throwforce = 0
-
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 
 	var/damtype = "brute"

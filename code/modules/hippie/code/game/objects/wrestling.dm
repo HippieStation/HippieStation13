@@ -28,7 +28,7 @@
 	icon = 'icons/hippie/obj/sports.dmi'
 	desc = "Doesn't do much, but looks stylish as Hell."
 	icon_state = "unitard"
-	can_adjust = 0
+	can_adjust = FALSE
 
 /obj/item/clothing/under/wrestling/New()
 	color = pick("white","green","yellow")
