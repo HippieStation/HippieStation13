@@ -237,7 +237,7 @@
 	item_state = "eshield0"
 	w_class = 1
 	force = 3
-	var/puckdaze
+	var/puckdaze = 2
 	throwforce = 10 //As good as a floor tile, three of these should knock someone out.
 
 
