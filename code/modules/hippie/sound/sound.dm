@@ -47,28 +47,21 @@
 				if(listener_location)
 					var/listener_location_root = get_top_ancestor(listener_location, /area)
 					if(listener_location_root != source_location_root && !(listener_location != /area && source_location != /area))
-						//boutput(M, "You did not hear a [source] at [source_location]!")
 						continue
 
 					if(source_location && source_location.sound_group && source_location.sound_group != listener_location.sound_group)
-						//boutput(M, "You did not hear a [source] at [source_location] due to the sound_group ([source_location.sound_group]) not matching yours ([listener_location.sound_group])")
 						continue
 
 					if(listener_location != source_location)
-						//boutput(M, "You barely hear a [source] at [source_location]!")
 						S.echo = list(0,0,0,0,0,0,-10000,1.0,1.5,1.0,0,1.0,0,0,0,0,1.0,7) //Sound is occluded
 					else
-						//boutput(M, "You hear a [source] at [source_location]!")
 						S.echo = list(0,0,0,0,0,0,0,0.25,1.5,1.0,0,1.0,0,0,0,0,1.0,7)
-				//if(get_dist(M, source) >= 30) return // hard attentuation i guess
 				S.x = source.x - Mloc.x
 				S.z = source.y - Mloc.y //Since sound coordinates are 3D, z for sound falls on y for the map.  BYOND.
 				S.y = 0
 				S.volume *= attenuate_for_location(Mloc)
 				M << S
 				S.volume = vol
-
-		//pool(S)
 
 /atom/proc/playsound_local(var/atom/source, soundin, vol as num, vary, extrarange as num, pitch = 1)
 
@@ -92,16 +85,13 @@
 
 	var/sound/S
 	if(istext(soundin))
-		S = unpool(/sound)
+		S = new /sound
 		S.file = csound(soundin)
-		//DEBUG("Created sound [S.file] from csound - soundin is text([soundin])")
 	else if (isfile(soundin))
-		S = unpool(/sound)
+		S = new /sound
 		S.file = soundin// = sound(soundin)
-		//DEBUG("Created sound [S.file] from file - soundin is file")
 	else if (istype(soundin, /sound))
 		S = soundin
-		//DEBUG("Used input sound: [S.file]")
 
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
@@ -117,8 +107,6 @@
 		var/dx = source.x - src.x
 		S.pan = max(-100, min(100, dx/8.0 * 100))
 	src << S
-	//pool(S)
-
 
 /proc/generate_sound(var/atom/source, soundin, vol as num, vary, extrarange as num, pitch = 1)
 	//Frequency stuff only works with 45kbps oggs.
@@ -143,26 +131,13 @@
 
 	var/sound/S
 	if(istext(soundin))
-		S = unpool(/sound)
+		S = new /sound
 		S.file = csound(soundin)
-		//DEBUG("Created sound [S.file] from csound - soundin is text([soundin])")
 	else if (isfile(soundin))
-		S = unpool(/sound)
-		S.file = soundin// = sound(soundin)
-		//DEBUG("Created sound [S.file] from file - soundin is file")
+		S = new /sound
+		S.file = soundin
 	else if (istype(soundin, /sound))
 		S = soundin
-		//DEBUG("Used input sound: [S.file]")
-
-	/*
-	var/sound/S
-	if(istext(soundin))
-		S = unpool(/sound)
-		S.file = csound(soundin)
-	else
-		S = sound(soundin)
-
-	*/
 	S.falloff = (world.view + extrarange)/10
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
@@ -239,33 +214,6 @@ LEGACY B.S.
  */
 /proc/csound(var/name)
 	return sound_cache[name]
-
-sound
-	Del()
-		// Haha you cant delete me you fuck
-		if(!qdeled)
-			pool(src)
-		else
-			//Yes I can
-			..()
-		return
-
-	unpooled()
-		file = initial(file)
-		repeat = initial(repeat)
-		wait = initial(wait)
-		channel = initial(channel)
-		volume = initial(volume)
-		frequency = initial(frequency)
-		pan = initial(pan)
-		priority = initial(priority)
-		status = initial(status)
-		x = initial(x)
-		y = initial(y)
-		z = initial(z)
-		falloff = initial(falloff)
-		environment = initial(environment)
-		echo = initial(echo)
 
 /proc/get_top_ancestor(var/datum/object, var/ancestor_of_ancestor=/datum)
 	if(!object || !ancestor_of_ancestor)

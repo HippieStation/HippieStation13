@@ -21,7 +21,10 @@ var/global/datum/limiter/limiter
 	if (!(typePath in limits))
 		return 1
 	
-	checkTick()
+	if (world.time > currentTick)
+		// Limits are per-tick.
+		currentTick = world.time
+		spawned.len = 0
 		
 	if (limits[typePath] > 0)
 		if (!(typePath in spawned))
@@ -37,9 +40,7 @@ var/global/datum/limiter/limiter
 		return
 		
 	return 0
-		
-/datum/limiter/proc/checkTick()
-	if (world.time > currentTick)
-		// Limits are per-tick.
-		currentTick = world.time
-		spawned.len = 0
+
+/world/New()
+	..()
+	initLimiter()
