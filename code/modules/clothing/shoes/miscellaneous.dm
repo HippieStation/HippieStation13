@@ -82,7 +82,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/step_action()
 	if(footstep > 1)
-		playsound(src, "clownstep", 50, 1)
+		playsound_local(src, "clownstep", 50, 1)
 		footstep = 0
 	else
 		footstep++
