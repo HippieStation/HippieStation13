@@ -132,7 +132,7 @@
 	if(occupant)
 		startgibbing(user)
 
-/obj/effect/overlay/feedee
+/obj/effect/overlay/gibberperson
 	use_fade = FALSE
 
 /obj/machinery/gibber/proc/StuffAnim(var/turf/prevloc)
@@ -144,7 +144,7 @@
 	if(prevloc) newloc = prevloc
 
 	if(!isturf(newloc)) return
-	var/obj/effect/overlay/feedee = new(newloc)
+	var/obj/effect/overlay/gibberperson/feedee = new(newloc)
 	feedee.name = src.occupant.name
 	feedee.icon = getFlatIcon(src.occupant)
 	occupant.alpha = 0
