@@ -1283,6 +1283,7 @@
 #include "code\modules\games\cards.dm"
 #include "code\modules\games\cas.dm"
 #include "code\modules\hippie\discord.dm"
+#include "code\modules\hippie\global.dm"
 #include "code\modules\hippie\code\game\machinery\vending.dm"
 #include "code\modules\hippie\code\game\objects\bowling.dm"
 #include "code\modules\hippie\code\game\objects\wrestling.dm"
