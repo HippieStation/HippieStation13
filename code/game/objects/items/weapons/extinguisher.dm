@@ -42,7 +42,8 @@
 /obj/item/weapon/extinguisher/New()
 	..()
 	create_reagents(max_chem)
-	reagents.add_reagent("water", max_chem)
+	reagents.add_reagent("water", (max_chem - 10))
+	reagents.add_reagent("cryogenic_fluid", 10) //improved turf extinguishing
 
 /obj/item/weapon/extinguisher/attack_self(mob/user)
 	safety = !safety
