@@ -209,7 +209,7 @@
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
 	safety = 0
-	max_water = 200
+	max_chem = 200
 	power = 8
 	precision = 1
 	cooling_power = 5
@@ -225,7 +225,7 @@
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
 		reagents = tank.reagents
-		max_water = tank.volume
+		max_chem = tank.volume
 		loc = tank
 
 

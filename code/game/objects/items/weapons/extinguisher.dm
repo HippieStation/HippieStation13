@@ -35,7 +35,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 3
 	materials = list()
-	max_water = 30
+	max_chem = 30
 	sprite_name = "miniFE"
 	dog_fashion = null
 
@@ -81,7 +81,7 @@
 			safety = safety_save
 			return 1
 		var/obj/structure/reagent_dispensers/watertank/W = target
-		var/transferred = W.reagents.trans_to(src, max_water)
+		var/transferred = W.reagents.trans_to(src, max_chem)
 		if(transferred > 0)
 			user << "<span class='notice'>\The [src] has been refilled by [transferred] units.</span>"
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
