@@ -63,8 +63,9 @@
 				M << S
 				S.volume = vol
 
-/atom/proc/playsound_local(var/atom/source, soundin, vol as num, vary, extrarange as num, pitch = 1)
-
+/mob/proc/playsound_local(var/atom/source, soundin, vol as num, vary, frequency, falloff, surround = 1)
+	if(!src.client || src.ear_deaf)
+		return
 	switch(soundin)
 		if ("shatter") soundin = pick(sounds_shatter)
 		if ("explosion") soundin = pick(sounds_explosion)
@@ -79,33 +80,27 @@
 		if ("gunshot") soundin = pick(sounds_gunshot)
 		if ("ricochet") soundin = pick(sounds_ricochet)
 		if ("terminal_type") soundin = pick(sounds_terminal)
-
 	if(islist(soundin))
 		soundin = pick(soundin)
-
-	var/sound/S
-	if(istext(soundin))
-		S = new /sound
-		S.file = csound(soundin)
-	else if (isfile(soundin))
-		S = new /sound
-		S.file = soundin// = sound(soundin)
-	else if (istype(soundin, /sound))
-		S = soundin
-
+	var/sound/S = sound(soundin)
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
-	S.volume = vol * attenuate_for_location(src)
-	S.priority = 5
-
+	S.volume = vol
 	if (vary)
-		S.frequency = rand(725, 1250) / 1000 * pitch
-	else
-		S.frequency = pitch
-
+		if(frequency)
+			S.frequency = frequency
+		else
+			S.frequency = get_rand_frequency()
+	S.volume *= attenuate_for_location(source)
 	if(isturf(source))
-		var/dx = source.x - src.x
-		S.pan = max(-100, min(100, dx/8.0 * 100))
+		var/turf/T = get_turf(src)
+		if (surround)
+			var/dx = source.x - T.x
+			S.x = round(max(-SURROUND_CAP, min(SURROUND_CAP, dx)), 1)
+			var/dz = source.y - T.y
+			S.z = round(max(-SURROUND_CAP, min(SURROUND_CAP, dz)), 1)
+		S.y = 1
+		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
 	src << S
 
 /proc/generate_sound(var/atom/source, soundin, vol as num, vary, extrarange as num, pitch = 1)
@@ -156,7 +151,7 @@
 		S.environment = A.sound_environment
 
 	if (vary)
-		S.frequency = rand(725, 1250) / 1000 * pitch
+		S.frequency = get_rand_frequency()
 	else
 		S.frequency = pitch
 
@@ -195,11 +190,6 @@ LEGACY B.S.
 		return
 	if(prefs && (prefs.toggles & SOUND_LOBBY))
 		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS
-
-/mob/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, surround = 1)
-	if(!client || ear_deaf > 0)
-		return
-	..()
 
 /proc/playsound_global(file, repeat=0, wait, channel, volume)
 	for(var/V in clients)
