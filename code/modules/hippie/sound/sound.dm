@@ -17,8 +17,6 @@
 	return attenuate
 
 /proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, pitch)
-	if (!limiter || !limiter.canISpawn(/sound))
-		return
 	var/area/source_location = get_area(source)
 	vol *= attenuate_for_location(source)
 	var/source_location_root = null
