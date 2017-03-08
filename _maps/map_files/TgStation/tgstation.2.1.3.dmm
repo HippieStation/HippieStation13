@@ -1,4 +1,4 @@
-//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE 
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aaa" = (
 /turf/open/space,
 /area/space)
@@ -22472,7 +22472,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aYd" = (
-/obj/structure/reagent_dispensers/watertank/high,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aYe" = (
@@ -22510,7 +22510,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/obj/structure/reagent_dispensers/watertank/high,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aYi" = (
@@ -45277,7 +45277,7 @@
 /turf/open/floor/plasteel,
 /area/atmos)
 "bUF" = (
-/obj/structure/reagent_dispensers/watertank/high,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel,
 /area/atmos)
 "bUG" = (

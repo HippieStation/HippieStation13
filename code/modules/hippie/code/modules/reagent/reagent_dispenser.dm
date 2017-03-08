@@ -3,7 +3,7 @@
 		if(!user.drop_item())
 			return
 		qdel(I)
-		paper_cups++
+		cups++
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
@@ -34,4 +34,3 @@
 	desc = "A machine filled with the clown's thick juice! NICE!"
 	icon = 'icons/hippie/obj/vending.dmi'
 	icon_state = "honk_cooler"
-	reagent_id = "banana"

@@ -1319,13 +1319,6 @@
 	crate_name = "water tank crate"
 	crate_type = /obj/structure/closet/crate/large
 
-/datum/supply_pack/misc/hightank
-	name = "High-Capacity Water Tank Crate"
-	cost = 1200
-	contains = list(/obj/structure/reagent_dispensers/watertank/high)
-	crate_name = "high-capacity water tank crate"
-	crate_type = /obj/structure/closet/crate/large
-
 /datum/supply_pack/misc/water_vapor
 	name = "Water Vapor Canister"
 	cost = 2500

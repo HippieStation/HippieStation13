@@ -859,6 +859,25 @@
 	M.adjustToxLoss(1, 0)
 	. = 1
 	..()
+/datum/reagent/fuel/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
+
+/datum/chemical_reaction/fuel_explosion
+	name = "Fuel boom"
+	id = "fuel_explosion"
+	required_reagents = list("welding_fuel" = 1)
+	required_temp = 700
+	mix_message = "<span class='boldannounce'>The fuel lights up and burst in flames!!</span>"
+
+/datum/chemical_reaction/fuel_explosion/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	if(!holder.my_atom.is_open_container()) // fuel's in a closed space, let's make it go boom and jazz
+		var/datum/effect_system/reagents_explosion/e = new()
+		e.set_up(min(1 + round(created_volume/15, 1), 17), location, 0, 0)
+		e.start()
+	else // let's just make fire
+		new /obj/effect/hotspot(location)
 
 /datum/reagent/space_cleaner
 	name = "Space cleaner"

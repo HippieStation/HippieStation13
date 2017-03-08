@@ -15,7 +15,7 @@
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
-	var/max_water = 50
+	var/max_chem = 50
 	var/last_use = 1
 	var/safety = TRUE
 	var/refilling = FALSE
@@ -41,8 +41,8 @@
 
 /obj/item/weapon/extinguisher/New()
 	..()
-	create_reagents(max_water)
-	reagents.add_reagent("water", max_water)
+	create_reagents(max_chem)
+	reagents.add_reagent("water", max_chem)
 
 /obj/item/weapon/extinguisher/attack_self(mob/user)
 	safety = !safety
@@ -72,7 +72,7 @@
 		user << "It is empty."
 
 /obj/item/weapon/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user))
+	if(istype(target, /obj/structure/reagent_dispensers) && target.Adjacent(user))
 		var/safety_save = safety
 		safety = TRUE
 		if(reagents.total_volume == reagents.maximum_volume)
