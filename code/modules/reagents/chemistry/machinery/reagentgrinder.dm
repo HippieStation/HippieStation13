@@ -76,21 +76,93 @@ var/list/dried_items = list(
 )
 
 /obj/machinery/reagentgrinder
-	name = "All-In-One Grinder"
-	desc = "Used to grind things up into raw materials."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "juicer1"
-	layer = BELOW_OBJ_LAYER
-	anchored = TRUE
-	use_power = TRUE
-	idle_power_usage = 5
-	active_power_usage = 100
-	pass_flags = PASSTABLE
-	resistance_flags = ACID_PROOF
-	var/operating = FALSE
-	var/obj/item/weapon/reagent_containers/beaker = null
-	var/limit = 10
-	var/list/holdingitems = list()
+		name = "All-In-One Grinder"
+		desc = "Used to grind things up into raw materials."
+		icon = 'icons/obj/kitchen.dmi'
+		icon_state = "juicer1"
+		layer = BELOW_OBJ_LAYER
+		anchored = 1
+		use_power = 1
+		idle_power_usage = 5
+		active_power_usage = 100
+		pass_flags = PASSTABLE
+		resistance_flags = ACID_PROOF
+		var/operating = 0
+		var/obj/item/weapon/reagent_containers/beaker = null
+		var/limit = 10
+		var/list/blend_items = list (
+
+				//Sheets
+				/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
+				/obj/item/stack/sheet/metal = list("iron" = 20),
+				/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma" = 20),
+				/obj/item/stack/sheet/mineral/wood = list("carbon" = 20),
+				/obj/item/stack/sheet/glass = list("silicon" = 20),
+				/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
+				/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
+				/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
+				/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
+				/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
+				/obj/item/stack/sheet/bluespace_crystal = list("bluespace" = 20),
+				/obj/item/weapon/ore/bluespace_crystal = list("bluespace" = 20),
+				/obj/item/weapon/grown/nettle/basic = list("sacid" = 0),
+				/obj/item/weapon/grown/nettle/death = list("facid" = 0, "sacid" = 0),
+				/obj/item/weapon/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+
+				//Blender Stuff
+				/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/egg = list("eggyolk" = -5),
+
+				//Grinder stuff, but only if dry
+				/obj/item/weapon/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+
+
+				//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
+				/obj/item/slime_extract = list(),
+				/obj/item/weapon/reagent_containers/pill = list(),
+				/obj/item/weapon/reagent_containers/food = list(),
+				/obj/item/weapon/reagent_containers/honeycomb = list()
+		)
+
+		var/list/juice_items = list (
+
+				//Juicer Stuff
+				/obj/item/weapon/reagent_containers/food/snacks/grown/corn = list("corn_starch" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/berries = list("berryjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/banana = list("banana" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/lemon = list("lemonjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/orange = list("orangejuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/lime = list("limejuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon = list("watermelonjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/blumpkin = list("blumpkinjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
+		)
+
+		var/list/dried_items = list(
+				//Grinder stuff, but only if dry,
+				/obj/item/weapon/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+		)
+
+		var/list/holdingitems = list()
 
 /obj/machinery/reagentgrinder/New()
 	..()

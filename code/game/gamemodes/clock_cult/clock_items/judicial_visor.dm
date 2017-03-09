@@ -158,7 +158,7 @@
 
 /obj/effect/clockwork/judicial_marker/New(loc, caster)
 	..()
-	SetLuminosity(4, 3)
+	set_light(1.4, 2, "#FE9C11")
 	user = caster
 	INVOKE_ASYNC(src, .proc/judicialblast)
 
@@ -168,10 +168,11 @@
 	sleep(16)
 	layer = ABOVE_ALL_MOB_LAYER
 	flick("judicial_explosion", src)
+	set_light(1.4, 2, "#B451A1")
 	sleep(13)
 	var/targetsjudged = 0
 	playsound(src, 'sound/effects/explosionfar.ogg', 100, 1, 1, 1)
-	SetLuminosity(0)
+	set_light(0)
 	for(var/mob/living/L in range(1, src))
 		if(is_servant_of_ratvar(L))
 			continue
@@ -196,7 +197,7 @@
 		targetsjudged++
 		L.adjustBruteLoss(10)
 		add_logs(user, L, "struck with a judicial blast")
-	user << "<span class='brass'><b>[targetsjudged ? "Successfully judged <span class='neovgre'>[targetsjudged]</span>":"Judged no"] heretic[!targetsjudged || targetsjudged > 1 ? "s":""].</b></span>"
+	user << "<span class='brass'><b>[targetsjudged ? "Successfully judged <span class='neovgre'>[targetsjudged]</span>":"Judged no"] heretic[targetsjudged == 1 ? "":"s"].</b></span>"
 	sleep(3) //so the animation completes properly
 	qdel(src)
 

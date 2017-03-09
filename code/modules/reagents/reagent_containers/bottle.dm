@@ -41,6 +41,7 @@
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling)
 
+
 /obj/item/weapon/reagent_containers/glass/bottle/epinephrine
 	name = "epinephrine bottle"
 	desc = "A small bottle. Contains epinephrine - used to stabilize patients."

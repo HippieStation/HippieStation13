@@ -111,8 +111,13 @@
 	var/turf/T = get_turf(src)
 	if(occupant)
 		if(occupant.health >= 100) // Don't bother with fully healed people.
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-			open_machine()
+			on = FALSE
+			update_icon()
+			playsound(T, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.
+			radio.talk_into(src, "Patient fully restored", radio_channel)
+			if(autoeject) // Eject if configured.
+				radio.talk_into(src, "Auto ejecting patient now", radio_channel)
+				open_machine()
 			return
 		else if(occupant.stat == DEAD) // We don't bother with dead people.
 			playsound(T, 'sound/machines/cryo_warning.ogg', 50, 1) // Bug the doctors.

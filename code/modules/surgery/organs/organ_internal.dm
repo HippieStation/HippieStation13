@@ -104,6 +104,7 @@
 	zone = "chest"
 	slot = "heart"
 	origin_tech = "biotech=5"
+	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
 	var/beating = 1
 	var/icon_base = "heart"
 	attack_verb = list("beat", "thumped")
@@ -116,15 +117,8 @@
 
 /obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0)
 	..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
-			Stop()
-			return
-		if(!special)
-			H.heart_attack = 1
-
-	addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+	if(!special)
+		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
 
 /obj/item/organ/heart/proc/stop_if_unowned()
 	if(!owner)
@@ -134,17 +128,10 @@
 	..()
 	if(!beating)
 		visible_message("<span class='notice'>[user] squeezes [src] to \
-			make it beat again!</span>")
+			make it beat again!</span>", "<span class='notice'>You squeeze \
+			[src] to make it beat again!</span>")
 		Restart()
 		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
-
-/obj/item/organ/heart/Insert(mob/living/carbon/M, special = 0)
-	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
 
 /obj/item/organ/heart/proc/Stop()
 	beating = 0
@@ -520,8 +507,9 @@
 	icon_state = "tonguenormal"
 	zone = "mouth"
 	slot = "tongue"
-	var/say_mod = null
 	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
+	var/say_mod = null
+	var/taste_sensitivity = 15 // lower is more sensitive.
 
 /obj/item/organ/tongue/get_spans()
 	return list()
@@ -544,6 +532,7 @@
 	desc = "A thin and long muscle typically found in reptilian races, apparently moonlights as a nose."
 	icon_state = "tonguelizard"
 	say_mod = "hisses"
+	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 
 /obj/item/organ/tongue/lizard/TongueSpeech(var/message)
 	var/regex/lizard_hiss = new("s+", "g")
@@ -558,6 +547,7 @@
 	desc = "A freakish looking meat tube that apparently can take in liquids."
 	icon_state = "tonguefly"
 	say_mod = "buzzes"
+	taste_sensitivity = 25 // you eat vomit, this is a mercy
 
 /obj/item/organ/tongue/fly/TongueSpeech(var/message)
 	var/regex/fly_buzz = new("z+", "g")
@@ -572,6 +562,7 @@
 	desc = "A mysterious structure that allows for instant communication between users. Pretty impressive until you need to eat something."
 	icon_state = "tongueayylmao"
 	say_mod = "gibbers"
+	taste_sensitivity = 101 // ayys cannot taste anything.
 
 /obj/item/organ/tongue/abductor/TongueSpeech(var/message)
 	//Hacks
@@ -597,6 +588,7 @@
 	desc = "Between the decay and the fact that it's just lying there you doubt a tongue has ever seemed less sexy."
 	icon_state = "tonguezombie"
 	say_mod = "moans"
+	taste_sensitivity = 32
 
 /obj/item/organ/tongue/zombie/TongueSpeech(var/message)
 	var/list/message_list = splittext(message, " ")
@@ -619,6 +611,7 @@
 	desc = "According to leading xenobiologists the evolutionary benefit of having a second mouth in your mouth is \"that it looks badass\"."
 	icon_state = "tonguexeno"
 	say_mod = "hisses"
+	taste_sensitivity = 10 // LIZARDS ARE ALIENS CONFIRMED
 
 /obj/item/organ/tongue/alien/TongueSpeech(var/message)
 	playsound(owner, "hiss", 25, 1, 1)
@@ -632,6 +625,7 @@
 	icon_state = "tonguebone"
 	say_mod = "rattles"
 	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
+	taste_sensitivity = 101 // skeletons cannot taste anything
 
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
@@ -668,6 +662,7 @@
 	icon_state = "tonguerobot"
 	say_mod = "states"
 	attack_verb = list("beeped", "booped")
+	taste_sensitivity = 25 // not as good as an organic tongue
 
 /obj/item/organ/tongue/robot/get_spans()
 	return ..() | SPAN_ROBOT
@@ -740,22 +735,7 @@
 			E = new()
 		E.Insert(src)
 
-	if(!getorganslot("butt"))
-		if(ishuman(src) || ismonkey(src))
-			var/obj/item/organ/internal/butt/B = new()
-			B.Insert(src)
-		if(isalien(src))
-			var/obj/item/organ/internal/butt/xeno/X = new()
-			X.Insert(src)
-
-	if(ishuman(src))
-		var/obj/item/bodypart/head/U = locate() in bodyparts
-		if(istype(U))
-			U.teeth_list.Cut() //Clear out their mouth of teeth
-			var/obj/item/stack/teeth/T = new dna.species.teeth_type(U)
-			U.max_teeth = T.max_amount //Set max teeth for the head based on teeth spawntype
-			T.amount = T.max_amount
-			U.teeth_list += T
+//Eyes
 
 /obj/item/organ/eyes
 	name = "eyes"
@@ -866,11 +846,11 @@
 
 /obj/item/organ/eyes/robotic/flashlight/Insert(var/mob/living/carbon/M, var/special = 0)
 	..()
-	M.AddLuminosity(15)
+	set_light(15)
 
 
 /obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0)
-	M.AddLuminosity(-15)
+	set_light(-15)
 	..()
 
 // Welding shield implant
@@ -882,93 +862,3 @@
 
 /obj/item/organ/eyes/robotic/shield/emp_act(severity)
 	return
-
-/obj/item/organ/internal/butt //nvm i need to make it internal for surgery fuck
-	name = "butt"
-	desc = "extremely treasured body part"
-	icon_state = "butt"
-	item_state = "butt"
-	zone = "groin"
-	slot = "butt"
-	throwforce = 5
-	throw_speed = 4
-	force = 5
-	hitsound = 'sound/misc/fart.ogg'
-	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
-	embed_chance = 5 //This is a joke
-	var/loose = 0
-	var/max_combined_w_class = 3
-	var/max_w_class = 2
-	var/storage_slots = 2
-	var/obj/item/weapon/storage/internal/pocket/butt/inv = /obj/item/weapon/storage/internal/pocket/butt
-
-/obj/item/organ/internal/butt/xeno //XENOMORPH BUTTS ARE BEST BUTTS yes i agree
-	name = "alien butt"
-	desc = "best trophy ever"
-	icon_state = "xenobutt"
-	item_state = "xenobutt"
-	storage_slots = 3
-	max_combined_w_class = 5
-
-/obj/item/organ/internal/butt/bluebutt // bluespace butts, science
-	name = "butt of holding"
-	desc = "This butt has bluespace properties, letting you store more items in it. Four tiny items, or two small ones, or one normal one can fit."
-	icon_state = "bluebutt"
-	item_state = "bluebutt"
-	origin_tech = "bluespace=5;biotech=4"
-	max_combined_w_class = 12
-	max_w_class = 3
-	storage_slots = 4
-
-/obj/item/organ/internal/butt/New()
-	..()
-	inv = new(src)
-	inv.max_w_class = max_w_class
-	inv.storage_slots = storage_slots
-	inv.max_combined_w_class = max_combined_w_class
-
-/obj/item/organ/internal/butt/Remove(mob/living/carbon/M, special = 0)
-	..()
-	if(inv)
-		inv.close_all()
-
-/obj/item/organ/internal/butt/on_life()
-	if(owner && inv)
-		for(var/obj/item/I in inv.contents)
-			if(I.is_sharp() || is_pointed(I))
-				owner.bleed(4)
-
-/obj/item/organ/internal/butt/Destroy()
-	if(inv)
-		if(inv.contents.len)
-			for(var/i in inv.contents.len)
-				var/obj/item/I = i
-				inv.remove_from_storage(I, get_turf(src))
-		qdel(inv)
-	..()
-
-/obj/item/organ/internal/butt/attackby(var/obj/item/W, mob/user as mob, params) // copypasting bot manufucturing process, im a lazy fuck
-
-	if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
-		user.drop_item()
-		qdel(W)
-		var/turf/T = get_turf(src.loc)
-		var/mob/living/simple_animal/bot/buttbot/B = new /mob/living/simple_animal/bot/buttbot(T)
-		if(istype(src, /obj/item/organ/internal/butt/xeno))
-			B.xeno = 1
-			B.icon_state = "buttbot_xeno"
-			B.speech_list = list("hissing butts", "hiss hiss motherfucker", "nice trophy nerd", "butt", "woop get an alien inspection")
-		user << "<span class='notice'>You add the robot arm to the butt and... What?</span>"
-		user.drop_item(src)
-		qdel(src)
-
-/obj/item/organ/internal/butt/throw_impact(atom/hit_atom)
-	..()
-	var/mob/living/carbon/M = hit_atom
-	playsound(src, 'sound/misc/fart.ogg', 50, 1, 5)
-	if((ishuman(hit_atom)))
-		M.apply_damage(5, STAMINA)
-		if(prob(5))
-			M.Weaken(3)
-			visible_message("<span class='danger'>The [src.name] smacks [M] right in the face!</span>", 3)

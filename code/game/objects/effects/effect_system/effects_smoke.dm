@@ -17,6 +17,19 @@
 	var/lifetime = 5
 	var/opaque = 1 //whether the smoke can block the view when in enough amount
 
+
+/obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
+	if(alpha == 0) //Handle already transparent case
+		return
+	if(frames == 0)
+		frames = 1 //We will just assume that by 0 frames, the coder meant "during one frame".
+	var/step = alpha / frames
+	for(var/i = 0, i < frames, i++)
+		alpha -= step
+		if(alpha < 160)
+			set_opacity(0) //if we were blocking view, we aren't now because we're fading out
+		stoplag()
+
 /obj/effect/particle_effect/smoke/New()
 	alpha = 0
 	..()
@@ -79,7 +92,7 @@
 		S.lifetime = lifetime
 		if(S.amount>0)
 			if(opaque)
-				S.opacity = 1
+				S.set_opacity(TRUE)
 			newsmokes.Add(S)
 
 	if(newsmokes.len)

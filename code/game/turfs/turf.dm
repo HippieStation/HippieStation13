@@ -48,10 +48,26 @@
 		CalculateAdjacentTurfs()
 		SSair.add_to_active(src)
 
+	if (light_power && light_range)
+		update_light()
+
+	if (opacity)
+		has_opaque_atom = TRUE
+
 /turf/proc/Initalize_Atmos(times_fired)
 	CalculateAdjacentTurfs()
 
 /turf/Destroy(force)
+	. = QDEL_HINT_IWILLGC
+	if(force)
+		..()
+		//this will completely wipe turf state
+		var/turf/B = new world.turf(src)
+		for(var/A in B.contents)
+			qdel(A)
+		for(var/I in B.vars)
+			B.vars[I] = null
+		return
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
@@ -60,7 +76,6 @@
 	initialized = FALSE
 	requires_activation = FALSE
 	..()
-	return QDEL_HINT_IWILLGC
 
 /turf/attack_hand(mob/user)
 	user.Move_Pulled(src)
@@ -160,7 +175,7 @@
 	//melting
 	if(isobj(AM) && air && air.temperature > T0C)
 		var/obj/O = AM
-		if(O.is_frozen)
+		if(HAS_SECONDARY_FLAG(O, FROZEN))
 			O.make_unfrozen()
 
 /turf/proc/is_plasteel_floor()
@@ -279,11 +294,13 @@
 		usr << "<span class='notice'>You start dumping out the contents...</span>"
 		if(!do_after(usr,20,target=src_object))
 			return 0
-	for(var/obj/item/I in src_object)
-		if(user.s_active != src_object)
-			if(I.on_found(user))
-				return
-		src_object.remove_from_storage(I, src) //No check needed, put everything inside
+
+	var/list/things = src_object.contents.Copy()
+	var/datum/progressbar/progress = new(user, things.len, src)
+	while (do_after(usr, 10, TRUE, src, FALSE, CALLBACK(src_object, /obj/item/weapon/storage.proc/mass_remove_from_storage, src, things, progress)))
+		sleep(1)
+	qdel(progress)
+
 	return 1
 
 //////////////////////////////
@@ -384,11 +401,12 @@
 			continue
 		if(istype(A, /obj/docking_port))
 			continue
+		if(A == T0)
+			continue
 		qdel(A, force=TRUE)
 
 	T0.ChangeTurf(turf_type)
 
-	T0.redraw_lighting()
 	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
 	SSair.add_to_active(T0,1)

@@ -26,7 +26,6 @@
 	var/gang //Is this a gang outfit?
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
-
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit = list() //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered = list() //Auto built by the above + dropped() + equipped()
@@ -125,15 +124,11 @@
 	..()
 
 	if(slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
-		var/obj/item/organ/internal/butt/B = user.getorgan(/obj/item/organ/internal/butt)
-		if(B)
-			var/obj/item/weapon/storage/internal/pocket/butt/pocket = B.inv
-			if(pocket)
-				pocket.close_all()
 		for(var/variable in user_vars_to_edit)
 			if(variable in user.vars)
 				user_vars_remembered[variable] = user.vars[variable]
 				user.vars[variable] = user_vars_to_edit[variable]
+
 
 /obj/item/clothing/examine(mob/user)
 	..()

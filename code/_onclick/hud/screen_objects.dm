@@ -670,24 +670,29 @@
 			L.say(pick(word_messages))
 
 /obj/screen/splash
-	icon = 'icons/misc/fullscreen.dmi'
+	icon = 'config/title_screens/images/blank.png'
 	icon_state = ""
 	screen_loc = "1,1"
 	layer = SPLASHSCREEN_LAYER
 	plane = SPLASHSCREEN_PLANE
 	var/client/holder
 
-/obj/screen/splash/proc/LoadIcon()
-	if(fexists("data/npc_saves/TitleScreen.sav"))
-		var savefile/s = new /savefile("data/npc_saves/TitleScreen.sav")
-		s["icon"] >> icon_state
-
-/obj/screen/splash/New(client/C, fadeout, qdel_after = TRUE)
-	LoadIcon()
-	..()
+/obj/screen/splash/New(client/C, visible, use_previous_title)
 	holder = C
+
+	if(!visible)
+		alpha = 0
+	if(SStitle.title_screen)
+		icon = SStitle.title_screen.icon
+
 	holder.screen += src
-	if(fadeout)
+	if(use_previous_title && !SSmapping.previous_map_config.defaulted)
+		holder.screen -= src	//Yell at Cyberboss to finish this
+
+	..()
+
+/obj/screen/splash/proc/Fade(out, qdel_after = TRUE)
+	if(out)
 		animate(src, alpha = 0, time = 30)
 	else
 		alpha = 0
@@ -696,5 +701,7 @@
 		QDEL_IN(src, 30)
 
 /obj/screen/splash/Destroy()
-	holder.screen -= src
+	if(holder)
+		holder.screen -= src
+		holder = null
 	return ..()

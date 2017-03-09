@@ -557,11 +557,19 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	cost = 25
 	refundable = TRUE
 
-/datum/uplink_item/support/reinforcement/syndieborg
-	name = "Syndicate Cyborg"
+/datum/uplink_item/support/reinforcement/assault_borg
+	name = "Syndicate Assault Cyborg"
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
-	item = /obj/item/weapon/antag_spawner/nuke_ops/borg_tele
-	cost = 80
+	item = /obj/item/weapon/antag_spawner/nuke_ops/borg_tele/assault
+	refundable = TRUE
+	cost = 65
+
+/datum/uplink_item/support/reinforcement/medical_borg
+	name = "Syndicate Medical Cyborg"
+	desc = "A combat medic cyborg, with potent healing reagents and a medical beam gun, but limited offensive potential."
+	item = /obj/item/weapon/antag_spawner/nuke_ops/borg_tele/medical
+	refundable = TRUE
+	cost = 35
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
@@ -1206,7 +1214,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 /datum/uplink_item/role_restricted/mimery
 	name = "Guide to Advanced Mimery Series"
 	desc = "The classical two part series on how to further hone your mime skills. Upon studying the series, the user should be able to make 3x1 invisble walls, and shoot bullets out of their fingers. Obviously only works for Mimes."
-	cost = 15
+	cost = 12
 	item = /obj/item/weapon/storage/box/syndie_kit/mimery
 	restricted_roles = list("Mime")
 
@@ -1229,22 +1237,21 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
 
-/* Science Division */
-/datum/uplink_item/role_restricted/experimental_teleporter
-	name = "Experimental Teleporter"
-	desc = "An imperfect bluespace teleportation device recovered from an abandoned mine that relocates the user 3 to 5 metres in their direction. The teleportation will telefrag any living creature in the new location. Relocating into solid walls will yield less than stellar results."
-	restricted_roles = list("Research Director")
-	cost = 14
-	item = /obj/item/device/experimental_teleporter
-	cant_discount = TRUE
+/datum/uplink_item/role_restricted/ancient_jumpsuit
+	name = "Ancient Jumpsuit"
+	desc = "A tattered old jumpsuit that will provide absolutely no benefit to you. It fills the wearer with a strange compulsion to blurt out 'glorf'."
+	item = /obj/item/clothing/under/color/grey/glorf
+	cost = 20
+	surplus = 0
+	restricted_roles = list("Assistant")
 
-/* Botany */
-/datum/uplink_item/role_restricted/lawnmower
-	name = "Gas powered lawn mower"
-	desc = "A lawn mower is a machine utilizing one or more revolving blades to cut a grass surface to an even height, or bodies if that's your thing"
-	restricted_roles = list("Botanist")
-	cost = 14
-	item = /obj/vehicle/lawnmower/emagged
+/datum/uplink_item/role_restricted/haunted_magic_eightball
+	name = "Haunted Magic Eightball"
+	desc = "Most magic eightballs are toys with dice inside. Although identical in appearance to the harmless toys, this occult device reaches into the spirit world to find its answers. Be warned, that spirits are often capricious or just little assholes. To use, simply speak your question aloud, then begin shaking."
+	item = /obj/item/toy/eightball/haunted
+	cost = 2
+	restricted_roles = list("Librarian")
+	limited_stock = 1 // please don't spam deadchat
 
 // Pointless
 /datum/uplink_item/badass

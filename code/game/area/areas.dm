@@ -62,9 +62,6 @@
 	var/list/firedoors
 	var/firedoors_last_closed_on = 0
 
-	var/sound_environment = 1
-	var/sound_group = null
-
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
@@ -114,8 +111,8 @@ var/list/teleportlocs = list()
 		power_equip = 1
 		power_environ = 1
 
-		if (lighting_use_dynamic != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			lighting_use_dynamic = DYNAMIC_LIGHTING_DISABLED
+		if (dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
+			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 	..()
 
@@ -239,6 +236,8 @@ var/list/teleportlocs = list()
 			RA.mouse_opacity = 0
 			RA.updateicon()
 			RA.ModifyFiredoors(TRUE)
+			for(var/obj/machinery/firealarm/F in RA)
+				F.update_icon()
 
 	for (var/mob/living/silicon/aiPlayer in player_list)
 		aiPlayer.cancelAlarm("Fire", src, source)
@@ -256,6 +255,12 @@ var/list/teleportlocs = list()
 		for(var/area/RA in related)
 			RA.ModifyFiredoors(FALSE)
 
+/area/proc/close_and_lock_door(obj/machinery/door/DOOR)
+	set waitfor = FALSE
+	DOOR.close()
+	if(DOOR.density)
+		DOOR.lock()
+
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered == 1) //no burglar alarms in space/asteroid
 		return
@@ -267,10 +272,7 @@ var/list/teleportlocs = list()
 		RA.set_fire_alarm_effect()
 		//Lockdown airlocks
 		for(var/obj/machinery/door/DOOR in RA)
-			spawn(0)
-				DOOR.close()
-				if(DOOR.density)
-					DOOR.lock()
+			close_and_lock_door(DOOR)
 		for (var/obj/machinery/camera/C in RA)
 			cameras += C
 
@@ -414,6 +416,7 @@ var/list/teleportlocs = list()
 
 
 /area/Entered(A)
+	set waitfor = FALSE
 	if(!isliving(A))
 		return
 
@@ -435,9 +438,9 @@ var/list/teleportlocs = list()
 		if(!L.client.played)
 			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			L.client.played = 1
-			spawn(600)			//ewww - this is very very bad
-				if(L.&& L.client)
-					L.client.played = 0
+			sleep(600)			//ewww - this is very very bad
+			if(L.&& L.client)
+				L.client.played = 0
 
 /atom/proc/has_gravity(turf/T)
 	if(!T || !isturf(T))

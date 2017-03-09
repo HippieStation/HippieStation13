@@ -22,9 +22,15 @@
 	if (config.log_admin)
 		diary << "\[[time_stamp()]]ADMIN: [text]"
 
+//Items using this proc are stripped from public logs - use with caution
+/proc/log_admin_private(text)
+	admin_log.Add(text)
+	if (config.log_admin)
+		diary << "\[[time_stamp()]]ADMINPRIVATE: [text]"
+
 /proc/log_adminsay(text)
 	if (config.log_adminchat)
-		log_admin("ASAY: [text]")
+		log_admin_private("ASAY: [text]")
 
 /proc/log_mentor(text)
 		mentorlog.Add(text)
@@ -86,6 +92,10 @@
 /proc/log_chat(text)
 	if (config.log_pda)
 		diary << "\[[time_stamp()]]CHAT: [text]"
+
+/proc/log_sql(text)
+	if(config.sql_enabled)
+		diary << "\[[time_stamp()]]SQL: [text]"
 
 //This replaces world.log so it displays both in DD and the file
 /proc/log_world(text)

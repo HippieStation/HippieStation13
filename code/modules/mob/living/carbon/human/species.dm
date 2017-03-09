@@ -45,7 +45,6 @@
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
-	var/teeth_type = /obj/item/stack/teeth/generic
 
 	// species flags. these can be found in flags.dm
 	var/list/species_traits = list()
@@ -111,6 +110,7 @@
 	var/obj/item/organ/heart/heart = C.getorganslot("heart")
 	var/obj/item/organ/lungs/lungs = C.getorganslot("lungs")
 	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix")
+	var/obj/item/organ/eyes/eyes = C.getorganslot("eyes")
 
 	if((NOBLOOD in species_traits) && heart)
 		heart.Remove(C)
@@ -120,9 +120,14 @@
 		heart.Insert(C)
 
 	if(lungs)
-		lungs.Remove(C)
 		qdel(lungs)
 		lungs = null
+
+	if(eyes)
+		qdel(eyes)
+		eyes = new mutanteyes
+		mutanteyes.Insert(C)
+
 	if((!(NOBREATH in species_traits)) && !lungs)
 		if(mutantlungs)
 			lungs = new mutantlungs()
@@ -131,7 +136,6 @@
 		lungs.Insert(C)
 
 	if((NOHUNGER in species_traits) && appendix)
-		appendix.Remove(C)
 		qdel(appendix)
 	else if((!(NOHUNGER in species_traits)) && (!appendix))
 		appendix = new()
@@ -1008,7 +1012,7 @@
 	if(aim_for_mouth && ( target_on_help_and_unarmed || target_restrained || target_aiming_for_mouth))
 		playsound(target.loc, 'sound/weapons/slap.ogg', 50, 1, -1)
 		user.visible_message("<span class='danger'>[user] slaps [target] in the face!</span>",
-			"<span class='notice'> You slap [target] in the face! </span>",\
+			"<span class='notice'>You slap [target] in the face! </span>",\
 		"You hear a slap.")
 		target.endTailWag()
 		return FALSE

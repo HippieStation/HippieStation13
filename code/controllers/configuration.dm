@@ -10,6 +10,9 @@
 	var/autoadmin = 0
 	var/autoadmin_rank = "Game Admin"
 
+/datum/protected_configuration/SDQL_update()
+	return FALSE
+
 /datum/protected_configuration/vv_get_var(var_name)
 	return debug_variable(var_name, "SECRET", 0, src)
 
@@ -218,8 +221,8 @@
 	var/announce_admin_logout = 0
 	var/announce_admin_login = 0
 
-	var/list/datum/votablemap/maplist = list()
-	var/datum/votablemap/defaultmap = null
+	var/list/datum/map_config/maplist = list()
+	var/datum/map_config/defaultmap = null
 	var/maprotation = 1
 	var/maprotatechancedelta = 0.75
 
@@ -246,18 +249,10 @@
 	var/minutetopiclimit
 	var/secondtopiclimit
 
-	// Discord crap.
-	var/discord_url
-	var/discord_password
-
 	var/error_cooldown = 600 // The "cooldown" time for each occurrence of a unique error
 	var/error_limit = 50 // How many occurrences before the next will silence them
 	var/error_silence_time = 6000 // How long a unique error will be silenced for
 	var/error_msg_delay = 50 // How long to wait between messaging admins about occurrences of a unique error
-
-	// Updater
-	var/update_check_enabled = FALSE
-	var/dmb_filename
 
 /datum/configuration/New()
 	gamemode_cache = typecacheof(/datum/game_mode,TRUE)
@@ -516,14 +511,6 @@
 					config.minutetopiclimit = text2num(value)
 				if("second_topic_limit")
 					config.secondtopiclimit = text2num(value)
-				if ("mentor_mobname_only")
-					config.mentors_mobname_only = 1
-				if ("mentor_legacy_system")
-					config.mentor_legacy_system = 1
-				if("discord_url")
-					discord_url = value
-				if("discord_password")
-					discord_password = value
 				if("error_cooldown")
 					error_cooldown = text2num(value)
 				if("error_limit")
@@ -532,10 +519,6 @@
 					error_silence_time = text2num(value)
 				if("error_msg_delay")
 					error_msg_delay = text2num(value)
-				if("update_check_enabled")
-					update_check_enabled = TRUE
-				if("dmb_filename")
-					dmb_filename = value
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -774,7 +757,7 @@
 /datum/configuration/proc/loadmaplist(filename)
 	var/list/Lines = file2list(filename)
 
-	var/datum/votablemap/currentmap = null
+	var/datum/map_config/currentmap = null
 	for(var/t in Lines)
 		if(!t)
 			continue
@@ -803,21 +786,19 @@
 
 		switch (command)
 			if ("map")
-				currentmap = new (data)
-			if ("friendlyname")
-				currentmap.friendlyname = data
+				currentmap = new ("_maps/[data].json")
+				if(currentmap.defaulted)
+					log_world("Failed to load map config for [data]!")
 			if ("minplayers","minplayer")
-				currentmap.minusers = text2num(data)
+				currentmap.config_min_users = text2num(data)
 			if ("maxplayers","maxplayer")
-				currentmap.maxusers = text2num(data)
-			if ("friendlyname")
-				currentmap.friendlyname = data
+				currentmap.config_max_users = text2num(data)
 			if ("weight","voteweight")
 				currentmap.voteweight = text2num(data)
 			if ("default","defaultmap")
 				config.defaultmap = currentmap
 			if ("endmap")
-				config.maplist[currentmap.name] = currentmap
+				config.maplist[currentmap.map_name] = currentmap
 				currentmap = null
 			else
 				diary << "Unknown command in map vote config: '[command]'"

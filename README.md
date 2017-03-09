@@ -1,7 +1,6 @@
 ##HippieStation 13
 
-[![Build Status](https://travis-ci.org/HippieStation/HippieStation13.png)](https://travis-ci.org/HippieStation/HippieStation13)
-
+[![Build Status](https://travis-ci.org/tgstation/tgstation.png)](https://travis-ci.org/tgstation/tgstation) [![Krihelimeter](http://www.krihelinator.xyz/badge/tgstation/tgstation)](http://www.krihelinator.xyz)
 
 **Website:** http://www.hippiestation.com <BR>
 **Code:** https://github.com/HippieStation/HippieStation13 <BR>

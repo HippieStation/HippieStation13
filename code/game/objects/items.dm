@@ -32,7 +32,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 	var/obj/item/master = null
-	var/alternate_screams  = list()
 
 	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, CHEST, GROIN, etc. flags. See setup.dm
 	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, CHEST, GROIN, etc. flags. See setup.dm
@@ -62,8 +61,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 	var/list/materials
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
-	var/assthrown = 0 //set to 1 to make the item 100% embed into an user when superfarted
-	var/itemstorevalue = 0 // for w class stuff related to asses
 
 	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
@@ -85,7 +82,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
 	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
-	var/embedded_ignore_throwspeed_threshold = FALSE
 
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 	var/heat = 0
@@ -102,7 +98,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 	// non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
 
-/obj/item/New()
+/obj/item/Initialize()
 	if (!materials)
 		materials = list()
 	..()
@@ -187,112 +183,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 		msg += "*--------*"
 		user << msg
 
-	if(user.robustness_scanner && list_obj_robustness()) //if they have a robustness scanner that can tell us anything
-		user << "[list_obj_robustness()]"
-
-/obj/item/proc/list_obj_robustness()
-	var/nil = "No"
-	var/vlow = "<font color='red'>Very low</font>"
-	var/low = "<font color='red'>Low</font>"
-	var/med = "<font color='#FF8000'>Medium</font>"
-	var/high = "<font color='blue'>High</font>"
-	var/vhigh = "<font color='green'>Very high</font>"
-
-	var/msg = ""
-
-	var/force_str
-	var/throwforce_str
-	if(force || throwforce)
-		msg += "*--------* <BR>"
-		msg += "Weapon potential:<BR>"
-
-
-		switch(force)
-			if(0)
-				force_str = "[nil]"
-			if(1 to 5)
-				force_str = "[vlow]"
-			if(6 to 10)
-				force_str = "[low]"
-			if(11 to 15)
-				force_str = "[med]"
-			if(16 to 20)
-				force_str = "[high]"
-			if(21 to INFINITY)
-				force_str = "[vhigh]"
-
-		switch(throwforce)
-			if(0)
-				throwforce_str = "[nil]"
-			if(1 to 5)
-				throwforce_str = "[vlow]"
-			if(6 to 10)
-				throwforce_str = "[low]"
-			if(11 to 15)
-				throwforce_str = "[med]"
-			if(16 to 20)
-				throwforce_str = "[high]"
-			if(21 to INFINITY)
-				throwforce_str = "[vhigh]"
-
-		msg += "[force_str] melee damage and [lowertext(throwforce_str)] throwing damage in its current state."
-
-		if(!istype(src, /obj/item/clothing)) //if the next section doesn't exist, add the ending divider
-			msg += "<BR>*--------*"
-
-	if(istype(src, /obj/item/clothing))
-		var/damdesc
-		var/damquality
-
-		if(force_str || throwforce_str) //if the previous section exists, add a linebreak
-			msg += "<BR>"
-		else
-			msg += "*--------*<BR>" //else add the starting divider
-
-		msg += "Armor:<BR>"
-
-		for(var/damtype in armor)
-
-			switch(armor["[damtype]"])
-				if(0)
-					continue
-				if(1 to 25)
-					damquality = "[low]"
-				if(26 to 50)
-					damquality = "[med]"
-				if(51 to 75)
-					damquality = "[high]"
-				if(76 to 100)
-					damquality = "[vhigh]"
-
-			switch("[damtype]")
-				if ("melee")
-					damdesc = "<font color='red'>melee</font>"
-				if ("bullet")
-					damdesc = "<font color='red'>ballistic</font>"
-				if ("laser")
-					damdesc = "<font color='#FF8000'>laser</font>"
-				if ("energy")
-					damdesc = "<font color='blue'>energy</font>"
-				if ("bomb")
-					damdesc = "<font color='red'>blast</font>"
-				if ("bio")
-					damdesc = "<font color='green'>biohazard</font>"
-				if ("rad")
-					damdesc = "<font color='green'>radiation</font>"
-				if ("fire")
-					damdesc = "<font color='#FF8000'>fire</font>"
-				if ("acid")
-					damdesc = "<font color='#FF8000'>acid</font>"
-
-			msg += "[damquality] protection from [damdesc] damage. "
-
-		if(!damquality)
-			msg += "No armor detected."
-
-		msg += "<BR>*--------*"
-
-	return msg
 
 /obj/item/attack_self(mob/user)
 	interact(user)
@@ -408,36 +298,50 @@ var/global/image/fire_overlay = image("icon" = 'icons/effects/fire.dmi', "icon_s
 			var/obj/item/weapon/storage/S = W
 			if(S.use_to_pickup)
 				if(S.collection_mode) //Mode is set to collect multiple items on a tile and we clicked on a valid one.
-					if(isturf(src.loc))
+					if(isturf(loc))
 						var/list/rejections = list()
-						var/success = 0
-						var/failure = 0
 
-						for(var/obj/item/I in src.loc)
-							if(S.collection_mode == 2 && !istype(I,src.type)) // We're only picking up items of the target type
-								failure = 1
-								continue
-							if(I.type in rejections) // To limit bag spamming: any given type only complains once
-								continue
-							if(!S.can_be_inserted(I, stop_messages = 1))	// Note can_be_inserted still makes noise when the answer is no
-								if(S.contents.len >= S.storage_slots)
-									break
-								rejections += I.type	// therefore full bags are still a little spammy
-								failure = 1
-								continue
+						var/list/things = loc.contents.Copy()
+						if (S.collection_mode == 2)
+							things = typecache_filter_list(things, typecacheof(type))
 
-							success = 1
-							S.handle_item_insertion(I, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
-						if(success && !failure)
-							user << "<span class='notice'>You put everything [S.preposition] [S].</span>"
-						else if(success)
-							user << "<span class='notice'>You put some things [S.preposition] [S].</span>"
-						else
-							user << "<span class='warning'>You fail to pick anything up with [S]!</span>"
+						var/len = things.len
+						if(!len)
+							user << "<span class='notice'>You failed to pick up anything with [S].</span>"
+							return
+						var/datum/progressbar/progress = new(user, len, loc)
+
+						while (do_after(user, 10, TRUE, S, FALSE, CALLBACK(src, .proc/handle_mass_pickup, S, things, loc, rejections, progress)))
+							sleep(1)
+
+						qdel(progress)
+
+						user << "<span class='notice'>You put everything you could [S.preposition] [S].</span>"
 
 				else if(S.can_be_inserted(src))
 					S.handle_item_insertion(src)
 
+/obj/item/proc/handle_mass_pickup(obj/item/weapon/storage/S, list/things, atom/thing_loc, list/rejections, datum/progressbar/progress)
+	for(var/obj/item/I in things)
+		things -= I
+		if(I.loc != thing_loc)
+			continue
+		if(I.type in rejections) // To limit bag spamming: any given type only complains once
+			continue
+		if(!S.can_be_inserted(I, stop_messages = TRUE))	// Note can_be_inserted still makes noise when the answer is no
+			if(S.contents.len >= S.storage_slots)
+				break
+			rejections += I.type	// therefore full bags are still a little spammy
+			continue
+
+		S.handle_item_insertion(I, TRUE)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
+
+		if (TICK_CHECK)
+			progress.update(progress.goal - things.len)
+			return TRUE
+
+	progress.update(progress.goal - things.len)
+	return FALSE
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 

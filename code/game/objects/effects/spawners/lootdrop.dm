@@ -97,6 +97,7 @@
 				/obj/item/device/assembly/timer = 3,
 				/obj/item/device/flashlight = 4,
 				/obj/item/device/flashlight/pen = 1,
+				/obj/item/device/flashlight/glowstick/random = 4,
 				/obj/item/device/multitool = 2,
 				/obj/item/device/radio/off = 2,
 				/obj/item/device/t_scanner = 5,
@@ -118,8 +119,8 @@
 				/obj/item/clothing/head/cone = 1,
 				/obj/item/weapon/coin/silver = 1,
 				/obj/item/weapon/coin/twoheaded = 1,
-				/obj/item/weapon/poster/contraband = 1,
-				/obj/item/weapon/poster/legit = 1,
+				/obj/item/weapon/poster/random_contraband = 1,
+				/obj/item/weapon/poster/random_official = 1,
 				/obj/item/weapon/crowbar = 1,
 				/obj/item/weapon/crowbar/red = 1,
 				/obj/item/weapon/extinguisher = 11,
@@ -160,10 +161,8 @@
 				/obj/item/clothing/gloves/color/random = 5,
 				/obj/item/clothing/shoes/laceup = 1,
 				/obj/item/weapon/storage/secure/briefcase = 3,
-				/obj/item/weapon/staplegun = 3,
-				/obj/item/clothing/under/cosby = 3,
-				/obj/item/weapon/storage/inflatable = 2,
 				/obj/item/weapon/storage/toolbox/artistic = 2,
+				/obj/item/toy/eightball = 1,
 				"" = 3
 				)
 
@@ -175,3 +174,20 @@
 				/obj/structure/closet/crate/secure/loot = 20,
 				"" = 80
 				)
+
+/obj/effect/spawner/lootdrop/organ_spawner
+	name = "organ spawner"
+	loot = list(
+		/obj/item/organ/heart/gland/bloody = 7,
+		/obj/item/organ/heart/gland/bodysnatch = 4,
+		/obj/item/organ/heart/gland/egg = 7,
+		/obj/item/organ/heart/gland/emp = 3,
+		/obj/item/organ/heart/gland/mindshock = 5,
+		/obj/item/organ/heart/gland/plasma = 7,
+		/obj/item/organ/heart/gland/pop = 5,
+		/obj/item/organ/heart/gland/slime = 4,
+		/obj/item/organ/heart/gland/spiderman = 5,
+		/obj/item/organ/heart/gland/ventcrawling = 1,
+		/obj/item/organ/body_egg/alien_embryo = 1,
+		/obj/item/organ/hivelord_core = 2)
+	lootcount = 3

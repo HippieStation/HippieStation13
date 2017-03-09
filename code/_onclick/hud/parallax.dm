@@ -37,6 +37,11 @@
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
 	if(C.prefs)
+		var/pref = C.prefs.parallax
+		if (isnull(pref))
+			pref = PARALLAX_HIGH
+			if (C.byond_version < 511)
+				pref = PARALLAX_DISABLE
 		switch(C.prefs.parallax)
 			if (PARALLAX_INSANE)
 				C.parallax_throttle = FALSE
@@ -230,6 +235,7 @@
 			var/image/I = image(icon, null, icon_state)
 			I.transform = matrix(1, 0, x*480, 0, 1, y*480)
 			new_overlays += I
+	cut_overlays()
 	add_overlay(new_overlays)
 	view_sized = view
 

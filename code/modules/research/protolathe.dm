@@ -138,7 +138,7 @@ Note: Must be placed west/left of and R&D console to function.
 		qdel(O)
 		add_overlay("protolathe_bluespace")
 		sleep(10)
-		overlays -= "protolathe_bluespace"
+		cut_overlay("protolathe_bluespace")
 		busy = FALSE
 		updateUsrDialog()
 

@@ -129,7 +129,7 @@
 	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
 	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
 	if (building)
-		area = src.loc.loc:master
+		area = get_area(src)
 		opened = 1
 		operating = 0
 		name = "[area.name] APC"
@@ -861,7 +861,7 @@
 		return
 	if(src.z != 1)
 		return
-	occupier = new /mob/living/silicon/ai(src, malf.laws, malf) //DEAR GOD WHY?
+	occupier = new /mob/living/silicon/ai(src, malf.laws, malf) //DEAR GOD WHY?	//IKR????
 	occupier.adjustOxyLoss(malf.getOxyLoss())
 	if(!findtext(occupier.name, "APC Copy"))
 		occupier.name = "[malf.name] APC Copy"
@@ -870,7 +870,6 @@
 	else
 		occupier.parent = malf
 	malf.shunted = 1
-	malf.mind.transfer_to(occupier)
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
@@ -886,6 +885,7 @@
 		occupier.parent.shunted = 0
 		occupier.parent.setOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
+		occupier.parent.verbs -= /mob/living/silicon/ai/proc/corereturn
 		qdel(occupier)
 	else
 		occupier << "<span class='danger'>Primary core damaged, unable to return core processes.</span>"
