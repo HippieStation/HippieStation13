@@ -8185,11 +8185,14 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "uo" = (
-/turf/open/floor/plasteel/blue/side{
-	tag = "icon-blue (SOUTHEAST)";
-	icon_state = "blue";
-	dir = 6
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/grass,
 /area/centcom/evac)
 "uq" = (
 /obj/structure/chair/wood/wings{
@@ -8518,11 +8521,12 @@
 	},
 /area/centcom/control)
 "vm" = (
-/turf/open/floor/plasteel/blue/side{
-	tag = "icon-blue (NORTHWEST)";
-	icon_state = "blue";
-	dir = 9
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
+/turf/open/floor/grass,
 /area/centcom/evac)
 "vn" = (
 /turf/open/floor/plasteel/blue/side{
@@ -13446,8 +13450,61 @@
 	},
 /area/centcom/evac)
 "WI" = (
-/obj/structure/arc,
-/turf/open/floor/plasteel/blue,
+/obj/structure/arc{
+	anchored = 1
+	},
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WJ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WK" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WL" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WM" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WN" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced,
+/turf/open/floor/grass,
+/area/centcom/evac)
+"WO" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/open/floor/grass,
 /area/centcom/evac)
 
 (1,1,1) = {"
@@ -63481,8 +63538,8 @@ rU
 sv
 sY
 tK
-tK
-tK
+WJ
+WL
 vm
 tM
 wd
@@ -63738,9 +63795,9 @@ rU
 sv
 sZ
 sY
-tK
+WK
 WI
-tK
+WN
 vF
 sZ
 sv
@@ -63996,8 +64053,8 @@ sv
 sW
 tL
 uo
-tK
-tK
+WM
+WO
 tK
 vF
 sv
