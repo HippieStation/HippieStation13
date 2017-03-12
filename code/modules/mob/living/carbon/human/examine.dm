@@ -244,6 +244,9 @@
 	if(reagents.has_reagent("teslium"))
 		msg += "[t_He] is emitting a gentle blue glow!\n"
 
+	if(reagents.has_reagent("arclumin"))
+		msg += "[t_He] looks dangerously unstable!\n"
+
 	if(islist(stun_absorption))
 		for(var/i in stun_absorption)
 			if(stun_absorption[i]["end_time"] > world.time && stun_absorption[i]["examine_message"])
