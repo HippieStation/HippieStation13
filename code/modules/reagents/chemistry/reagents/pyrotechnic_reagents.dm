@@ -277,7 +277,6 @@
 				qdel(hotspot)
 
 		if(reac_volume >= 6)
-
 			T.freon_gas_act() //freon in my pocket
 
 /datum/reagent/arclumin//memechem made in honour of the late arclumin
