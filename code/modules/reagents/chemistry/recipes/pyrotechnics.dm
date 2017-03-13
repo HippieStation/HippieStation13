@@ -432,6 +432,4 @@
 				C.Weaken(5)
 			else
 				C.Stun(5)
-=======
-	return
 
