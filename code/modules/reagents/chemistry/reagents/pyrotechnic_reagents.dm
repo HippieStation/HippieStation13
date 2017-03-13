@@ -343,6 +343,5 @@
 			if(!A)
 				A = new/obj/effect/decal/cleanable/arc(T)
 			A.reagents.add_reagent("arclumin", reac_volume)
-=======
-			T.freon_gas_act() //freon in my pocket
+
 
