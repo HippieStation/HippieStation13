@@ -411,7 +411,6 @@
 
 /datum/chemical_reaction/cryogenic_fluid/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 0 // cools the fuck down
-
 	return
 
 /datum/chemical_reaction/arclumin
