@@ -1292,6 +1292,25 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/gang)
 	cant_discount = TRUE
 
+/datum/uplink_item/badass/sports
+	name = "Sports bundle"
+	desc = "A hand-selected box of paraphernalia from one of the best sports. \
+			Currently available are hockey, wrestling, and bowling kits."
+	item = /obj/item/weapon/paper
+	cost = 20
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/gang)
+	cant_discount = TRUE
+
+/datum/uplink_item/badass/sports/spawn_item(turf/loc, obj/item/device/uplink/U)
+	var/list/possible_items = list(
+								"/obj/item/weapon/storage/box/syndie_kit/wrestling",
+								"/obj/item/weapon/storage/box/syndie_kit/bowling",
+								"/obj/item/weapon/storage/box/syndie_kit/hockey"
+								)
+	if(possible_items.len)
+		var/obj/item/I = pick(possible_items)
+		return new I(loc)
+
 /datum/uplink_item/badass/surplus
 	name = "Syndicate Surplus Crate"
 	desc = "A dusty crate from the back of the Syndicate warehouse. Rumored to contain a valuable assortion of items, \

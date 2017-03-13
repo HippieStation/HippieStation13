@@ -58,6 +58,10 @@
 		for(var/obj/structure/closet/secure_closet/brig/C in urange(20, src))
 			if(C.id == id)
 				targets += C
+		
+		for(var/obj/machinery/disposal/trapdoor/T in urange(20, src))
+			if (T.id == src.id)
+				targets += T
 
 	if(!targets.len)
 		stat |= BROKEN
@@ -103,6 +107,10 @@
 			continue
 		C.locked = 1
 		C.update_icon()
+
+	for(var/obj/machinery/disposal/trapdoor/T in targets)
+		T.close()
+
 	return 1
 
 
@@ -133,6 +141,9 @@
 		C.locked = 0
 		C.update_icon()
 
+	for(var/obj/machinery/disposal/trapdoor/T in targets)
+		T.open()
+
 	return 1
 
 
@@ -148,10 +159,14 @@
 
 /obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, \
 										datum/tgui/master_ui = null, datum/ui_state/state = default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "brig_timer", name, 300, 200, master_ui, state)
-		ui.open()
+	if(!allowed(usr))
+		usr << "<span class='danger'>Access denied.</span>"
+		return
+	else
+		ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+		if(!ui)
+			ui = new(user, src, ui_key, "brig_timer", name, 300, 200, master_ui, state)
+			ui.open()
 
 //icon update function
 // if NOPOWER, display blank

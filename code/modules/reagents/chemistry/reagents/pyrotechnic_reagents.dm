@@ -277,6 +277,7 @@
 				qdel(hotspot)
 
 		if(reac_volume >= 6)
+
 			T.freon_gas_act() //freon in my pocket
 
 /datum/reagent/arclumin//memechem made in honour of the late arclumin
@@ -342,3 +343,6 @@
 			if(!A)
 				A = new/obj/effect/decal/cleanable/arc(T)
 			A.reagents.add_reagent("arclumin", reac_volume)
+=======
+			T.freon_gas_act() //freon in my pocket
+

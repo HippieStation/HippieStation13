@@ -61,11 +61,22 @@ var/list/department_radio_keys = list(
 var/list/crit_allowed_modes = list(MODE_WHISPER,MODE_CHANGELING,MODE_ALIEN)
 
 /mob/living/say(message, bubble_type,var/list/spans = list(), sanitize = TRUE)
+
+	if(check_emote(message))
+		return
+
+	if(!can_speak_basic(message)) //Stat is seperate so I can handle whispers properly.
+		return
+
+	if(is_nearcrit(src) && !stat)
+		whisper(message)
+		adjustOxyLoss(1)
+		return
+
 	if(sanitize)
 		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
-
 
 	if(stat == DEAD)
 		if(message == "*scream" || message == "*fart")
@@ -74,17 +85,8 @@ var/list/crit_allowed_modes = list(MODE_WHISPER,MODE_CHANGELING,MODE_ALIEN)
 			say_dead(message)
 			return
 
-	if(check_emote(message))
-		return
-
-	if(!can_speak_basic(message)) //Stat is seperate so I can handle whispers properly.
-		return
-
 	var/message_mode = get_message_mode(message)
-	if(is_nearcrit(src))
-		whisper(message)
-		adjustOxyLoss(1)
-		return
+
 	if(stat && !(message_mode in crit_allowed_modes))
 		return
 
