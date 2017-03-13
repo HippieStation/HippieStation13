@@ -245,7 +245,7 @@
 		msg += "[t_He] is emitting a gentle blue glow!\n"
 
 	if(reagents.has_reagent("arclumin"))
-		msg += "[t_He] looks dangerously unstable!\n"
+		msg += "<b>[t_He] looks dangerously unstable!</b>\n"
 
 	if(islist(stun_absorption))
 		for(var/i in stun_absorption)

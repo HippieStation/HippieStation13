@@ -423,7 +423,7 @@
 	mix_message = "<span class='danger'>In a blinding flash of light, a glowing frothing solution forms and begins discharging!</span>"
 	mix_sound = 'sound/effects/pray_chaplain.ogg'//truly a miracle
 
-/datum/chemical_reaction/arclumin/on_reaction(datum/reagents/holder, created_volume)//so bright it flashbangs
+/datum/chemical_reaction/arclumin/on_reaction(datum/reagents/holder)//so bright it flashbangs
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/living/carbon/C in get_hearers_in_view(3, location))
 		if(C.flash_act())

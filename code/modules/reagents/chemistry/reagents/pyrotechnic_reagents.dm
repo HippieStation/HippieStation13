@@ -292,7 +292,7 @@
 	M.SetLuminosity(rand(1,3))
 	M.confused += 2
 	M.dizziness += 4
-	if(current_cycle >= 20) //the fun begins now you become a demigod of chaos
+	if(current_cycle >= 20) //the fun begins as you become a demigod of chaos
 		var/turf/open/T = get_turf(holder.my_atom)
 		switch(rand(1,6))
 

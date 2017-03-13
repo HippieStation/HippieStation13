@@ -43,7 +43,7 @@
 	luminosity = 1
 	icon_state = "greenglow"
 
-/obj/effect/decal/cleanable/arc
+/obj/effect/decal/cleanable/arc//goop left by arc-luminol
 	name = "charged goo"
 	desc = "It's sparking and dangerous!."
 	luminosity = 1
