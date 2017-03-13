@@ -282,7 +282,7 @@
 /datum/reagent/arclumin//memechem made in honour of the late arclumin
 	name = "Arc-Luminol"
 	id = "arclumin"
-	description = "You have no idea what the fuck this is but it looks absurdly unstable, it emits a healthy glow so ingestion is probably not a good idea."
+	description = "You have no idea what the fuck this is but it looks absurdly unstable. It is emitting a sickly glow suggesting ingestion is probably not a great idea."
 	reagent_state = LIQUID
 	color = "#ffff66" //RGB: 255, 255, 102
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
