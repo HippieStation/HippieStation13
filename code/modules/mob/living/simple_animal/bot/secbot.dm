@@ -30,7 +30,6 @@
 	var/idcheck = 0 //If true, arrest people with no IDs
 	var/weaponscheck = 0 //If true, arrest people for weapons if they lack access
 	var/check_records = 1 //Does it check security records?
-	var/arrest_type = 0 //If true, don't handcuff
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beep O'sky"
@@ -110,7 +109,6 @@ Auto Patrol: []"},
 "<A href='?src=\ref[src];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
 "<A href='?src=\ref[src];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
 
@@ -129,9 +127,6 @@ Auto Patrol: []"},
 			update_controls()
 		if("ignorerec")
 			check_records = !check_records
-			update_controls()
-		if("switchmode")
-			arrest_type = !arrest_type
 			update_controls()
 		if("declarearrests")
 			declare_arrests = !declare_arrests
@@ -180,7 +175,7 @@ Auto Patrol: []"},
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.stunned || arrest_type)
+		if(!C.stunned)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -231,7 +226,7 @@ Auto Patrol: []"},
 	add_logs(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("Arresting level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
 							"<span class='userdanger'>[src] has stunned you!</span>")
 
@@ -283,8 +278,7 @@ Auto Patrol: []"},
 				return
 
 			if(iscarbon(target) && target.canBeHandcuffed())
-				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
+				if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						cuff(target)
 					else
 						back_to_idle()
