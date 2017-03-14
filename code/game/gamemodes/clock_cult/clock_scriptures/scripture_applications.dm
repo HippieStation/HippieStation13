@@ -284,10 +284,10 @@
 	for(var/mob/living/L in living_mob_list)
 		if(is_servant_of_ratvar(L))
 			servants++
-	if(servants * 0.2 < clockwork_daemons)
+	if(servants * 0.25 < clockwork_daemons)
 		invoker << "<span class='nezbere'>\"Daemons are already disabled, making more of them would be a waste.\"</span>"
 		return FALSE
-	if(servants * 0.2 < clockwork_daemons+1)
+	if(servants * 0.25 < clockwork_daemons+1)
 		invoker << "<span class='nezbere'>\"This daemon would be useless, friend.\"</span>"
 		return FALSE
 	return ..()
