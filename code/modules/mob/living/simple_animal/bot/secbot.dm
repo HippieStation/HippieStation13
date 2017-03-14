@@ -102,7 +102,6 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 Arrest Unidentifiable Persons: []<BR>
 Arrest for Unauthorized Weapons: []<BR>
 Arrest for Warrant: []<BR>
-Operating Mode: []<BR>
 Report Arrests[]<BR>
 Auto Patrol: []"},
 
@@ -279,10 +278,7 @@ Auto Patrol: []"},
 
 			if(iscarbon(target) && target.canBeHandcuffed())
 				if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						cuff(target)
-					else
-						back_to_idle()
-						return
+					cuff(target)
 			else
 				back_to_idle()
 				return
