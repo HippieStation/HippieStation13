@@ -40,9 +40,9 @@
 	if(prob(1))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
 		M << "<span class='notice'>[smoke_message]</span>"
-	M.AdjustParalysis(-1, 0)
-	M.AdjustStunned(-1, 0)
-	M.AdjustWeakened(-1, 0)
+	//M.AdjustParalysis(-1, 0)
+	//M.AdjustStunned(-1, 0)
+	//M.AdjustWeakened(-1, 0)
 	M.adjustStaminaLoss(-0.5*REM, 0)
 	..()
 	. = 1
@@ -236,6 +236,10 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
+	if(prob(10))
+		var/obj/item/I = M.get_active_held_item()
+		if(I)
+			M.drop_item()
 	M.AdjustParalysis(-3, 0)
 	M.AdjustStunned(-3, 0)
 	M.AdjustWeakened(-3, 0)
@@ -256,10 +260,6 @@
 			step(M, pick(cardinal))
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
-	if(prob(33))
-		var/obj/item/I = M.get_active_held_item()
-		if(I)
-			M.drop_item()
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage1(mob/living/M)
@@ -462,7 +462,7 @@
 	color = "#d6d6d6" //rgb(214, 214, 214)
 	reagent_state = LIQUID
 	overdose_threshold = 40
-	
+
 
 /datum/reagent/drug/spookium/on_mob_life(mob/living/M)
 	if(ishuman(M))
