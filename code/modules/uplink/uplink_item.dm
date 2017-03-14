@@ -786,7 +786,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/weapon/storage/backpack/satchel/flat
 	cost = 2
 	surplus = 30
-
+/*
 /datum/uplink_item/stealthy_tools/stimpack
 	name = "Stimpack"
 	desc = "Stimpacks, the tool of many great heroes, make you nearly immune to stuns and knockdowns for about \
@@ -794,6 +794,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/weapon/reagent_containers/syringe/stimulants
 	cost = 5
 	surplus = 90
+*/
 
 /datum/uplink_item/stealthy_tools/mulligan
 	name = "Mulligan"
@@ -1103,7 +1104,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	cost = 4
 	// An empty uplink is kinda useless.
 	surplus = 0
-
+/*
 /datum/uplink_item/implants/adrenal
 	name = "Adrenal Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. It will inject a chemical \
@@ -1111,6 +1112,7 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/item/weapon/storage/box/syndie_kit/imp_adrenal
 	cost = 8
 	player_minimum = 25
+*/
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
