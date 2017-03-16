@@ -1104,13 +1104,12 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	// An empty uplink is kinda useless.
 	surplus = 0
 
-/datum/uplink_item/implants/adrenal
-	name = "Adrenal Implant"
+/datum/uplink_item/implants/comstimms
+	name = "Combat Stimulant Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. It will inject a chemical \
-			cocktail which has a mild healing effect along with removing all stuns and increasing movement speed."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_adrenal
+			cocktail which has a very potent healing effect."
+	item = /obj/item/weapon/storage/box/syndie_kit/imp_comstimms
 	cost = 8
-	player_minimum = 25
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
