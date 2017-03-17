@@ -170,6 +170,12 @@
 	if(M.stunned || M.weakened)//If you get stunned you do not get off scott free
 		if(prob(50))
 			M.reagents.add_reagent("histamine", 10)
+			M.adjustToxLoss(rand(5,15), 0)
+	if(M.reagents.has_reagent("diphenhydramine"))
+		if(prob(20))
+			M << "<span class='boldwarning'>Mixing diphenhydramine and Meth makes your stomach, head and everything fucking spin!</span>"
+			M.reagents.add_reagent("skewium", rand(1,5))
+
 	..()
 	. = 1
 
