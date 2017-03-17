@@ -30,6 +30,7 @@
 	var/idcheck = 0 //If true, arrest people with no IDs
 	var/weaponscheck = 0 //If true, arrest people for weapons if they lack access
 	var/check_records = 1 //Does it check security records?
+	var/arrest_type = 0 //If true, don't handcuff
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beep O'sky"
@@ -108,6 +109,7 @@ Auto Patrol: []"},
 "<A href='?src=\ref[src];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
+
 "<A href='?src=\ref[src];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
 "<A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
 
@@ -168,19 +170,17 @@ Auto Patrol: []"},
 				retaliate(Proj.firer)
 	..()
 
-
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
 	if(!on)
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.stunned)
+		if(!C.stunned || arrest_type)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
 	else
 		..()
-
 
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	if(istype(AM, /obj/item))
@@ -189,7 +189,6 @@ Auto Patrol: []"},
 			var/mob/living/carbon/human/H = I.thrownby
 			retaliate(H)
 	..()
-
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
@@ -225,7 +224,7 @@ Auto Patrol: []"},
 	add_logs(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("Arresting level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
 							"<span class='userdanger'>[src] has stunned you!</span>")
 
@@ -277,8 +276,12 @@ Auto Patrol: []"},
 				return
 
 			if(iscarbon(target) && target.canBeHandcuffed())
-				if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-					cuff(target)
+				if(!arrest_type)
+					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
+						cuff(target)
+					else
+						back_to_idle()
+						return
 			else
 				back_to_idle()
 				return
@@ -309,7 +312,6 @@ Auto Patrol: []"},
 		if(BOT_PATROL)
 			look_for_perp()
 			bot_patrol()
-
 
 	return
 
