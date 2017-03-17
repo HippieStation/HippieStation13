@@ -80,8 +80,8 @@
 	..()
 
 /obj/item/weapon/implantcase/comstimm
-	name = "implant case - 'Adrenaline'"
-	desc = "A glass case containing an adrenaline implant."
+	name = "implant case - 'Combat Stims'"
+	desc = "A glass case containing a combat stimulants implant."
 
 /obj/item/weapon/implantcase/comstimm/New()
 	imp = new /obj/item/weapon/implant/comstimms(src)

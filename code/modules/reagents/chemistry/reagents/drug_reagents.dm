@@ -31,7 +31,7 @@
 /datum/reagent/drug/nicotine
 	name = "Nicotine"
 	id = "nicotine"
-	description = "Slightly increases stamina regenration If overdosed it will deal toxin and oxygen damage."
+	description = "Slightly increases stamina regeneration and reduces hunger If overdosed it will deal toxin and oxygen damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	addiction_threshold = 30
@@ -41,6 +41,8 @@
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
 		M << "<span class='notice'>[smoke_message]</span>"
 	M.adjustStaminaLoss(-0.5*REM, 0)
+	if(prob(10))
+		M.reagents.add_reagent("vitamin", rand(1,10))
 	..()
 	. = 1
 
@@ -151,7 +153,6 @@
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_threshold = 10
-	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel hyper!", "You feel like you're unstoppable!", "You feel like you can take on the world!")
@@ -169,7 +170,6 @@
 	if(M.stunned || M.weakened)//If you get stunned you do not get off scott free
 		if(prob(50))
 			M.reagents.add_reagent("histamine", 10)
-			M.reagents.remove_reagent("methamphetamine", 5)
 	..()
 	. = 1
 

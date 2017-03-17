@@ -16,7 +16,7 @@
 
 /obj/item/weapon/implant/comstimms
 	name = "Combat Stimulant Implant"
-	desc = "A coctail of potent drugs will heal damage allowing you to fight for longer"
+	desc = "A cocktail of potent drugs will heal damage allowing you to fight for longer"
 	icon_state = "adrenal"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
 	uses = 3
@@ -28,13 +28,13 @@
 				<b>Important Notes:</b> <font color='red'>Illegal</font><BR>
 				<HR>
 				<b>Implant Details:</b> Subjects injected with implant can activate an injection of medical cocktails.<BR>
-				<b>Function:</b> Has an Impressive healing effect.<BR>
+				<b>Function:</b> Has an impressive healing effect.<BR>
 				<b>Integrity:</b> Implant can only be used three times before reserves are depleted."}
 	return dat
 
 /obj/item/weapon/implant/comstimms/activate()
 	uses--
-	imp_in << "<span class='notice'>You feel the pain fade and your wounds close!!</span>"
+	imp_in << "<span class='notice'>You feel the pain fade, and your wounds close!</span>"
 	imp_in.adjustToxLoss(-30, 0) //The idea being to take a nearly dead man and make them combat ready
 	imp_in.adjustBruteLoss(-10, 0)//This might look insane but remeber that adrenals were a GG no Re button most of the time, at least if you cuff this nerd you can beat them.
 	imp_in.adjustFireLoss(-10, 0)
@@ -47,7 +47,7 @@
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)
 	imp_in.reagents.add_reagent("syndicate_nanites", 10)
-	imp_in.reagents.add_reagent("salbutamol", 10)//These two mean you could survive being spaced and live.
+	imp_in.reagents.add_reagent("salbutamol", 10)//These two mean you could survive being spaced and come back healthy and ANRGY
 	imp_in.reagents.add_reagent("leporazine", 10)
 	if(!uses)
 		qdel(src)

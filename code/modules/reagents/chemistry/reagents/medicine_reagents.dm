@@ -491,7 +491,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
-	description = "Increases movement speed but causes you to lose wieght fast, will also purge nutriment and vitamin from the body. Breaks do Overdose deals toxin damage and inhibits breathing."
+	description = "Increases movement speed but causes you to lose wieght fast, will also purge nutriment and vitamin from the body. Overdose deals toxin damage and inhibits breathing."
 	reagent_state = LIQUID
 	color = "#D2FFFA"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
