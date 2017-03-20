@@ -75,7 +75,6 @@
 	name = "clown shoes"
 	icon_state = "clown"
 	item_state = "clown_shoes"
-	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	pockets = /obj/item/weapon/storage/internal/pocket/shoes/clown
