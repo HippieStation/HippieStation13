@@ -503,8 +503,11 @@
 	M.reagents.remove_reagent("nutriment", 5)
 	M.reagents.remove_reagent("vitamin", 5)
 	if(prob(34))
-		if(M.nutrition > 0)
-			M.nutrition -= rand(5, 15)
+		if(M.nutrition > 15)
+			M.nutrition -= rand(5, 15) //Lose nutrition very rapidly.
+		else
+			if(M.nutrition > 0)//If you are nearly out of nutrition it slows down a bit but you could go all the way down. this prevents negatives.
+				M.nutrition -= 1
 
 	if(M.reagents.has_reagent("methamphetamine"))
 		if(prob(15))
