@@ -52,8 +52,8 @@
 	description = "Reduces stun times by about 200%. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
 	reagent_state = LIQUID
 	color = "#FA00C8"
-	overdose_threshold = 20
-	addiction_threshold = 10
+	overdose_threshold = 10
+	addiction_threshold = 5
 
 /datum/reagent/drug/crank/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
@@ -62,7 +62,7 @@
 	M.AdjustParalysis(-1, 0)
 	M.AdjustStunned(-1, 0)
 	M.AdjustWeakened(-1, 0)
-	M.adjustToxLoss(2, 0)
+	M.adjustToxLoss(2)
 	M.adjustBrainLoss(1*REM)
 	..()
 	. = 1
@@ -171,10 +171,11 @@
 	if(M.stunned || M.weakened)//If you get stunned you do not get off scott free
 		if(prob(50))
 			M.reagents.add_reagent("histamine", 10)
-			M.adjustToxLoss(rand(5,15), 0)
+			if(M.reagents.has_reagent("methamphetamine",5))
+				M.reagents.remove_reagent("methamphetamine",5)
 	if(M.reagents.has_reagent("diphenhydramine"))
 		if(prob(20))
-			M << "<span class='boldwarning'>Mixing diphenhydramine and Meth makes your stomach, head and everything fucking spin!</span>"
+			M << "<span class='boldwarning'>Mixing diphenhydramine and meth turns your stomach and makes your head spin!</span>"
 			M.reagents.add_reagent("skewium", rand(1,5))
 	..()
 	. = 1
@@ -250,7 +251,7 @@
 	M.AdjustWeakened(-5, 0)
 	M.adjustStaminaLoss(-5, 0)
 	M.adjustBrainLoss(5)
-	M.adjustToxLoss(4, 0)
+	M.adjustToxLoss(4)
 	M.hallucination += 20
 	if(M.canmove && !istype(M.loc, /atom/movable))
 		step(M, pick(cardinal))
