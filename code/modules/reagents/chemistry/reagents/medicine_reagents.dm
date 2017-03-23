@@ -500,8 +500,10 @@
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	M.status_flags |= GOTTAGOFAST
-	M.reagents.remove_reagent("nutriment", 5)
-	M.reagents.remove_reagent("vitamin", 5)
+	if(M.reagents.has_reagent("nutriment"))
+		M.reagents.remove_reagent("nutriment", 5)
+	if(M.reagents.has_reagent("vitamin"))
+		M.reagents.remove_reagent("vitamin", 5)
 	if(prob(34))
 		if(M.nutrition > 15)
 			M.nutrition -= rand(5, 15) //Lose nutrition very rapidly.
