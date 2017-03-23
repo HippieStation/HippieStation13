@@ -232,7 +232,8 @@
 		M.adjustBrainLoss(-3, 0)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			C.blood_volume += 5
+			if(C.blood_volume < 570) //the default blood amount is 560, this just gives people a nice little buffer. It is supposed to give you unholy vigour after all.
+				C.blood_volume += 5
 	else
 		M.adjustBrainLoss(3)
 		M.adjustToxLoss(1, 0)

@@ -491,7 +491,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
-	description = "Increases  movement speed but causes you to lose wieght fast, will also purge nutriment and vitamin from the body. Overdose deals toxin damage and inhibits breathing."
+	description = "Increases movement speed but causes you to lose weight fast, will also purge nutriment and vitamin from the body. Overdose deals toxin damage and inhibits breathing."
 	reagent_state = LIQUID
 	color = "#D2FFFA"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -503,7 +503,8 @@
 	M.reagents.remove_reagent("nutriment", 5)
 	M.reagents.remove_reagent("vitamin", 5)
 	if(prob(34))
-		M.nutrition -= rand(5, 15)
+		if(M.nutrition > 0)
+			M.nutrition -= rand(5, 15)
 
 	if(M.reagents.has_reagent("methamphetamine"))
 		if(prob(15))
