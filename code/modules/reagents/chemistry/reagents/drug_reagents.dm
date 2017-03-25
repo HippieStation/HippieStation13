@@ -31,7 +31,7 @@
 /datum/reagent/drug/nicotine
 	name = "Nicotine"
 	id = "nicotine"
-	description = "Slightly reduces stun times. If overdosed it will deal toxin and oxygen damage."
+	description = "Slightly increases stamina regeneration and reduces hunger If overdosed it will deal toxin and oxygen damage."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	addiction_threshold = 30
@@ -40,10 +40,9 @@
 	if(prob(1))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
 		M << "<span class='notice'>[smoke_message]</span>"
-	M.AdjustParalysis(-1, 0)
-	M.AdjustStunned(-1, 0)
-	M.AdjustWeakened(-1, 0)
 	M.adjustStaminaLoss(-0.5*REM, 0)
+	if(prob(10))
+		M.reagents.add_reagent("vitamin", rand(1,10))
 	..()
 	. = 1
 
@@ -63,6 +62,7 @@
 	M.AdjustParalysis(-1, 0)
 	M.AdjustStunned(-1, 0)
 	M.AdjustWeakened(-1, 0)
+	M.adjustToxLoss(2, 0)
 	..()
 	. = 1
 
@@ -148,26 +148,34 @@
 /datum/reagent/drug/methamphetamine
 	name = "Methamphetamine"
 	id = "methamphetamine"
-	description = "Reduces stun times by about 300%, speeds the user up, and allows the user to quickly recover stamina while dealing a small amount of Brain damage. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
+	description = "Reduces stun times by about 300% and allows the user to quickly recover stamina while dealing a small amount of Brain damage. Breaks down slowly into histamine and hits the user with a large amount of histamine if they are stunned. Reacts badly with Ephedrine. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
 	reagent_state = LIQUID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_threshold = 10
-	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/M)
-	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
+	var/high_message = pick("You feel hyper!", "You feel like you're unstoppable!", "You feel like you can take on the world!")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
 	M.AdjustParalysis(-2, 0)
 	M.AdjustStunned(-2, 0)
 	M.AdjustWeakened(-2, 0)
 	M.adjustStaminaLoss(-2, 0)
-	M.status_flags |= GOTTAGOREALLYFAST
 	M.Jitter(2)
 	M.adjustBrainLoss(0.25)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
+		M.reagents.add_reagent("histamine", rand(2,6))
+	if(M.stunned || M.weakened)//If you get stunned you do not get off scott free
+		if(prob(50))
+			M.reagents.add_reagent("histamine", 10)
+			M.adjustToxLoss(rand(5,15), 0)
+	if(M.reagents.has_reagent("diphenhydramine"))
+		if(prob(20))
+			M << "<span class='boldwarning'>Mixing diphenhydramine and Meth makes your stomach, head and everything fucking spin!</span>"
+			M.reagents.add_reagent("skewium", rand(1,5))
+
 	..()
 	. = 1
 
@@ -236,13 +244,18 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
-	M.AdjustParalysis(-3, 0)
-	M.AdjustStunned(-3, 0)
-	M.AdjustWeakened(-3, 0)
+	M.status_flags |= GOTTAGOFAST
+	M.AdjustParalysis(-5, 0)
+	M.AdjustStunned(-5, 0)
+	M.AdjustWeakened(-5, 0)
 	M.adjustStaminaLoss(-5, 0)
-	M.adjustBrainLoss(0.5)
-	M.adjustToxLoss(0.1, 0)
+	M.adjustBrainLoss(3)
+	M.adjustToxLoss(4, 0)
 	M.hallucination += 10
+	var/obj/item/I = M.get_active_held_item()
+	if(prob(40))
+		if(I)
+			M.drop_item()
 	if(M.canmove && !istype(M.loc, /atom/movable))
 		step(M, pick(cardinal))
 		step(M, pick(cardinal))
@@ -251,15 +264,12 @@
 
 /datum/reagent/drug/bath_salts/overdose_process(mob/living/M)
 	M.hallucination += 10
+	M.adjustToxLoss(5, 0)
 	if(M.canmove && !istype(M.loc, /atom/movable))
 		for(var/i in 1 to 8)
 			step(M, pick(cardinal))
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
-	if(prob(33))
-		var/obj/item/I = M.get_active_held_item()
-		if(I)
-			M.drop_item()
 	..()
 
 /datum/reagent/drug/bath_salts/addiction_act_stage1(mob/living/M)
@@ -462,7 +472,7 @@
 	color = "#d6d6d6" //rgb(214, 214, 214)
 	reagent_state = LIQUID
 	overdose_threshold = 40
-	
+
 
 /datum/reagent/drug/spookium/on_mob_life(mob/living/M)
 	if(ishuman(M))
