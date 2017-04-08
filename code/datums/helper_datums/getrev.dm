@@ -27,6 +27,7 @@ var/global/datum/getrev/revdata = new()
 		for(var/line in testmerge)
 			if(line)
 				log_world("Test merge active of PR #[line]")
+				feedback_add_details("testmerged_prs","[line]")
 		log_world("Based off master commit [parentcommit]")
 	else
 		log_world(parentcommit)
@@ -35,14 +36,14 @@ var/global/datum/getrev/revdata = new()
 /datum/getrev/proc/DownloadPRDetails()
 	if(!config.githubrepoid)
 		if(testmerge.len)
-			world.log << "PR details download failed: No github repo config set"
+			log_world("PR details download failed: No github repo config set")
 		return
 	if(!isnum(text2num(config.githubrepoid)))
-		world.log << "PR details download failed: Invalid github repo id: [config.githubrepoid]"
+		log_world("PR details download failed: Invalid github repo id: [config.githubrepoid]")
 		return
 	for(var/line in testmerge)
 		if(!isnum(text2num(line)))
-			world.log << "PR details download failed: Invalid PR number: [line]"
+			log_world("PR details download failed: Invalid PR number: [line]")
 			return
 
 		var/url = "https://api.github.com/repositories/[config.githubrepoid]/pulls/[line].json"
@@ -54,16 +55,16 @@ var/global/datum/getrev/revdata = new()
 		testmerge[line] = json_decode(json)
 
 		if(!testmerge[line])
-			world.log << "PR details download failed: null details returned"
+			log_world("PR details download failed: null details returned")
 			return
 		CHECK_TICK
-	world.log << "PR details successfully downloaded"
+	log_world("PR details successfully downloaded")
 	has_pr_details = TRUE
 
-/datum/getrev/proc/GetTestMergeInfo()
+/datum/getrev/proc/GetTestMergeInfo(header = TRUE)
 	if(!testmerge.len)
 		return ""
-	. = "The following pull requests are currently test merged:<br>"
+	. = header ? "The following pull requests are currently test merged:<br>" : ""
 	for(var/line in testmerge)
 		var/details = ""
 		if(has_pr_details)
