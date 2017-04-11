@@ -105,9 +105,10 @@
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("HONKED")
-	var/spam_flag = 0
+	var/next_honk = 1
 	var/honksound = 'sound/items/bikehorn.ogg'
-	var/cooldowntime = 20
+	var/cooldowntime = 20 //Add 1 since you cannot honk at the same world.time
+	var/stephonk = TRUE
 
 /obj/item/weapon/bikehorn/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] solemnly points the horn at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -115,21 +116,20 @@
 	return (BRUTELOSS)
 
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!spam_flag)
+	if(next_honk < world.time)
 		playsound(loc, honksound, 50, 1, -1) //plays instead of tap.ogg!
 	return ..()
 
 /obj/item/weapon/bikehorn/attack_self(mob/user)
-	if(!spam_flag)
-		spam_flag = 1
+	if(next_honk < world.time)
+		next_honk = world.time + cooldowntime
 		playsound(src.loc, honksound, 50, 1)
 		src.add_fingerprint(user)
-		spawn(cooldowntime)
-			spam_flag = 0
 	return
 
 /obj/item/weapon/bikehorn/Crossed(mob/living/L)
-	if(isliving(L))
+	if(isliving(L) && stephonk && (next_honk < world.time))
+		next_honk = world.time + cooldowntime
 		playsound(loc, honksound, 50, 1, -1)
 	..()
 
@@ -140,6 +140,7 @@
 	honksound = 'sound/items/AirHorn2.ogg'
 	cooldowntime = 50
 	origin_tech = "materials=4;engineering=4"
+	stephonk = FALSE
 
 /obj/item/weapon/bikehorn/golden
 	name = "golden bike horn"
@@ -156,7 +157,7 @@
 	..()
 
 /obj/item/weapon/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
-	if (!spam_flag)
+	if (next_honk < world.time)
 		var/turf/T = get_turf(src)
 		for(M in ohearers(7, T))
 			if(ishuman(M))
