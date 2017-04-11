@@ -4525,6 +4525,11 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aja" = (
@@ -5934,6 +5939,12 @@
 	id = "Cell 1";
 	name = "Cell 1 Locker"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
 "alZ" = (
@@ -5947,6 +5958,18 @@
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 2";
 	name = "Cell 2 Locker"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
 	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
@@ -5963,6 +5986,17 @@
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 3";
 	name = "Cell 3 Locker"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
@@ -6036,6 +6070,17 @@
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 4";
 	name = "Cell 4 Locker"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
@@ -6244,6 +6289,11 @@
 /obj/machinery/disposal/trapdoor{
 	id = "Cell 4"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
 "amG" = (
@@ -6253,6 +6303,18 @@
 /obj/machinery/disposal/trapdoor{
 	id = "Cell 2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
 "amH" = (
@@ -6261,6 +6323,17 @@
 	},
 /obj/machinery/disposal/trapdoor{
 	id = "Cell 3"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
@@ -64351,6 +64424,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel{
 	icon_state = "red"
 	},
@@ -64516,6 +64594,18 @@
 /obj/machinery/disposal/trapdoor{
 	id = "Cell 1"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
 /turf/open/floor/plasteel/floorgrime,
 /area/security/brig)
 "YVx" = (
@@ -64669,6 +64759,114 @@
 	},
 /turf/closed/wall,
 /area/maintenance/fsmaint)
+"YVO" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVP" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVQ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVR" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVS" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVT" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/closed/wall,
+/area/security/brig)
+"YVU" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YVV" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YVW" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YVX" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YVY" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YVZ" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YWa" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
+"YWb" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/plating,
+/area/security/brig)
 
 (1,1,1) = {"
 aaa
@@ -90976,7 +91174,7 @@ akE
 aln
 alX
 amF
-aiQ
+YVU
 ano
 aok
 cAK
@@ -91233,7 +91431,7 @@ akG
 alp
 YVq
 amh
-aiQ
+YVV
 ano
 aom
 cAK
@@ -91489,7 +91687,7 @@ akc
 akI
 agd
 agd
-agd
+YVR
 aiQ
 anG
 aol
@@ -91747,7 +91945,7 @@ YVi
 aln
 alX
 amH
-aiQ
+YVW
 ano
 aok
 aoW
@@ -92004,7 +92202,7 @@ akK
 alp
 alZ
 amc
-aiQ
+YVX
 ano
 aok
 aoW
@@ -92257,10 +92455,10 @@ agI
 ais
 aiZ
 YVg
-akI
-agd
-agd
-agd
+YVO
+YVP
+YVQ
+YVS
 aiQ
 ano
 aok
@@ -92518,7 +92716,7 @@ akF
 aln
 alX
 amG
-aiQ
+YVY
 ano
 aok
 aoX
@@ -92775,7 +92973,7 @@ akK
 alp
 YVr
 ama
-aiQ
+YVZ
 anF
 aok
 aoW
@@ -93031,7 +93229,7 @@ ake
 akI
 agd
 agd
-agd
+YVT
 aiQ
 ano
 aok
@@ -93265,10 +93463,10 @@ aaa
 aae
 aae
 aae
-YUm
+YUl
 aaY
 YUz
-YUH
+YUy
 YUO
 aaY
 abG
@@ -93283,13 +93481,13 @@ ahq
 ahL
 aiD
 aiV
-YVf
+YVd
 ajz
 akL
 aln
 alX
 YVw
-aiQ
+YWa
 ano
 aok
 aoZ
@@ -93522,7 +93720,7 @@ YUi
 aae
 aaa
 aae
-YUn
+YUl
 aaY
 YUA
 YUI
@@ -93546,7 +93744,7 @@ akK
 alp
 YVs
 alY
-aiQ
+YWb
 anH
 aon
 aoY
@@ -93783,7 +93981,7 @@ YUo
 YUw
 YUB
 YUJ
-YUQ
+YUJ
 YUW
 abI
 YUY
@@ -93801,7 +93999,7 @@ ajB
 aki
 YVj
 YVm
-YVt
+YVm
 aiQ
 aiQ
 ano
@@ -94036,10 +94234,10 @@ aae
 aae
 aae
 aae
-YUp
+YUl
 aaY
-YUC
-YUK
+YUA
+YUy
 YUR
 aaY
 abH
@@ -94293,11 +94491,11 @@ aaa
 aaa
 aaa
 aae
-YUq
+YUl
 aaY
 YUD
-YUL
-YUS
+YUI
+YUy
 aaY
 abP
 YVa
@@ -94550,16 +94748,16 @@ aae
 aaa
 aaa
 aae
-YUr
+YUl
 aaY
-YUE
+YUA
 YUM
 YUT
 YUX
 abM
 YVb
 bjD
-acE
+YUT
 aer
 avn
 amC
@@ -94807,11 +95005,11 @@ aae
 aae
 aaa
 aae
-YUs
+YUl
 aaY
-YUF
+YUy
 aaS
-YUU
+YUy
 aaY
 ach
 acl
@@ -95064,7 +95262,7 @@ aaa
 aae
 aae
 aae
-YUt
+YUl
 aaY
 aaY
 aaY
@@ -95323,7 +95521,7 @@ aaa
 aae
 YUu
 YUx
-YUG
+YUv
 abo
 abO
 acn
@@ -95605,7 +95803,7 @@ YVy
 YVC
 ano
 aou
-YVM
+YVL
 apT
 aqT
 arR
@@ -96118,7 +96316,7 @@ akR
 akR
 YVD
 YVF
-YVI
+YVD
 YVN
 apV
 aqU
