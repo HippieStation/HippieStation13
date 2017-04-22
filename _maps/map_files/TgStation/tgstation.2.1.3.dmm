@@ -36498,6 +36498,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/canister/freon,
 /turf/open/floor/plasteel/floorgrime,
 /area/toxins/storage)
 "bBU" = (
@@ -36525,6 +36526,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/canister/freon,
 /turf/open/floor/plasteel/floorgrime,
 /area/toxins/storage)
 "bBY" = (
