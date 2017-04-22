@@ -59,8 +59,7 @@ var/next_mob_id = 0
 	if(!client)
 		return
 
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN) //it seems using this again on the same message with the same value halves its length (why, though?)
 	if(type)
 		if(type & 1 && eye_blind )//Vision related
 			if(!alt_msg)

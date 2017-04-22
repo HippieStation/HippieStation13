@@ -23,7 +23,7 @@
 		usr << "<span class='danger'>Speech is currently admin-disabled.</span>"
 		return
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN_IC))
 
 	usr.emote("me",1,message)
 

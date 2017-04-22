@@ -13,7 +13,7 @@
 		src << "Guests may not use OOC."
 		return
 
-	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
+	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN_OOC)
 	var/raw_msg = msg
 
 	if(!msg)

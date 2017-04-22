@@ -163,7 +163,7 @@ update_label("John Doe", "Clowny")
 					return
 				registered_name = t
 
-				var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Assistant")as text | null),1,MAX_MESSAGE_LEN)
+				var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Assistant")as text | null),1,MAX_NAME_LEN)
 				if(!u)
 					registered_name = ""
 					return
