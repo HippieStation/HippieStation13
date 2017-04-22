@@ -316,34 +316,33 @@
 
 /obj/item/weapon/storage/backpack/dufflebag
 	name = "dufflebag"
-	desc = "A large dufflebag for holding extra things."
+	desc = "A large dufflebag for holding things."
 	icon_state = "duffle"
 	item_state = "duffle"
-	slowdown = 1
-	max_combined_w_class = 30
+	max_combined_w_class = 21
 
 /obj/item/weapon/storage/backpack/dufflebag/captain
 	name = "captain's dufflebag"
-	desc = "A large dufflebag for holding extra captainly goods."
+	desc = "A large dufflebag for holding captainly goods."
 	icon_state = "duffle-captain"
 	item_state = "duffle-captain"
 	resistance_flags = 0
 
 /obj/item/weapon/storage/backpack/dufflebag/med
 	name = "medical dufflebag"
-	desc = "A large dufflebag for holding extra medical supplies."
+	desc = "A large dufflebag for holding medical supplies."
 	icon_state = "duffle-med"
 	item_state = "duffle-med"
 
 /obj/item/weapon/storage/backpack/dufflebag/sec
 	name = "security dufflebag"
-	desc = "A large dufflebag for holding extra security supplies and ammunition."
+	desc = "A large dufflebag for holding security supplies and ammunition."
 	icon_state = "duffle-sec"
 	item_state = "duffle-sec"
 
 /obj/item/weapon/storage/backpack/dufflebag/engineering
 	name = "industrial dufflebag"
-	desc = "A large dufflebag for holding extra tools and supplies."
+	desc = "A large dufflebag for holding tools and supplies."
 	icon_state = "duffle-eng"
 	item_state = "duffle-eng"
 	resistance_flags = 0
@@ -379,7 +378,7 @@
 
 /obj/item/weapon/storage/backpack/dufflebag/syndie
 	name = "suspicious looking dufflebag"
-	desc = "A large dufflebag for holding extra tactical supplies."
+	desc = "A large dufflebag for holding tactical supplies."
 	icon_state = "duffle-syndie"
 	item_state = "duffle-syndie"
 	origin_tech = "syndicate=1"
@@ -388,7 +387,7 @@
 
 /obj/item/weapon/storage/backpack/dufflebag/syndie/med
 	name = "medical dufflebag"
-	desc = "A large dufflebag for holding extra tactical medical supplies."
+	desc = "A large dufflebag for holding tactical medical supplies."
 	icon_state = "duffle-syndiemed"
 	item_state = "duffle-syndiemed"
 
@@ -415,7 +414,7 @@
 
 /obj/item/weapon/storage/backpack/dufflebag/syndie/ammo
 	name = "ammunition dufflebag"
-	desc = "A large dufflebag for holding extra weapons ammunition and supplies."
+	desc = "A large dufflebag for holding weapons ammunition and supplies."
 	icon_state = "duffle-syndieammo"
 	item_state = "duffle-syndieammo"
 
