@@ -21,8 +21,8 @@
 #	tgs (TG-station ports, or just the (old)TGstation icon)
 #################################
 
-# Your name. 
-author: ""
+# Your name.  
+author: "TDcoolguy300"
 
 # Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
 delete-after: True
@@ -33,5 +33,6 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscadd: "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps."
-  - rscdel: "Killed innocent kittens."
+  - rscadd: "Brought back the old emoticons + The TGstation ports icon for changelogs"
+  - spellcheck: "There was a typo in the example changelog"
+  - tgs: "Here it is"
