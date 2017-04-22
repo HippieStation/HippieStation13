@@ -571,6 +571,14 @@ var/list/uplink_items = list() // Global list so we only initialize this once.
 	item = /obj/mecha/combat/gygax/dark/loaded
 	cost = 80
 
+/datum/uplink_item/dangerous/guardian
+	name = "Holoparasites"
+	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
+	item = /obj/item/weapon/storage/box/syndie_kit/guardian
+	cost = 20
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/gang)
+
+
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
 	desc = "A massive and incredibly deadly military-grade exosuit. Features long-range targetting, thrust vectoring, \

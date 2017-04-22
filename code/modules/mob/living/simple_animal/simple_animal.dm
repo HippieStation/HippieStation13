@@ -78,6 +78,9 @@
 
 	var/attacked_sound = "punch" //Played when someone punches the creature
 
+	//bla bla bla reflect shit
+	var/mob_reflect_chance = 0
+
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous
 	var/datum/personal_crafting/handcrafting
@@ -405,6 +408,28 @@
 	update_transform()
 	update_action_buttons_icon()
 	return canmove
+
+/mob/living/simple_animal/bullet_act(obj/item/projectile/P)
+	if(!P)
+		return
+	if(prob(mob_reflect_chance))
+		visible_message("<span class='danger'>The [P.name] gets reflected by [name]!</span>")
+		if(P.starting)
+			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/turf/curloc = get_turf(src)
+
+			P.original = locate(new_x, new_y, P.z)
+			P.starting = curloc
+			P.current = curloc
+			P.firer = src
+			P.yo = new_y - curloc.y
+			P.xo = new_x - curloc.x
+			P.Angle = ""
+
+		return -1
+	else
+		..()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
