@@ -12,6 +12,8 @@
 	exotic_bloodtype = "L"
 	burnmod = 1.25
 	brutemod = 1.25
+	hair_color = "mutcolor"
+	mutant_bodyparts = list("tail_human", "ears")
 
 /datum/species/tarajan/qualifies_for_rank(rank, list/features)
 	if(rank in command_positions)
@@ -27,3 +29,13 @@
 	if(rank == "Quartermaster") //QM is not contained in command_positions but we still want to bar mutants from it.
 		return 0
 	return 1
+
+/datum/species/tarajan/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	H.dna.features["tail_human"] = "Cat"
+	H.dna.features["ears"] = "Cat"
+
+/datum/species/tarajan/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.dna.features["tail_human"] = null
+	H.dna.features["ears"] = null
