@@ -257,7 +257,8 @@
 				var/obj/item/stack/teeth/T = new E.type(H.loc, 1)
 				T.copy_evidences(E)
 				E.use(1)
-				T.add_blood(H)
+				if(istype(T, /obj/item/stack/teeth))
+					T.add_blood(H)
 				E.zero_amount() //Try to delete the teeth
 				add_logs(user, H, "torn out the tooth from", src)
 				H.visible_message("<span class='danger'>[user] tears off [H]'s tooth with [src]!</span>",
@@ -272,6 +273,23 @@
 			return
 		else
 			user << "<span class='notice'>You are already trying to pull out a teeth!</span>"
+		return
+	if(ishuman(C) && C.dna.species.id == "wire" && C != user)
+		var/mob/living/carbon/human/H = C
+		H.visible_message("<span class='danger'>[user] begins to snip [H] into a bunch of little pieces!</span>", \
+							"<span class='userdanger'>[user] starts to snip you into a bunch of little pieces!</span>")
+		if(!do_mob(user, H, 150))
+			return
+		for(var/obj/item/bodypart/L in H.bodyparts)
+			L.drop_limb()
+			var/turf/target = get_turf(H.loc)
+			for(var/i = 1; i < rand(2,7); i++)
+				var/turf/new_turf = get_step(target, pick(cardinal))
+				target = new_turf
+				if(new_turf.density)
+					break
+			L.throw_at(target,L.throw_range,2)
+		playsound(H,'sound/effects/snipsnip.ogg',60)
 		return
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")

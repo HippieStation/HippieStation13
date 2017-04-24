@@ -295,6 +295,8 @@
 					sound = 'sound/misc/lizard.ogg'
 				if(is_species(user, /datum/species/skeleton) || is_species(user, /datum/species/skeleton/playable))
 					sound = 'sound/misc/skeleton.ogg'
+				if (is_species(user, /datum/species/wire))
+					sound = 'sound/items/zip.ogg'
 				if (is_species(user, /datum/species/fly))
 					sound = 'sound/misc/moth.ogg'
 			if(isalien(user))

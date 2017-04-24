@@ -218,7 +218,8 @@
 			var/obj/item/stack/teeth/T = new teeth.type(owner.loc, drop)
 			T.copy_evidences(teeth)
 			teeth.use(drop)
-			T.add_blood(owner)
+			if(istype(T, /obj/item/stack/teeth)) //caused a runtime for wire people
+				T.add_blood(owner)
 			var/turf/target = get_turf(owner.loc)
 			var/range = rand(2,T.throw_range)
 			for(var/i = 1; i < range; i++)
